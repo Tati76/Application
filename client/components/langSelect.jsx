@@ -2,8 +2,8 @@ LangSelect = React.createClass({
 
 	getInitialState: function() {
 		return{
-		lg : require("./languages/languages.json"),
-		usedLanguage : require("./languages/languages.json").languages[0]
+		lg : require("./languages/Settings.json"),
+		usedLanguage : require("./languages/Settings.json").languages[0]
 		}
 	},
 
