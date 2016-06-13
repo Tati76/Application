@@ -1,0 +1,9 @@
+/* CSS declarations go here */
+#select{
+	layout: inline;
+}
+
+#select{
+	border: 1px solid black;
+	display: inline-block;
+}

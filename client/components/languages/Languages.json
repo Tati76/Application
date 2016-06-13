@@ -1,0 +1,140 @@
+{
+	"languages": ["Norsk", "English","test"],
+	"Setups": [{
+		"language": "Norsk",
+		"header": "Lagrings System",
+		"boxInfo": {
+			"forms": [{
+				"_id": "1",
+				"box" : "Type Box",
+				"name": "Vanlig Eske",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle", "Posisjon"],
+				"button": {
+					"save": "Lagre & Skrive ut",
+					"clear": "Slette alt"
+				}
+			},
+			{
+				"_id": "2",
+				"box" : "Type Box",
+				"name": "Anet Eske",
+				"inputs": ["By", "GateAdress"],
+				"button": {
+					"save": "Lagre & Skrive ut",
+					"clear": "Slette alt"
+				}
+			}],
+			"content" : [{
+				"_id": "1",
+				"test" : "Type Test",
+				"name": "Otolitt",
+				"inputs": ["Sted","Dato"],
+				"button": {
+					"save": "Neste Trinn",
+					"clear": "Slett Alt"
+				}
+			}, {
+				"_id": "2",
+				"test" : "Type Test",
+				"name": "Andre Typer Test",
+				"test" : "Test Type",
+				"inputs": ["Sted","Dato","Periode"],
+				"button": {
+					"save": "Neste Trinn",
+					"clear": "Slett Alt"
+				}
+			}]
+		},
+		"footer": "Havforskningsinstituttet"
+	}, {
+		"language": "English",
+		"header": "Backup System",
+		"boxInfo": {
+			"forms": [{
+				"_id": "1",
+				"box" : "Box Type",
+				"name": "Regular Packaging",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Shelf", "Position"],
+				"button": {
+					"save": "Save & Print",
+					"clear": "Clear all"
+				}
+			},
+			{
+				"_id": "2",
+				"box" : "Box Type",
+				"name": "Other Packaging",
+				"inputs": ["City", "Adress"],
+				"button": {
+					"save": "Save & Print",
+					"clear": "Clear all"
+				}
+			}],
+			"content" : [{
+				"_id": "1",
+				"test" : "Test Type",
+				"name": "Otolith",
+				"inputs": ["Place","Date"],
+				"button": {
+					"save": "Next Step",
+					"clear": "Clear all"
+				}
+			},{
+				"_id": "2",
+				"test" : "Test Type",
+				"name": "Other Tests",
+				"inputs": ["Place","Date","Periode"],
+				"button": {
+					"save": "Next Step",
+					"clear": "Clear All"
+				}
+			}]
+		},
+		"footer": "Institute of Marine Research"
+	}, {
+		"language": "test",
+		"header": "BLABLA",
+		"boxInfo": {
+			"forms": [{
+				"_id": "1",
+				"box" : "Typ",
+				"name": "N1",
+				"inputs": ["1", "2", "3", "4", "5", "6", "7"],
+				"button": {
+					"save": "ss",
+					"clear": "alt"
+				}
+			},
+			{
+				"_id": "2",
+				"name": "N2",
+				"box" : "Typ",
+				"inputs": ["1","3"],
+				"button": {
+					"save": "haha",
+					"clear": "bytogi"
+				}
+			}],
+			"content" : [{
+				"_id": "1",
+				"test" : "Tet",
+				"name": "C1",
+				"inputs": ["test1","test2"],
+				"button": {
+					"save": "ss",
+					"clear": "alt"
+				}
+				
+			},{
+				"_id": "2",
+				"test" : "testtts",
+				"name": "D1",
+				"inputs": ["Test21","Test22","Test23"],
+				"button": {
+					"save": "ERT",
+					"clear": "rree"
+				}}]
+		},
+		"footer": "H"
+	}]
+}
