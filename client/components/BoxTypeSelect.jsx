@@ -2,10 +2,10 @@ BoxTypeSelect = React.createClass({
 
 	getInitialState: function() {
 		var tempList = [];
-		var tempFile = require("./languages/languages.json").Setups[this.props.index];
-		for (i=0; i<tempFile.boxInfo.forms.length ; i++)
+		var tempFile = require("./languages/Settings.json").setups[this.props.index].pageBoxInfo;
+		for (i=0; i<tempFile.forms.length ; i++)
 		{
-			tempList.push(tempFile.boxInfo.forms[i].name);
+			tempList.push(tempFile.forms[i].name);
 		}
 		
 		return{
@@ -19,10 +19,10 @@ BoxTypeSelect = React.createClass({
 	componentWillReceiveProps: function(nextProps) {
 		//change displayed list
 		var tempList = [];
-		var tempFile = require("./languages/languages.json").Setups[nextProps.index];
-		for (i=0; i<tempFile.boxInfo.forms.length ; i++)
+		var tempFile = require("./languages/Settings.json").setups[nextProps.index].pageBoxInfo;
+		for (i=0; i<tempFile.forms.length ; i++)
 		{
-			tempList.push(tempFile.boxInfo.forms[i].name);
+			tempList.push(tempFile.forms[i].name);
 		}
 		
 		this.setState({
@@ -34,9 +34,6 @@ BoxTypeSelect = React.createClass({
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-		//console.log(nextProps.language);
-		//console.log(this.props.language);
-		//console.log(nextProps.language !== this.props.language);
 	  return nextProps.language !== this.props.language;
 	},
 	
