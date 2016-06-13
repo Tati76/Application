@@ -1,5 +1,6 @@
 Header = React.createClass({  
 	getInitialState: function() {
+
 		return{
 		file : require("../components/languages/Settings.json").setups[this.props.index].header
 		}
@@ -28,7 +29,7 @@ Header = React.createClass({
 			        <span className="icon-bar"></span>
 			        <span className="icon-bar"></span>
       			</button>
-			      <a id={"a"+this.state.file.text} className="navbar-brand" href="/No/0">{this.state.file.text}</a>
+			      <a id={"a"+this.state.file.text} className="navbar-brand" href={"/"+this.props.language+"/"+this.props.index}>{this.state.file.text}</a>
 			    </div>
 			    <div className="collapse navbar-collapse" id="myNavbar">
 					<ul className="nav navbar-nav navbar-right">
