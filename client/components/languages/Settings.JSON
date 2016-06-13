@@ -1,0 +1,130 @@
+{
+	"languages": ["Norsk", "English","test"],
+	"setups": [{
+		"language": "Norsk",
+		"header": "Lagrings System",
+		"pageHome" : {
+			"buttons" : {
+				"save" : "Lagre ny tester",
+				"search" : "Søk etter gammle tester"
+			}
+		},
+		"pageBoxInfo": {
+			"boxSelection" : "Type Box",
+			"forms": [{
+				"_id": "1",
+				"name": "Vanlig Eske",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle", "Posisjon"]
+			}, {
+				"_id": "2",
+				"name": "Anet Eske",
+				"inputs": ["By", "GateAdress"]
+			}],
+			"buttons" : {
+				"save" : "Lagre & Skrive ut",
+				"clear" : "Slette alt"
+			}
+		},
+		"pageInholdInfo" : {
+			"testSelection" : "Type Test",
+			"forms" : [{
+				"_id": "1",
+				"name": "Otolitt",
+				"inputs": ["Sted","Dato"]
+			}, {
+				"_id": "2",
+				"name": "Andre Typer Test",
+				"inputs": ["Sted","Dato","Periode"]
+			}],
+			"buttons" : {
+				"save" : "Neste Trinn",
+				"clear" : "Slette Alt"
+			}
+		},
+		"footer": "Havforskningsinstituttet"
+	}, {
+		"language": "English",
+		"header": "Backup System",
+		"pageHome" : {
+			"buttons" : {
+				"save" : "Save new tests",
+				"search" : "Search among old tests"
+			}
+		},
+		"pageBoxInfo": {
+			"boxSelection" : "Box Type",
+			"forms": [{
+				"_id": "1",
+				"name": "Regular Packaging",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Shelf", "Position"]
+			}, {
+				"_id": "2",
+				"name": "Other Packaging",
+				"inputs": ["City", "Adress"]
+			}],
+			"buttons" : {
+				"save": "Save & Print",
+				"clear": "Clear all"
+			}
+		},
+		"pageInholdInfo" : {
+			"testSelection" : "Test Type",
+			"forms" : [{
+				"_id": "1",
+				"name": "Otolith",
+				"inputs": ["Place","Date"]
+			},{
+				"_id": "2",
+				"name": "Other Tests",
+				"inputs": ["Place","Date","Periode"]
+			}],
+			"buttons" : {
+				"save": "Next Step",
+				"clear": "Clear All"
+			}
+		},
+		"footer": "Institute of Marine Research"
+	}, {
+		"language": "Test",
+		"header": "BLABLA",
+		"pageHome" : {
+			"buttons" : {
+				"save" : "Saaaa",
+				"search" : "Seeee"
+			}
+		},
+		"pageBoxInfo": {
+			"boxSelection" : "BT",
+			"forms": [{
+				"_id": "1",
+				"name": "RP",
+				"inputs": ["C", "A", "F", "R", "L", "S", "P"]
+			}, {
+				"_id": "2",
+				"name": "OP",
+				"inputs": ["C", "A" , "A", "F", "R", "L", "S", "P" , "A", "F", "R", "L", "S", "P" , "A", "F", "R", "L", "S", "P"]
+			}],
+			"buttons" : {
+				"save": "S & P",
+				"clear": "CA"
+			}
+		},
+		"pageInholdInfo" : {
+			"testSelection" : "TT",
+			"forms" : [{
+				"_id": "1",
+				"name": "O",
+				"inputs": ["P","D"]
+			},{
+				"_id": "2",
+				"name": "OT",
+				"inputs": ["P","D","P"]
+			}],
+			"buttons" : {
+				"save": "NS",
+				"clear": "CA"
+			}
+		},
+		"footer": "IMR"
+	}]
+}
