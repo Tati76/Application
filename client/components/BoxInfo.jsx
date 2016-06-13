@@ -2,9 +2,9 @@ BoxInfo = React.createClass({
 	
 	getInitialState: function() {
 		var rep = [];
-		for (i=0; i<require("./languages/Settings.json").setups[this.props.index].pageBoxInfo.forms[0].inputs.length ; i++)
+		for (i=0; i<require("./languages/Settings.json").setups[1].pageBoxInfo.forms[0].inputs.length ; i++)
 		{
-			rep.push({id : i, name : require("./languages/Settings.json").setups[this.props.index].pageBoxInfo.forms[0].inputs[i], value : ""}); //create the response array
+			rep.push({id : i, name : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[0].inputs[i], value : ""}); //create the response array
 			//console.log(require("./languages/languages.json").Setups[this.props.index].boxInfo.forms[0].inputs[i]);
 		}
 		return{
@@ -60,10 +60,10 @@ BoxInfo = React.createClass({
 			//console.log(this.state.response);
 			
 		var resp = []; // put all the values to zero in the response array
-			for (i=0; i<require("./languages/Settings.json").setups[0].pageBoxInfo.forms[this.state.formsIndex].inputs.length ; i++) // We put Setups[0] to have it in norwegian anyway in the db
+			for (i=0; i<require("./languages/Settings.json").setups[1].pageBoxInfo.forms[this.state.formsIndex].inputs.length ; i++) // We put setups[1] to have it in norwegian anyway in the db
 			{
-				resp.push({id : i, name : require("./languages/Settings.json").setups[0].pageBoxInfo.forms[this.state.formsIndex].inputs[i], value : ""}); //create the response array
-				//console.log(require("./languages/languages.json").Setups[0].boxInfo.forms[this.state.formsIndex].inputs[i]);
+				resp.push({id : i, name : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[this.state.formsIndex].inputs[i], value : ""}); //create the response array
+				//console.log(require("./languages/languages.json").setups[1].boxInfo.forms[this.state.formsIndex].inputs[i]);
 			}
 			this.setState({response : resp.slice()});
 	},
@@ -110,10 +110,10 @@ BoxInfo = React.createClass({
 	  
 	  // change the response array if the box changes
 			var resp = []; 
-			for (i=0; i<require("./languages/Settings.json").setups[0].pageBoxInfo.forms[event.target.selectedIndex].inputs.length ; i++) // We put Setups[0] to have it in norwegian anyway in the db
+			for (i=0; i<require("./languages/Settings.json").setups[1].pageBoxInfo.forms[event.target.selectedIndex].inputs.length ; i++) // We put setups[1] to have it in norwegian anyway in the db
 			{
-				resp.push({id : i, name : require("./languages/Settings.json").setups[0].pageBoxInfo.forms[event.target.selectedIndex].inputs[i], value : ""}); //create the response array
-				//console.log(require("./languages/languages.json").Setups[0].boxInfo.forms[event.target.selectedIndex].inputs[i]);
+				resp.push({id : i, name : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[event.target.selectedIndex].inputs[i], value : ""}); //create the response array
+				//console.log(require("./languages/languages.json").setups[1].boxInfo.forms[event.target.selectedIndex].inputs[i]);
 			}
 			this.setState({response : resp.slice()});
 			//console.log(resp);
@@ -129,9 +129,19 @@ BoxInfo = React.createClass({
   
   saveNPrint(){
 	  // SAVE
-	  InholdInfoDb.update({_id : this.props.id},{$set : this.state.response});
+	  var tempResp = {};
+
+	  for (var i = 0 ; i<this.state.usedLangObject.forms[this.state.formsIndex].inputs.length ; i++) 
+	  {
+	  	tempResp[this.state.response[i].name] = this.state.response[i].value;
+	  }
+	  console.log(tempResp);
+	  this.clearAll();
+
+
+	  //InholdInfoDb.update({_id : this.props.id},{$set : this.state.response});
 	  // PRINT
-	  window.print();
+	  //window.print();
   },
 
   renderForm(input, index) {

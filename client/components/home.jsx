@@ -53,7 +53,7 @@ Home = React.createClass({
 		  <a href={res} className="btn btn-default col-md-2 col-md-offset-1">Lagre</a>
 		  <a href="#" className="btn btn-default col-md-2 col-md-offset-2">Search</a>
 		</div>*/
-
+		
 		<div className="btn-group btn-group-justified" role="group" aria-label="...">
 			  <div className="btn-group" role="group">
 			    <a href={res}><button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.save}</button></a>
