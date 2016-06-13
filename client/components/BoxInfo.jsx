@@ -7,6 +7,10 @@ BoxInfo = React.createClass({
 			rep.push({id : i, name : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[0].inputs[i], value : ""}); //create the response array
 			//console.log(require("./languages/languages.json").Setups[this.props.index].boxInfo.forms[0].inputs[i]);
 		}
+		// add the box type
+		rep.push({id : i+1, name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : ""});
+			console.log(require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection);
+			console.log(rep);
 		return{
 			formsIndex : 0,
 			response : rep, // the response to send to the db
@@ -115,6 +119,9 @@ BoxInfo = React.createClass({
 				resp.push({id : i, name : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[event.target.selectedIndex].inputs[i], value : ""}); //create the response array
 				//console.log(require("./languages/languages.json").setups[1].boxInfo.forms[event.target.selectedIndex].inputs[i]);
 			}
+			// add the box type
+			resp.push({id : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[event.target.selectedIndex].inputs.length+1 , name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : val}); //create the response array
+				
 			this.setState({response : resp.slice()});
 			//console.log(resp);
 			//console.log("STATE RESPONSE");
@@ -131,7 +138,7 @@ BoxInfo = React.createClass({
 	  // SAVE
 	  var tempResp = {};
 
-	  for (var i = 0 ; i<this.state.usedLangObject.forms[this.state.formsIndex].inputs.length ; i++) 
+	  for (var i = 0 ; i<this.state.response.length ; i++) 
 	  {
 	  	tempResp[this.state.response[i].name] = this.state.response[i].value;
 	  }
