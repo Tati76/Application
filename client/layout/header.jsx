@@ -1,22 +1,18 @@
 Header = React.createClass({  
 	getInitialState: function() {
 		return{
-		file : require("../components/languages/languages.json").Setups[this.props.index],
-		lg : require("../components/languages/languages.json")
+		file : require("../components/languages/Settings.json").setups[this.props.index].header
 		}
 	},
 
 	componentWillReceiveProps: function(nextProps) {
 		//console.log('componentWillReceiveProps', require("../components/languages/languages.json").Setups[nextProps.index].header);
 	  this.setState({
-		file : require("../components/languages/languages.json").Setups[nextProps.index]
+		file : require("../components/languages/Settings.json").setups[nextProps.index].header
 	  });
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-		//console.log(nextProps.language);
-		//console.log(this.props.language);
-		//console.log(nextProps.language !== this.props.language);
 	  return nextProps.language !== this.props.language;
 },
 
@@ -32,7 +28,7 @@ Header = React.createClass({
 			        <span className="icon-bar"></span>
 			        <span className="icon-bar"></span>
       			</button>
-			      <a id={"a"+this.state.file.header} className="navbar-brand" href="/No/0">{this.state.file.header}</a>
+			      <a id={"a"+this.state.file.text} className="navbar-brand" href="/No/0">{this.state.file.text}</a>
 			    </div>
 			    <div className="collapse navbar-collapse" id="myNavbar">
 					<ul className="nav navbar-nav navbar-right">

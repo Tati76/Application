@@ -48,7 +48,9 @@
 		}
 	}, {
 		"language": "English",
-		"header": "Backup System",
+		"header": {
+			"text" : "Backup System"
+		},
 		"pageHome" : {
 			"buttons" : {
 				"save" : "Save new tests",
@@ -87,10 +89,14 @@
 				"clear": "Clear All"
 			}
 		},
-		"footer": "Institute of Marine Research"
+		"footer": {
+			"text" : "Institute of Marine Research"
+		}
 	}, {
 		"language": "Test",
-		"header": "BLABLA",
+		"header": {
+			"text" : "BLABLA"
+		},
 		"pageHome" : {
 			"buttons" : {
 				"save" : "Saaaa",
@@ -129,6 +135,8 @@
 				"clear": "CA"
 			}
 		},
-		"footer": "IMR"
+		"footer": {
+			"text" : "IMR"
+		}
 	}]
 }

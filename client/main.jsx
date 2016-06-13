@@ -33,7 +33,7 @@ MainLayout = React.createClass({
 	    	<div className="container">
 	    		<Header language={this.state.language} index={this.state.index} onClick={this.changeLanguage}/>
 				
-				<div style={{'paddingTop' : '70px'}}>
+				<div style={{'paddingTop' : '70px','paddingBottom' : '70px'}}>
 					{this.props.content}
 				</div>
 			        
