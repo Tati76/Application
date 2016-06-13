@@ -2,10 +2,10 @@ TestTypeSelect = React.createClass({
 
 	getInitialState: function() {
 		var tempList = [];
-		var tempFile = require("./languages/languages.json").Setups[this.props.index];
-		for (i=0; i<tempFile.boxInfo.content.length ; i++)
+		var tempFile = require("./languages/Settings.json").setups[this.props.index];
+		for (i=0; i<tempFile.pageInholdInfo.forms.length ; i++)
 		{
-			tempList.push(tempFile.boxInfo.content[i].name);
+			tempList.push(tempFile.pageInholdInfo.forms[i].name);
 		}
 		
 		return{
@@ -19,10 +19,10 @@ TestTypeSelect = React.createClass({
 	componentWillReceiveProps: function(nextProps) {
 		//change displayed list
 		var tempList = [];
-		var tempFile = require("./languages/languages.json").Setups[nextProps.index];
-		for (i=0; i<tempFile.boxInfo.content.length ; i++)
+		var tempFile = require("./languages/Settings.json").setups[nextProps.index];
+		for (i=0; i<tempFile.pageInholdInfo.forms.length ; i++)
 		{
-			tempList.push(tempFile.boxInfo.content[i].name);
+			tempList.push(tempFile.pageInholdInfo.forms[i].name);
 		}
 		
 		this.setState({
