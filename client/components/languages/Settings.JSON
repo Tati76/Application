@@ -2,7 +2,9 @@
 	"languages": ["Norsk", "English","test"],
 	"setups": [{
 		"language": "Norsk",
-		"header": "Lagrings System",
+		"header": {
+			"text" : "Lagrings System"
+		},
 		"pageHome" : {
 			"buttons" : {
 				"save" : "Lagre ny tester",
@@ -41,7 +43,9 @@
 				"clear" : "Slette Alt"
 			}
 		},
-		"footer": "Havforskningsinstituttet"
+		"footer": {
+			"text" : "Havforskningsinstituttet"
+		}
 	}, {
 		"language": "English",
 		"header": "Backup System",
