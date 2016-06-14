@@ -13,6 +13,9 @@ export const InholdInfoDb = new Mongo.Collection('inholdinfodb');
 }
 
 Meteor.methods({
+	'inholdinfodb.find'(id) {
+		return InholdInfoDb.find({_id : id}).fetch();
+	},
 	'inholdinfodb.insert'(newSample) {
 		//check(newSample, Object);
 		
@@ -29,7 +32,7 @@ Meteor.methods({
     'inholdinfodb.remove'(taskId) {
 		check(taskId, String);
  
-		Tasks.remove(taskId);
+		InholdInfoDb.remove(taskId);
    },
    'inholdinfodb.update'(sampleId,sampleToAdd) {
 

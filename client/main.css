@@ -6,3 +6,10 @@
 	border: 1px solid black;
 	display: inline-block;
 }
+
+@media print 
+{
+	body {
+		display : none;
+	}
+}
