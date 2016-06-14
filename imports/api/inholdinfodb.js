@@ -30,5 +30,22 @@ Meteor.methods({
 		check(taskId, String);
  
 		Tasks.remove(taskId);
+   },
+   'inholdinfodb.update'(sampleId,sampleToAdd) {
+
+   	for (var i = 0 ; i<Object.keys(sampleToAdd).length ; i++) 
+   	{
+   		console.log(sampleToAdd);
+   		var stringKey = Object.keys(sampleToAdd)[i];
+   		var stringValue = sampleToAdd[Object.keys(sampleToAdd)[i]];
+   		console.log(Object.keys(sampleToAdd)[i]);
+   		console.log(sampleToAdd[Object.keys(sampleToAdd)[i]]);
+
+   		InholdInfoDb.update(sampleId, {
+     		$set: sampleToAdd,
+     	});
+   		
+   	}
+   	
    }
 });

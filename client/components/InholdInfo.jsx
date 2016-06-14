@@ -158,14 +158,14 @@ getInitialState: function() {
 		insertableResponse[this.state.response[i].name] = this.state.response[i].value;
 	  }
 	  console.log(insertableResponse);
-	  
+	  var finalResp = {"InholdInfo" : insertableResponse};
 
 	  //*******************************************
 	  
 	  //var thisID = InholdInfoDb.insert(this.state.response);
 
 	  
-	  Meteor.call('inholdinfodb.insert',insertableResponse,function(error, result){ var thisID = result;
+	  Meteor.call('inholdinfodb.insert',finalResp,function(error, result){ var thisID = result;
 
 	  console.log("ID : " + thisID);
 	  //Route

@@ -8,7 +8,7 @@ BoxInfo = React.createClass({
 			//console.log(require("./languages/languages.json").Setups[this.props.index].boxInfo.forms[0].inputs[i]);
 		}
 		// add the box type
-		rep.push({id : i+1, name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : ""});
+		rep.push({name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[0].name});
 			console.log(require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection);
 			console.log(rep);
 		return{
@@ -120,7 +120,7 @@ BoxInfo = React.createClass({
 				//console.log(require("./languages/languages.json").setups[1].boxInfo.forms[event.target.selectedIndex].inputs[i]);
 			}
 			// add the box type
-			resp.push({id : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[event.target.selectedIndex].inputs.length+1 , name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : val}); //create the response array
+			resp.push({name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : val}); //create the response array
 				
 			this.setState({response : resp.slice()});
 			//console.log(resp);
@@ -142,10 +142,12 @@ BoxInfo = React.createClass({
 	  {
 	  	tempResp[this.state.response[i].name] = this.state.response[i].value;
 	  }
+	  console.log("RESPONSE");
 	  console.log(tempResp);
 	  this.clearAll();
+	  var finalResp = {"boxInfo" : tempResp};
 
-
+	  Meteor.call('inholdinfodb.update',this.props.id,finalResp,function(error, result){console.log(result);});
 	  //InholdInfoDb.update({_id : this.props.id},{$set : this.state.response});
 	  // PRINT
 	  //window.print();
