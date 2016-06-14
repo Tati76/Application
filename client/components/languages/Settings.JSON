@@ -112,7 +112,7 @@
 			}, {
 				"_id": "2",
 				"name": "OP",
-				"inputs": ["C", "A" , "A", "F", "R", "L", "S", "P" , "A", "F", "R", "L", "S", "P" , "A", "F", "R", "L", "S", "P"]
+				"inputs": ["C", "A"]
 			}],
 			"buttons" : {
 				"save": "S & P",

@@ -11,11 +11,13 @@ getInitialState: function() {
 	
 		// Creating the response skeletton
 		var rep = [];
-		for (i=0; i<require("./languages/Settings.json").setups[this.props.index].pageInholdInfo.forms[0].inputs.length ; i++)
+		for (i=0; i<require("./languages/Settings.json").setups[1].pageInholdInfo.forms[0].inputs.length ; i++)
 		{
-			rep.push({id : i, name : require("./languages/Settings.json").setups[this.props.index].pageInholdInfo.forms[0].inputs[i], value : ""}); //create the response array
+			rep.push({id : i, name : require("./languages/Settings.json").setups[1].pageInholdInfo.forms[0].inputs[i], value : ""}); //create the response array
 			//console.log(require("./languages/languages.json").Setups[this.props.index].boxInfo.content[0].inputs[i]);
 		}
+			rep.push({name : require("./languages/Settings.json").setups[1].pageInholdInfo.testSelection, value : require("./languages/Settings.json").setups[1].pageInholdInfo.forms[0].name})
+		
 		return{
 			contentIndex : 0,
 			response : rep, // the response to send to the db
@@ -121,11 +123,16 @@ getInitialState: function() {
 	  
 	  // change the response array if the box changes
 			var resp = []; 
-			for (i=0; i<require("./languages/Settings.json").setups[0].pageInholdInfo.forms[event.target.selectedIndex].inputs.length ; i++) // We put Setups[0] to have it in norwegian anyway in the db
+			for (i=0; i<require("./languages/Settings.json").setups[1].pageInholdInfo.forms[event.target.selectedIndex].inputs.length ; i++) // We put Setups[0] to have it in norwegian anyway in the db
 			{
-				resp.push({id : i, name : require("./languages/Settings.json").setups[0].pageInholdInfo.forms[event.target.selectedIndex].inputs[i], value : ""}); //create the response array
+				resp.push({id : i, name : require("./languages/Settings.json").setups[1].pageInholdInfo.forms[event.target.selectedIndex].inputs[i], value : ""}); //create the response array
 				//console.log(require("./languages/languages.json").Setups[0].boxInfo.content[event.target.selectedIndex].inputs[i]);
 			}
+			//Add the test Type
+			resp.push({name : require("./languages/Settings.json").setups[1].pageInholdInfo.testSelection, value : event.target.value})
+		console.log("RESPONSE");
+		console.log(resp);
+
 		this.setState({response : resp.slice()});
 			//console.log(resp);
 			//console.log("STATE RESPONSE");
@@ -140,24 +147,25 @@ getInitialState: function() {
   
   nextStep(){
 	  // SAVE in the DB
-	  //Meteor.call('addInholdInfo',() => {return this.state.response});
 	  var testt = {name : this.state.response[0].value};
 	  console.log('testt : ' + testt) ;
-	  console.log(testt.name);
+	  console.log(this.state.response);
 	  //*******************************************
 	  // Create the object to be stored in the db
+	  var insertableResponse ={};
+	  for (var i=0 ; i< this.state.response.length ; i++) 
+	  {
+		insertableResponse[this.state.response[i].name] = this.state.response[i].value;
+	  }
+	  console.log(insertableResponse);
 	  
-	  
-	  
-	  
-	  
-		
+
 	  //*******************************************
 	  
 	  //var thisID = InholdInfoDb.insert(this.state.response);
 
 	  
-	  Meteor.call('inholdinfodb.insert',this.state.response,function(error, result){ var thisID = result;
+	  Meteor.call('inholdinfodb.insert',insertableResponse,function(error, result){ var thisID = result;
 
 	  console.log("ID : " + thisID);
 	  //Route

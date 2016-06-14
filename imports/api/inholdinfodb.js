@@ -20,13 +20,10 @@ Meteor.methods({
 		/*if (! this.userId) {
 			throw new Meteor.Error('not-authorized (not logged on)');
 		}*/
-		
-		var thisID = InholdInfoDb.insert({
-			newSample,
-			createdAt: new Date(),
-		});
-		console.log(thisID);
-
+		newSample['createdAt'] = new Date();
+		var thisID = InholdInfoDb.insert(
+			newSample
+		);
 		return thisID;
 	},
     'inholdinfodb.remove'(taskId) {
