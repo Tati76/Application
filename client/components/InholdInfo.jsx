@@ -1,6 +1,8 @@
 
-//import { InholdInfoDb } from '../imports/api/inholdinfodb.js';
-InholdInfoDb = new Mongo.Collection('inholdinfodb');
+import { InholdInfoDb } from '../../imports/api/inholdinfodb.js';
+//import { BoxInfoDb } from '../imports/api/boxinfodb.js';
+//InholdInfoDb = new Mongo.Collection('inholdinfodb');
+Meteor.subscribe('inholdinfodb');
 InholdInfo = React.createClass({
 	
 	
@@ -142,9 +144,21 @@ getInitialState: function() {
 	  var testt = {name : this.state.response[0].value};
 	  console.log('testt : ' + testt) ;
 	  console.log(testt.name);
+	  //*******************************************
+	  // Create the object to be stored in the db
 	  
-	  var thisID = InholdInfoDb.insert(this.state.response);
 	  
+	  
+	  
+	  
+		
+	  //*******************************************
+	  
+	  //var thisID = InholdInfoDb.insert(this.state.response);
+
+	  
+	  Meteor.call('inholdinfodb.insert',this.state.response,function(error, result){ var thisID = result;
+
 	  console.log("ID : " + thisID);
 	  //Route
 	  // Creating the route to the next step
@@ -161,8 +175,10 @@ getInitialState: function() {
 		path += "/";
 		path += thisID;
 		var res = path.concat("/BoxInfo");
-	
-	  FlowRouter.go(res);
+		console.log("fini fin de call !");
+		FlowRouter.go(res);
+	});
+	  
   },
 
   renderForm(input, index) {
