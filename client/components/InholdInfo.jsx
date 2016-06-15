@@ -42,18 +42,8 @@ getInitialState: function() {
 
 	shouldComponentUpdate: function(nextProps, nextState) {
 
-		if (nextProps.language !== this.props.language) // if a prop change, update !
-		{
-			return nextProps.language !== this.props.language;
-		}
-		else if(nextState.contentIndex !== this.state.contentIndex) // if the form changes, update !
-		{
-			return nextState.contentIndex !== this.state.contentIndex;
-		}
-		else
-		{
-			return false;
-		}
+		var shallowCompare = require('react-addons-shallow-compare');
+		return shallowCompare(this, nextProps, nextState);
 		
 	  
 	},

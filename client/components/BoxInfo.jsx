@@ -34,18 +34,8 @@ BoxInfo = React.createClass({
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-		if (nextProps.language !== this.props.language) // if a prop change, update !
-		{
-			return nextProps.language !== this.props.language;
-		}
-		else if(nextState.formsIndex !== this.state.formsIndex) // if the form changes, update !
-		{
-			return nextState.formsIndex !== this.state.formsIndex;
-		}
-		else
-		{
-			return false;
-		}
+		var shallowCompare = require('react-addons-shallow-compare');
+		return shallowCompare(this, nextProps, nextState);
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ // NOT used yet
@@ -151,6 +141,17 @@ BoxInfo = React.createClass({
 	  //InholdInfoDb.update({_id : this.props.id},{$set : this.state.response});
 	  // PRINT
 	  //window.print();
+	  var pat = FlowRouter.current().path.split("/");
+	  pat.pop();
+	  pat.push("pageQr");
+	  var temppath = "";
+	  for (var i=1 ; i< pat.length ; i++) 
+	  {
+	  	temppath += "/";
+	  	temppath += pat[i];
+	  }
+	 	console.log(pat);
+	 	FlowRouter.go(temppath);
   },
 
   renderForm(input, index) {
