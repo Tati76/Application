@@ -4,18 +4,9 @@ STRING = "";
 
 QRPage = React.createClass({
 
-	getInitialState() {
-		console.log("getInitialState");
-		return {
-			objectTest : {'one' : 'Un', 'Two' : 'Deux'},
-			string: ""
-		};
-
-	},
-
 	mixins: [ReactMeteorData],
-  
-  	getMeteorData: function () {
+
+	getMeteorData: function () {
 	    /*var handle = Meteor.subscribe("inholdinfodb",this.props.id);
 	    if(handle.ready()) {
       		data.post = Posts.findOne({_id: this.props.id});
@@ -26,22 +17,87 @@ QRPage = React.createClass({
 	    var data = {};
 	    console.log("meteorData");
 	    var sampleId = this.props.id;
+	   	var tempStringmeteor = "";
 	    var handle = Meteor.subscribe('inholdinfodb', sampleId);
 	    if(handle.ready()) {
 	      data.sample = InholdInfoDb.findOne({_id: sampleId});
+	      /*for (var i = 0 ; i<Object.keys(data.sample.InholdInfo).length ; i++)
+	      {
+	      		tempStringmeteor += Object.keys(data.sample.InholdInfo[i]);
+				tempStringmeteor += " : ";
+				tempStringmeteor += data.sample.InholdInfo[Object.keys(data.sample.InholdInfo[i])];
+	      }*/
+	      tempStringmeteor += "InholdInfo : \n";
+	      for (var count = 0 ; count < Object.keys(data.sample.InholdInfo).length ; count++)
+	      {
+	      	// put the Inhold values in a string
+	      	tempStringmeteor += Object.keys(data.sample.InholdInfo)[count] ;
+	      	tempStringmeteor += " : ";
+	      	tempStringmeteor += data.sample.InholdInfo[Object.keys(data.sample.InholdInfo)[count]];
+	      	if (count < Object.keys(data.sample.InholdInfo).length-1)
+	      	{
+	      		tempStringmeteor += ", ";
+	      	}
+	      }
+	      tempStringmeteor += "\n \n boxInfo : \n";
+
+	      for (var count = 0 ; count < Object.keys(data.sample.boxInfo).length ; count++)
+	      {
+	      	// put the Box values in a string
+	      	tempStringmeteor += Object.keys(data.sample.boxInfo)[count] ;
+	      	tempStringmeteor += " : ";
+	      	tempStringmeteor += data.sample.boxInfo[Object.keys(data.sample.boxInfo)[count]];
+	      	if (count < Object.keys(data.sample.boxInfo).length-1)
+	      	{
+	      		tempStringmeteor += ", ";
+	      	}
+	      }
+	      data.string = tempStringmeteor;
+	      console.log(Object.keys(data.sample.InholdInfo).length);
+	      console.log(tempStringmeteor);
+	     // data.string = InholdInfoDb.findOne({_id: sampleId})._id;
+	      console.log('sample Bon');
 	     }
 	    return data;
   	},
+
+	getInitialState() {
+		console.log("getInitialState");
+		return {
+			objectTest : {'one' : 'Un', 'Two' : 'Deux'},
+			string: ""
+		};
+
+	},
+
+	componentWillMount() 
+	{
+		console.log("componentWillMount");
+	},
+  
+
 
 	/*componentWillReceiveProps(nextProps) { //not used yet
 		
 	},
 	*/
 
+	componentDidMount : function() {
+		console.log("componentDidMount");
+		console.log(InholdInfoDb.findOne({_id: this.props.id}));
+		console.log(this.data.sample);
+		/*for (var i = 0 ; i< Object.keys(this.data.sample) ; i++)
+		{
+			console.log(Object.keys(this.data.sample)[i]);
+			console.log(this.data.sample[Object.keys(this.data.sample)[i]]);
+		}*/
+	},
+
 
 	inholdInfoToString(input,index)
 	{
 		//marche
+		console.log("II");
 		var tempString = this.state.string;
 		tempString += input;
 		tempString += " : ";
@@ -75,7 +131,9 @@ QRPage = React.createClass({
 		tempString += input;
 		tempString += " : ";
 		tempString += this.data.sample.InholdInfo[input];
+		tempString += ", ";
 		STRING = tempString.split();
+		console.log(STRING);
 		return (
 			<tr key={"rowI"+index}>
 				<td key={'keyI'+index}>{input}</td>
@@ -94,7 +152,9 @@ QRPage = React.createClass({
 		tempString += input;
 		tempString += " : ";
 		tempString += this.data.sample.boxInfo[input];
-		console.log(tempString);
+		tempString += ", ";
+
+
 		STRING = tempString.split();
 		console.log(STRING);
 		return (
@@ -109,12 +169,8 @@ QRPage = React.createClass({
 	},
 
 	render() {
-
-		console.log("rendering");
-		console.log(this.data.sample);
-		console.log(STRING);
-		console.log(this.state.string);
-
+		console.log(this.state.objectTest);
+		var QRCode = require('qrcode.react');
 		return (
 			<div className="container">
 			  <h2>Values</h2>
@@ -122,10 +178,11 @@ QRPage = React.createClass({
 			  <table className="table table-bordered">
 			    <tbody>
 			    <tr> <td colspan="2">Inhold </td></tr>
-			      	{this.data.sample? Object.keys(this.data.sample.InholdInfo).map(this.renderInholdInfo) : <tr>  Loading...  </tr>}
+			      	{this.data.sample? Object.keys(this.data.sample.InholdInfo).map(this.renderInholdInfo) : <p>  Loading...  </p>}
 			    <tr> <td colspan="2">Box </td></tr>	
-			    	{this.data.sample? Object.keys(this.data.sample.boxInfo).map(this.renderBoxInfo) : <tr>  Loading...  </tr>}
-			    	
+			    	{this.data.sample? Object.keys(this.data.sample.boxInfo).map(this.renderBoxInfo) : <p>  Loading...  </p>}
+			    	<QRCode value={this.data.string} />
+
 			    </tbody>
 			  </table>
 			</div>

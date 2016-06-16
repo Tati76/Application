@@ -37,6 +37,11 @@
 				"_id": "2",
 				"name": "Andre Typer Test",
 				"inputs": ["Sted","Dato","Periode"]
+			},
+		{
+				"_id": "3",
+				"name": "Ny Test",
+				"inputs": ["Sted","Dato","Periode","Aase"]
 			}],
 			"buttons" : {
 				"save" : "Neste Trinn",
