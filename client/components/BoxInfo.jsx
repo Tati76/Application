@@ -7,6 +7,8 @@ BoxInfo = React.createClass({
 			rep.push({id : i, name : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[0].inputs[i], value : ""}); //create the response array
 			//console.log(require("./languages/languages.json").Setups[this.props.index].boxInfo.forms[0].inputs[i]);
 		}
+
+
 		// add the box type
 		rep.push({name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[0].name});
 			console.log(require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection);
@@ -23,7 +25,7 @@ BoxInfo = React.createClass({
 	
 	componentWillReceiveProps: function(nextProps) {
 		this.setState({
-			usedLang : require("./languages/Settings.json").setups[nextProps.index].language, // No the default language
+			usedLang : require("./languages/Settings.json").setups[nextProps.index].language, 
 			usedLangObject : require("./languages/Settings.json").setups[nextProps.index].pageBoxInfo, // refers to the object in fuction of the language selected 
 			});
 			
@@ -54,7 +56,7 @@ BoxInfo = React.createClass({
 			//console.log(this.state.response);
 			
 		var resp = []; // put all the values to zero in the response array
-			for (i=0; i<require("./languages/Settings.json").setups[1].pageBoxInfo.forms[this.state.formsIndex].inputs.length ; i++) // We put setups[1] to have it in norwegian anyway in the db
+			for (i=0; i<require("./languages/Settings.json").setups[1].pageBoxInfo.forms[this.state.formsIndex].inputs.length ; i++) // We put setups[1] to have it in English anyway in the db
 			{
 				resp.push({id : i, name : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[this.state.formsIndex].inputs[i], value : ""}); //create the response array
 				//console.log(require("./languages/languages.json").setups[1].boxInfo.forms[this.state.formsIndex].inputs[i]);
@@ -110,7 +112,7 @@ BoxInfo = React.createClass({
 				//console.log(require("./languages/languages.json").setups[1].boxInfo.forms[event.target.selectedIndex].inputs[i]);
 			}
 			// add the box type
-			resp.push({name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : val}); //create the response array
+			resp.push({name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[event.target.selectedIndex].name}); //create the response array
 				
 			this.setState({response : resp.slice()});
 			//console.log(resp);

@@ -119,7 +119,7 @@ getInitialState: function() {
 				//console.log(require("./languages/languages.json").Setups[0].boxInfo.content[event.target.selectedIndex].inputs[i]);
 			}
 			//Add the test Type
-			resp.push({name : require("./languages/Settings.json").setups[1].pageInholdInfo.testSelection, value : event.target.value})
+			resp.push({name : require("./languages/Settings.json").setups[1].pageInholdInfo.testSelection, value : require("./languages/Settings.json").setups[1].pageInholdInfo.forms[event.target.selectedIndex].name})
 		console.log("RESPONSE");
 		console.log(resp);
 

@@ -45,6 +45,8 @@ Home = React.createClass({
 		}
 		
 	  var res = path.concat("/InholdInfo");
+	  var res2 = path.concat("/Search");
+
 	  ////console.log("PATH : " + res);
 	  //console.log("LANGUAGE PARAMS : " + this.props.language);
     return (
@@ -59,7 +61,7 @@ Home = React.createClass({
 			    <a href={res}><button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.save}</button></a>
 			  </div>
 			  <div className="btn-group" role="group">
-			   <a href="#"> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.search}</button></a>
+			   <a href={res2}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.search}</button></a>
 			  </div>
 		</div>
 

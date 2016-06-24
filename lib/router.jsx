@@ -6,6 +6,12 @@ FlowRouter.route('/:language/:index', {
   }
 });
 
+FlowRouter.route('/:language/:index/Search', {  
+  action(params, queryParams) {
+   mount(MainLayout, { content: <SearchPage language={params.language} index={params.index}/>});
+  }
+});
+
 FlowRouter.route('/:language/:index/:id/pageQr', {  
   action(params, queryParams) {
     console.log("qr");

@@ -7,9 +7,46 @@
 	display: inline-block;
 }
 
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.vcenter {
+	
+    vertical-align: middle;
+    float: none;
+}
+
+main {
+	 padding-top : 70px;
+	 padding-bottom : 70px;
+}
+
 @media print 
 {
-	body {
+	.Header .Footer {
 		display : none;
 	}
+	
+	main {
+		padding-top : 0px;
+	 padding-bottom : 0px;
+	 margin-top: 0px;
+	 margin-bottom: 0px;
+	}
+
+	.QrContainer {
+		max-height: 12cm;
+	}
+
+	.table {
+	  border: 0.5px solid #000000;
+	}
+
+}
+
+
+.QrPrint {
+	background-color: red;
 }

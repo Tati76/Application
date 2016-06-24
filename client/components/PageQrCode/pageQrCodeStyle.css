@@ -1,0 +1,19 @@
+.but{
+	margin-left: 300px;
+	 padding-top : 70px;
+	 padding-bottom : 70px;
+	 background-color: red;
+}
+
+.table  .cell {
+	border-collapse : collapse;
+}
+
+
+
+@media print
+{
+	table {
+		border-color: black;
+	}
+}

@@ -23,3 +23,6 @@ twbs:bootstrap
 react-meteor-data
 meteortoys:allthings
 react-template-helper
+
+
+npm-container

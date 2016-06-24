@@ -31,12 +31,15 @@ MainLayout = React.createClass({
 
 	    return (
 	    	<div className="container">
-	    		<Header language={this.state.language} index={this.state.index} onClick={this.changeLanguage}/>
-				<div style={{'paddingTop' : '70px','paddingBottom' : '70px'}}>
+	    		<header>
+	    			<Header id="Header" language={this.state.language} index={this.state.index} onClick={this.changeLanguage}/>
+				</header>
+				<main id="contentDiv" className="vcenter">
 					{this.props.content}
-				</div>
-		        <Footer language={this.state.language} index={this.state.index}/>
-			
+				</main>
+				<footer>
+		        	<Footer id="Footer" language={this.state.language} index={this.state.index}/>
+				</footer>
 			</div> 
 	    )
 	}

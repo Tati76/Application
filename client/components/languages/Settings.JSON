@@ -37,11 +37,10 @@
 				"_id": "2",
 				"name": "Andre Typer Test",
 				"inputs": ["Sted","Dato","Periode"]
-			},
-		{
+			}, {
 				"_id": "3",
 				"name": "Ny Test",
-				"inputs": ["Sted","Dato","Periode","Aase"]
+				"inputs": ["Sted","Dato","Periode","Test","Hei"]
 			}],
 			"buttons" : {
 				"save" : "Neste Trinn",
@@ -88,6 +87,10 @@
 				"_id": "2",
 				"name": "Other Tests",
 				"inputs": ["Place","Date","Periode"]
+			},  {
+				"_id": "3",
+				"name": "New Test",
+				"inputs": ["Place","Date","Periode","Test","Hello"]
 			}],
 			"buttons" : {
 				"save": "Next Step",
@@ -134,6 +137,10 @@
 				"_id": "2",
 				"name": "OT",
 				"inputs": ["P","D","P"]
+			},   {
+				"_id": "3",
+				"name": "NT",
+				"inputs": ["P","D","P","T","H"]
 			}],
 			"buttons" : {
 				"save": "NS",
