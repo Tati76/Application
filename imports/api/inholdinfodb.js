@@ -16,18 +16,14 @@ Meteor.methods({
 	'inholdinfodb.find'(id) {
 		return InholdInfoDb.find({_id : id}).fetch();
 	},
-	'inholdinfodb.insert'(newSample) {
+	'inholdinfodb.insert'(newSample,options) {
 		//check(newSample, Object);
 		
-		// Make sure the user is logged in before inserting a task
-		/*if (! this.userId) {
-			throw new Meteor.Error('not-authorized (not logged on)');
-		}*/
 		newSample['createdAt'] = new Date();
 		var thisID = InholdInfoDb.insert(
 			newSample
 		);
-		return thisID;
+		return [thisID,options];
 	},
     'inholdinfodb.remove'(taskId) {
 		check(taskId, String);

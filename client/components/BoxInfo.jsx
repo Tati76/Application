@@ -9,12 +9,11 @@ BoxInfo = React.createClass({
 		}
 
 
-		// add the box type
-		rep.push({name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[0].name});
-			console.log(require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection);
+		//no need to add the boxType because it already has been added at the last step
+		console.log(require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection);
 			console.log(rep);
 		return{
-			formsIndex : 0,
+			formsIndex : this.props.boxIndex,
 			response : rep, // the response to send to the db
 			usedLang : require("./languages/Settings.json").setups[this.props.index].language, // No the default language
 			usedLangObject : require("./languages/Settings.json").setups[this.props.index].pageBoxInfo, // refers to the object in fuction of the language selected 
@@ -111,9 +110,7 @@ BoxInfo = React.createClass({
 				resp.push({id : i, name : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[event.target.selectedIndex].inputs[i], value : ""}); //create the response array
 				//console.log(require("./languages/languages.json").setups[1].boxInfo.forms[event.target.selectedIndex].inputs[i]);
 			}
-			// add the box type
-			resp.push({name : require("./languages/Settings.json").setups[1].pageBoxInfo.boxSelection, value : require("./languages/Settings.json").setups[1].pageBoxInfo.forms[event.target.selectedIndex].name}); //create the response array
-				
+			// No need to add the box type because it has already been added at the previous step	
 			this.setState({response : resp.slice()});
 			//console.log(resp);
 			//console.log("STATE RESPONSE");
@@ -129,17 +126,18 @@ BoxInfo = React.createClass({
   saveNPrint(){
 	  // SAVE
 	  var tempResp = {};
-
+	  var tempName = "Storage "; // Using tempName to avoid double attributes in the database so in the database, example : the city where the box is, is called "Box City"
 	  for (var i = 0 ; i<this.state.response.length ; i++) 
 	  {
-	  	tempResp[this.state.response[i].name] = this.state.response[i].value;
+  		tempResp[tempName.concat(this.state.response[i].name)] = this.state.response[i].value;
+  		tempName = "Storage ";
 	  }
+
 	  console.log("RESPONSE");
 	  console.log(tempResp);
 	  this.clearAll();
-	  var finalResp = {"boxInfo" : tempResp};
 
-	  Meteor.call('inholdinfodb.update',this.props.id,finalResp,function(error, result){console.log(result);});
+	  Meteor.call('inholdinfodb.update',this.props.id,tempResp,function(error, result){console.log(result);});
 	  //InholdInfoDb.update({_id : this.props.id},{$set : this.state.response});
 	  // PRINT
 	  //window.print();
@@ -171,15 +169,10 @@ BoxInfo = React.createClass({
   
   
   render() {
-	  //console.log("RENDER FORMSINDEX : " + this.state.formsIndex);
+	console.log("RENDER BOXINFO");
     return (
 		<form className="form-horizontal" role="form" onSubmit={this.handleSubmit} media="print">
-			<div id="container" className="form-group" key="selectBox">
-				<label className="control-label col-sm-2" for="">{this.state.usedLangObject.boxSelection}:</label>
-				<div className="col-sm-10">
-					<BoxTypeSelect language={this.props.language} index={this.props.index} onClick={this.changeForm}/>
-				</div>
-			</div>
+			
 			{this.state.usedLangObject.forms[this.state.formsIndex].inputs.map(this.renderForm)}
 			<button type="button" id="but" className="btn btn-default" onClick={this.clearAll}>{this.state.usedLangObject.buttons.clear}</button>
 			<button type="button" id="but" className="btn btn-default" onClick={this.saveNPrint}>{this.state.usedLangObject.buttons.save}</button>

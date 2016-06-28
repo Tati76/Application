@@ -6,13 +6,19 @@ FlowRouter.route('/:language/:index', {
   }
 });
 
+FlowRouter.route('/:language/:index/AddContent', {  
+  action(params, queryParams) {
+   mount(MainLayout, { content: <AddContent language={params.language} index={params.index}/>});
+  }
+});
+
 FlowRouter.route('/:language/:index/Search', {  
   action(params, queryParams) {
    mount(MainLayout, { content: <SearchPage language={params.language} index={params.index}/>});
   }
 });
 
-FlowRouter.route('/:language/:index/:id/pageQr', {  
+FlowRouter.route('/:language/:index/:id/:boxIndex/pageQr', {  
   action(params, queryParams) {
     console.log("qr");
     mount(MainLayout, { content: <QRPage language={params.language} index={params.index} id={params.id}/>});
@@ -38,9 +44,9 @@ FlowRouter.route('/:language/:index/InholdInfo', {
   }
 });
 
-FlowRouter.route('/:language/:index/:id/BoxInfo', {  
+FlowRouter.route('/:language/:index/:id/:boxIndex/BoxInfo', {  
   action(params, queryParams) {
 	  console.log("ROUTING : ");
-    mount(MainLayout, { content: <BoxInfo language={params.language} index={params.index} id={params.id}/>});
+    mount(MainLayout, { content: <BoxInfo language={params.language} index={params.index} id={params.id} boxIndex={params.boxIndex}/>});
   }
 });

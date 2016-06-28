@@ -69,6 +69,7 @@ InfoSelector = React.createClass({
 	},
 
 	renderTableComponents(input,index){
+		
 		return(
 		<tr key={"tr"+index}>
 		    <td className="text-center"><input ref="checkQr" onClick={this.handleClickQr.bind(this,index,input)} type="checkbox" value='' checked={this.state.qr[index]}/></td>

@@ -4,12 +4,11 @@ import { InholdInfoDb } from '../../imports/api/inholdinfodb.js';
 //InholdInfoDb = new Mongo.Collection('inholdinfodb');
 Meteor.subscribe('inholdinfodb');
 InholdInfo = React.createClass({
-	
-	
-getInitialState: function() {
+		
+	getInitialState: function() {
 		
 	
-		// Creating the response skeletton
+		// Creating the response basis
 		var rep = [];
 		for (i=0; i<require("./languages/Settings.json").setups[1].pageInholdInfo.forms[0].inputs.length ; i++)
 		{
@@ -19,13 +18,12 @@ getInitialState: function() {
 			rep.push({name : require("./languages/Settings.json").setups[1].pageInholdInfo.testSelection, value : require("./languages/Settings.json").setups[1].pageInholdInfo.forms[0].name})
 		
 		return{
-			contentIndex : 0,
-			response : rep, // the response to send to the db
-			usedLang : require("./languages/Settings.json").setups[this.props.index].language, // No the default language
-			usedLangObject : require("./languages/Settings.json").setups[this.props.index].pageInholdInfo // refers to the object in fuction of the language selected 
+			contentIndex : 0, // The selected index of the select component
+			response : rep, // the object to send to the db
+			usedLang : require("./languages/Settings.json").setups[this.props.index].language, 
+			usedLangObject : require("./languages/Settings.json").setups[this.props.index].pageInholdInfo // refers to the object vs the language selected 
 			}
 	},
-	
 	
 	
 	componentWillReceiveProps: function(nextProps) {
@@ -37,23 +35,12 @@ getInitialState: function() {
 			// if the language changes, the input has to be set to ""
 			this.clearAll();
 			
-			
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-
 		var shallowCompare = require('react-addons-shallow-compare');
 		return shallowCompare(this, nextProps, nextState);
-		
-	  
 	},
-
-	componentDidUpdate: function(prevProps, prevState){ // NOT used yet
-		
-
-		
-	},
-	
 	
 	clearAll() {
 		
@@ -71,32 +58,27 @@ getInitialState: function() {
 			this.setState({response : resp.slice()});
 	},
 	
-	
-	
 	handleSubmit(event) {
 		
 		  this.setState({usedLang: require("./languages/Settings.json").setups[event.target.selectedIndex].language});
 		  this.setState({usedLangObject : require("./languages/Settings.json").setups[event.target.selectedIndex].pageInholdInfo});
-	  
 	},
 
-  handleChange(index){ // writes the input in the response object when an input is changed
-	  
-	  var tempArray = this.state.response.slice();
-	  for(i=0;i<tempArray.length ; i++)
-	  {
-		  if (tempArray[i].id == index)
-		  {
-			  tempArray[i].value = this.refs["a"+index].value;
-		  }
-	  }
+  	handleChange(index){ // writes the input in the response object when an input is changed
+
+	  	var tempArray = this.state.response.slice();
+	  	for(i=0;i<tempArray.length ; i++)
+	  	{
+			if (tempArray[i].id == index)
+			{
+				tempArray[i].value = this.refs["a"+index].value;
+			}
+	  	}
 		this.setState({response : tempArray.slice()});
-	  console.log(this.state.response);
-	   //this.setState({this.state.response["By"] = "OK"});
-	   
-  },
+	  	console.log(this.state.response);
+  	},
   
-  changeForm(event) {
+  	changeForm(event) {
 	  var val = event.target.value;
 	  
 	  if (this.state.contentIndex !== event.target.selectedIndex)
@@ -108,7 +90,7 @@ getInitialState: function() {
 			}
 			
 	  }
-	  this.setState({contentIndex : event.target.selectedIndex});
+	  this.setState({contentIndex : event.target.selectedIndex},function() {console.log("contentIndex : "+ this.state.contentIndex);});
 			//console.log(this.state.response);
 	  
 	  // change the response array if the box changes
@@ -127,18 +109,10 @@ getInitialState: function() {
 			//console.log(resp);
 			//console.log("STATE RESPONSE");
 			//console.log(this.state.response);});
-			
-			
-	  
-	  
-	  
-	  
   },
   
   nextStep(){
 	  // SAVE in the DB
-	  var testt = {name : this.state.response[0].value};
-	  console.log('testt : ' + testt) ;
 	  console.log(this.state.response);
 	  //*******************************************
 	  // Create the object to be stored in the db
@@ -146,20 +120,25 @@ getInitialState: function() {
 	  for (var i=0 ; i< this.state.response.length ; i++) 
 	  {
 		insertableResponse[this.state.response[i].name] = this.state.response[i].value;
+		
 	  }
 	  console.log(insertableResponse);
-	  var finalResp = {"InholdInfo" : insertableResponse};
+	  //var finalResp = {"InholdInfo" : insertableResponse};
 
 	  //*******************************************
 	  
 	  //var thisID = InholdInfoDb.insert(this.state.response);
-
 	  
-	  Meteor.call('inholdinfodb.insert',finalResp,function(error, result){ var thisID = result;
-
-	  console.log("ID : " + thisID);
-	  //Route
-	  // Creating the route to the next step
+	  console.log(this.state.contentIndex);
+	  console.log(insertableResponse);
+	  try{
+	  Meteor.call('inholdinfodb.insert',insertableResponse,this.state.contentIndex,function(error, result)
+	{ 
+		console.log(result);
+	  	var thisID = result[0];
+	  	console.log("ID : " + thisID);
+	  	//Route
+	  	// Creating the route to the next step
 		var tempCurrentRouteArray = FlowRouter.current().path.split("/");
 		var path = "";
 		var tempString = "";
@@ -172,11 +151,16 @@ getInitialState: function() {
 		}
 		path += "/";
 		path += thisID;
+		path += "/";
+		path += String(result[1]);
+
 		var res = path.concat("/BoxInfo");
-		console.log("fini fin de call !");
+		console.log(res);
+		// console.log("fini fin de call !");
 		FlowRouter.go(res);
-	});
-	  
+	});} catch(e){
+	  	console.log(e);
+	  }
   },
 
   renderForm(input, index) {
@@ -194,10 +178,12 @@ getInitialState: function() {
   
   
   render() {
-	  console.log("RENDER contentINDEX : " + this._id);
+  	console.log("render");
+
     return (
-		<form className="form-horizontal" role="form" onSubmit={this.handleSubmit} media="print">
-		
+
+		<form className="form-horizontal" role="form" onSubmit={this.handleSubmit}>
+		<h1 className="text-center" > {require("./languages/Settings.json").setups[this.props.index].pageHome.buttons.save}</h1>
 		<div id="container" className="form-group" key="selectBox">
 		<label className="control-label col-sm-2" for="">{this.state.usedLangObject.testSelection}:</label>
 		<div className="col-sm-10">

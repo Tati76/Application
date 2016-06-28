@@ -46,36 +46,25 @@ Home = React.createClass({
 		
 	  var res = path.concat("/InholdInfo");
 	  var res2 = path.concat("/Search");
+	  var res3 = path.concat("/AddContent");
+	  //console.log(require("./languages/Settings.json").setups[this.props.index].pageHome.hasOwnProperty("buttons"));
 
 	  ////console.log("PATH : " + res);
 	  //console.log("LANGUAGE PARAMS : " + this.props.language);
     return (
     	
-	    /*<div className="row">
-		  <a href={res} className="btn btn-default col-md-2 col-md-offset-1">Lagre</a>
-		  <a href="#" className="btn btn-default col-md-2 col-md-offset-2">Search</a>
-		</div>*/
 		
 		<div className="btn-group btn-group-justified" role="group" aria-label="...">
 			  <div className="btn-group" role="group">
 			    <a href={res}><button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.save}</button></a>
 			  </div>
 			  <div className="btn-group" role="group">
+			   <a href={res3}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.addContent}</button></a>
+			  </div>
+			  <div className="btn-group" role="group">
 			   <a href={res2}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.search}</button></a>
 			  </div>
 		</div>
-
-		/*<div className="btn-group btn-group-justified" role="group" aria-label="...">
-			  <div className="btn-group" role="group">
-			    <button type="button" className="btn btn-default">Left</button>
-			  </div>
-			  <div className="btn-group" role="group">
-			    <button type="button" className="btn btn-default">Middle</button>
-			  </div>
-			  <div className="btn-group" role="group">
-			    <button type="button" className="btn btn-default">Right</button>
-			  </div>
-		</div>*/
     )
   }
 });

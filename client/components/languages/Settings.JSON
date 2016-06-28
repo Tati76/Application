@@ -1,5 +1,5 @@
 {
-	"languages": ["Norsk", "English","test"],
+	"languages": ["Norsk", "English"],
 	"setups": [{
 		"language": "Norsk",
 		"header": {
@@ -8,19 +8,24 @@
 		"pageHome" : {
 			"buttons" : {
 				"save" : "Lagre ny tester",
-				"search" : "Søk etter gammle tester"
+				"search" : "Søk etter gammle tester",
+				"addContent" : "Legge til ny inhold i en eksisterende box"
 			}
 		},
 		"pageBoxInfo": {
 			"boxSelection" : "Type Box",
 			"forms": [{
 				"_id": "1",
-				"name": "Vanlig Eske",
-				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle", "Posisjon"]
+				"name": "Otolitt Stor Kartong Box",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle", "Posisjon","Komentar"]
 			}, {
 				"_id": "2",
-				"name": "Anet Eske",
-				"inputs": ["By", "GateAdress"]
+				"name": "Otolitt Pose Inneholder",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"]
+			}, {
+				"_id": "2",
+				"name": "Otolitt Pose",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"]
 			}],
 			"buttons" : {
 				"save" : "Lagre & Skrive ut",
@@ -31,16 +36,16 @@
 			"testSelection" : "Type Test",
 			"forms" : [{
 				"_id": "1",
-				"name": "Otolitt",
-				"inputs": ["Sted","Dato"]
+				"name": "Otolitt Stor Kartong Box",
+				"inputs": ["Sted","Dato","Fartøy","Serie Numer","Fiske Arter","Toktnavn","ToktNumer","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar"]
 			}, {
 				"_id": "2",
-				"name": "Andre Typer Test",
-				"inputs": ["Sted","Dato","Periode"]
+				"name": "Otolitt Pose Inneholder",
+				"inputs": ["Sted","Dato","Fartøy","Serie Numer","Fiske Arter","Toktnavn","ToktNumer","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"]
 			}, {
 				"_id": "3",
-				"name": "Ny Test",
-				"inputs": ["Sted","Dato","Periode","Test","Hei"]
+				"name": "Otolitt Pose",
+				"inputs": ["Numer.","Vekt i gram","Lengde","Kjønn","Alder","G.Alder","Stadium","G.Soner","Lesbarhet","M","Type","F","Rand","Leverv.","Gonadev.","Komentar","Inneholders Id"]
 			}],
 			"buttons" : {
 				"save" : "Neste Trinn",
@@ -58,19 +63,24 @@
 		"pageHome" : {
 			"buttons" : {
 				"save" : "Save new tests",
-				"search" : "Search among old tests"
+				"search" : "Search among old tests",
+				"addContent" : "Add content to an existing box"
 			}
 		},
 		"pageBoxInfo": {
 			"boxSelection" : "Box Type",
 			"forms": [{
 				"_id": "1",
-				"name": "Regular Packaging",
-				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Shelf", "Position"]
+				"name": "Otolith Storage Box",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Shelf", "Position","Comments"]
 			}, {
 				"_id": "2",
-				"name": "Other Packaging",
-				"inputs": ["City", "Adress"]
+				"name": "Otolith Little Box",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Comments"]
+			}, {
+				"_id": "3",
+				"name": "Otolith Sac",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Comments"]
 			}],
 			"buttons" : {
 				"save": "Save & Print",
@@ -81,16 +91,16 @@
 			"testSelection" : "Test Type",
 			"forms" : [{
 				"_id": "1",
-				"name": "Otolith",
-				"inputs": ["Place","Date"]
+				"name": "Otolith Storage Box",
+				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quatity","Volume","Box Number","Comments"]
 			},{
 				"_id": "2",
-				"name": "Other Tests",
-				"inputs": ["Place","Date","Periode"]
-			},  {
+				"name": "Otolith Little Box",
+				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"]
+			}, {
 				"_id": "3",
-				"name": "New Test",
-				"inputs": ["Place","Date","Periode","Test","Hello"]
+				"name": "Otolith Sac",
+				"inputs": ["Number","Weight in gram","Length","Sex","Age","GAge","Stage","GSoner","Readability","M","Type","F","Rand","Leverv","Gonadev","Comments","Containers Id"]
 			}],
 			"buttons" : {
 				"save": "Next Step",
@@ -99,56 +109,6 @@
 		},
 		"footer": {
 			"text" : "Institute of Marine Research"
-		}
-	}, {
-		"language": "Test",
-		"header": {
-			"text" : "BLABLA"
-		},
-		"pageHome" : {
-			"buttons" : {
-				"save" : "Saaaa",
-				"search" : "Seeee"
-			}
-		},
-		"pageBoxInfo": {
-			"boxSelection" : "BT",
-			"forms": [{
-				"_id": "1",
-				"name": "RP",
-				"inputs": ["C", "A", "F", "R", "L", "S", "P"]
-			}, {
-				"_id": "2",
-				"name": "OP",
-				"inputs": ["C", "A"]
-			}],
-			"buttons" : {
-				"save": "S & P",
-				"clear": "CA"
-			}
-		},
-		"pageInholdInfo" : {
-			"testSelection" : "TT",
-			"forms" : [{
-				"_id": "1",
-				"name": "O",
-				"inputs": ["P","D"]
-			},{
-				"_id": "2",
-				"name": "OT",
-				"inputs": ["P","D","P"]
-			},   {
-				"_id": "3",
-				"name": "NT",
-				"inputs": ["P","D","P","T","H"]
-			}],
-			"buttons" : {
-				"save": "NS",
-				"clear": "CA"
-			}
-		},
-		"footer": {
-			"text" : "IMR"
 		}
 	}]
 }
