@@ -12,6 +12,12 @@ FlowRouter.route('/:language/:index/AddContent', {
   }
 });
 
+FlowRouter.route('/:language/:index/AddContent/:id', {  
+  action(params, queryParams) {
+   mount(MainLayout, { content: <AddContentSelectedBox language={params.language} index={params.index} boxId={params.id}/>});
+  }
+});
+
 FlowRouter.route('/:language/:index/Search', {  
   action(params, queryParams) {
    mount(MainLayout, { content: <SearchPage language={params.language} index={params.index}/>});

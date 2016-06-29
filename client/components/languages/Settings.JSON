@@ -92,7 +92,7 @@
 			"forms" : [{
 				"_id": "1",
 				"name": "Otolith Storage Box",
-				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quatity","Volume","Box Number","Comments"]
+				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quantity","Volume","Box Number","Comments"]
 			},{
 				"_id": "2",
 				"name": "Otolith Little Box",

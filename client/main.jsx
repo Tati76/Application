@@ -34,7 +34,7 @@ MainLayout = React.createClass({
 	    		<header>
 	    			<Header id="Header" language={this.state.language} index={this.state.index} onClick={this.changeLanguage}/>
 				</header>
-				<main id="contentDiv" className="vcenter">
+				<main id="contentDiv" className="vcenter center-block">
 					{this.props.content}
 				</main>
 				<footer>

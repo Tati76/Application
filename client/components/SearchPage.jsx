@@ -11,7 +11,7 @@ SearchPage = React.createClass({
 	    if(handle.ready()) {
 	      	data.sample = InholdInfoDb.find().fetch();
 	      	data.list = [];
-	      	for (var i = 1 ; i< data.sample.length ; i++)
+	      	for (var i = 0 ; i< data.sample.length ; i++)
 	      	{
 	      		data.list.push(data.sample[i]._id);
 	      	}
