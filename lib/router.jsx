@@ -6,15 +6,21 @@ FlowRouter.route('/:language/:index', {
   }
 });
 
-FlowRouter.route('/:language/:index/AddContent', {  
+FlowRouter.route('/:language/:index/SeeBoxes', {  
   action(params, queryParams) {
-   mount(MainLayout, { content: <AddContent language={params.language} index={params.index}/>});
+   mount(MainLayout, { content: <SeeBoxes language={params.language} index={params.index}/>});
   }
 });
 
-FlowRouter.route('/:language/:index/AddContent/:id', {  
+FlowRouter.route('/:language/:index/SeeBoxes/:id', {  
   action(params, queryParams) {
-   mount(MainLayout, { content: <AddContentSelectedBox language={params.language} index={params.index} boxId={params.id}/>});
+   mount(MainLayout, { content: <BoxContentSelectedBox language={params.language} index={params.index} boxId={params.id}/>});
+  }
+});
+
+FlowRouter.route('/:language/:index/SeeBoxes/:id/AddContent', {  
+  action(params, queryParams) {
+   mount(MainLayout, { content: <AddContentToBox language={params.language} index={params.index} boxId={params.id}/>});
   }
 });
 

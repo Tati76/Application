@@ -158,11 +158,11 @@ BoxInfo = React.createClass({
 	  	  
     return (
         <div id="container" className="form-group" key={index}>
-		<label className="control-label col-sm-2" for="">{input}:</label>
-		<div className="col-sm-10">
-			<input type="text" key={index}  onChange={this.handleChange.bind(this,index)} ref={'a'+index} className="form-control" id="" placeholder=""/>
+			<label className="control-label col-sm-2" for="">{input}:</label>
+			<div className="col-sm-10">
+				<input type="text" key={index}  onChange={this.handleChange.bind(this,index)} ref={'a'+index} className="form-control" id="" placeholder=""/>
+			</div>
 		</div>
-	</div>
 	
     )
   }, 

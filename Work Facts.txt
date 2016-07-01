@@ -1,0 +1,12 @@
+01.07.2016
+
+- Première utilisation du fichier BoxesInfo.json, utilisé pour voir quel boite peut etre mise dans une autre (une trop grande ne peut pas rentrer dans une petite) 
+	Tout cela grâce à un classement des boites qui est fait dans le JSON avec l'attribut "containerClass". Plus il est petit, plus la boite est grande, 
+	une boite avec un "containerClass" de 1 peut contenir des boites de "containerClass" inférieur strictement à 1
+	
+	RQ : Problemes pour charger le fichier JSON dans le programme, finalement on utilise "import boxFile from '../Boxes/BoxesInfo.json';" pour importer le fichier
+		après beaucoup d'erreurs cela marche.
+
+- Creation des pages d'ajout de contenu pour une boite selectionnée
+
+	RQ :Attention à componentWillReceiveProps dans lequel un setstate doit prendre nextProps !!!!

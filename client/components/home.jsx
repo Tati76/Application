@@ -43,10 +43,10 @@ Home = React.createClass({
 			path += tempString;
 			tempString = "";
 		}
-		
+		console.log(path);
 	  var res = path.concat("/InholdInfo");
 	  var res2 = path.concat("/Search");
-	  var res3 = path.concat("/AddContent");
+	  var res3 = path.concat("/SeeBoxes");
 	  //console.log(require("./languages/Settings.json").setups[this.props.index].pageHome.hasOwnProperty("buttons"));
 
 	  ////console.log("PATH : " + res);

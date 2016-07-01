@@ -9,7 +9,7 @@
 			"buttons" : {
 				"save" : "Lagre ny tester",
 				"search" : "Søk etter gammle tester",
-				"addContent" : "Legge til ny inhold i en eksisterende box"
+				"addContent" : "Se eksisterende Boxer"
 			}
 		},
 		"pageBoxInfo": {
@@ -33,7 +33,7 @@
 			}
 		},
 		"pageInholdInfo" : {
-			"testSelection" : "Type Test",
+			"testSelection" : "Type Box",
 			"forms" : [{
 				"_id": "1",
 				"name": "Otolitt Stor Kartong Box",
@@ -64,7 +64,7 @@
 			"buttons" : {
 				"save" : "Save new tests",
 				"search" : "Search among old tests",
-				"addContent" : "Add content to an existing box"
+				"addContent" : "See existing boxes"
 			}
 		},
 		"pageBoxInfo": {
@@ -88,7 +88,7 @@
 			}
 		},
 		"pageInholdInfo" : {
-			"testSelection" : "Test Type",
+			"testSelection" : "Box Type",
 			"forms" : [{
 				"_id": "1",
 				"name": "Otolith Storage Box",
