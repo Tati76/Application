@@ -40,7 +40,7 @@ SampleViewer = React.createClass({
 
 	renderComponent(input,index)
 	{
-		console.log(this.state.attributesToDisplay[index].one+ ":" +this.state.attributesToDisplay[index].two);
+		//console.log(this.state.attributesToDisplay[index].one+ ":" +this.state.attributesToDisplay[index].two);
 
 		return(
 			

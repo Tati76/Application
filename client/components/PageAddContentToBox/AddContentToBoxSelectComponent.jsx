@@ -80,8 +80,6 @@ AddContentToBoxSelect = React.createClass({
 		//console.log(this.state.boxList);
 		return(
 			<div>
-			<p> {boxFile[1].id} (Not Dynamic)</p>
-			<p> {require("../Boxes/BoxesInfo.json")[1].id} (Not Dynamic)</p>
 			<p> select Not Dynamic </p>
 			<select className="form-control input" onClick={this.props.onClick} placeholder='hello'>
 				<option value="" hidden>Please select</option>

@@ -66,6 +66,23 @@ InfoSelector = React.createClass({
 
 	handlePrint(){
 		window.print();
+		var tempArray = [];
+		tempArray = FlowRouter.current().path.split("/");
+		tempArray.pop();
+		tempArray.pop();
+		var tempId = tempArray[tempArray.length - 1];
+		tempArray.pop();
+		tempArray.push("SeeBoxes");
+		tempArray.push(tempId);
+		var tempPathString = "";
+		for (var i = 1 ; i< tempArray.length ; i++)
+		{
+			tempPathString += "/";
+			tempPathString += tempArray[i];
+		}
+		console.log(tempPathString);
+
+		FlowRouter.go(tempPathString);
 	},
 
 	renderTableComponents(input,index){

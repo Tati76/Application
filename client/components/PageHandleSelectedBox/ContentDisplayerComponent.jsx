@@ -14,7 +14,7 @@ ContentDisplayer = React.createClass({
 	    		data.content = InholdInfoDb.find({"Containers Id" : this.props.containerId}).fetch(); // Only catches the boxes that are not storable in others
 	      		
 	    	}
-	    	else
+	    	else // Searching the wanted boxes
 	    	{
 	    		data.content = [];
 	    		data.wholeContent = InholdInfoDb.find({"Containers Id" : this.props.containerId }).fetch();
@@ -66,8 +66,6 @@ ContentDisplayer = React.createClass({
 			}
 			
 		}
-
-		console.log(this.data.content[input]);
 
 		return(
 			<a href={finalPath} className="list-group-item">

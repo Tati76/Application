@@ -84,6 +84,23 @@ SeeBoxes = React.createClass({
 		);
 	},
 
+
+	clickAddBox()
+	{
+		var tempArray = [];
+		tempArray = FlowRouter.current().path.split("/");
+		tempArray.pop();
+		tempArray.push("InholdInfo");
+		var tempPathString = "";
+		for (var i = 1 ; i< tempArray.length ; i++)
+		{
+			tempPathString += "/";
+			tempPathString += tempArray[i];
+		}
+
+		FlowRouter.go(tempPathString);
+	},
+
 	render()
 	{
 
@@ -98,7 +115,7 @@ SeeBoxes = React.createClass({
 
 							<BoxDisplayer searchOptions={[this.state.searchAttribute,this.state.searchValue]}/>
 
-							<button type="button" className="btn btn-primary">Add Box (Not Dynamic)</button>
+							<button type="button" className="btn btn-primary" onClick={this.clickAddBox}>Add Box (Not Dynamic)</button>
 						</div>
 					</div>
 				</div>

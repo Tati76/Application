@@ -17,15 +17,35 @@
 			"forms": [{
 				"_id": "1",
 				"name": "Otolitt Stor Kartong Box",
-				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle", "Posisjon","Komentar"]
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle", "Posisjon","Laant","Komentar"]
 			}, {
 				"_id": "2",
 				"name": "Otolitt Pose Inneholder",
-				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"]
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Laant","Komentar"]
 			}, {
-				"_id": "2",
+				"_id": "3",
 				"name": "Otolitt Pose",
-				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"]
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Laant","Komentar"]
+			},{
+				"_id": "4",
+				"name": "Kartell Flaske 1L",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle","Laant","Komentar"]
+			}, {
+				"_id": "5",
+				"name": "Kartell Flaske 500mL",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Laant","Komentar"]
+			}, {
+				"_id": "6",
+				"name": "Kartell Flaske 250mL",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Laant","Komentar"]
+			}, {
+				"_id": "7",
+				"name": "Plankton Prøve Container",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Laant","Komentar"]
+			}, {
+				"_id": "8",
+				"name": "Plankton 100mL Flaske",
+				"inputs": ["By", "GateAdress", "Etasje", "Rom", "Skap","Laant","Komentar"]
 			}],
 			"buttons" : {
 				"save" : "Lagre & Skrive ut",
@@ -46,11 +66,34 @@
 				"_id": "3",
 				"name": "Otolitt Pose",
 				"inputs": ["Numer.","Vekt i gram","Lengde","Kjønn","Alder","G.Alder","Stadium","G.Soner","Lesbarhet","M","Type","F","Rand","Leverv.","Gonadev.","Komentar","Inneholders Id"]
+			}, {
+				"_id": "4",
+				"name": "Kartell Flaske 1L",
+				"inputs": ["Sted","Dato","Fartøy","Serie Numer","Fiske Arter","Toktnavn","ToktNumer","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"]
+			}, {
+				"_id": "5",
+				"name": "Kartell Flaske 500mL",
+				"inputs": ["Sted","Dato","Fartøy","Serie Numer","Fiske Arter","Toktnavn","ToktNumer","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"]
+			}, {
+				"_id": "6",
+				"name": "Kartell Flaske 250mL",
+				"inputs": ["Sted","Dato","Fartøy","Serie Numer","Fiske Arter","Toktnavn","ToktNumer","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"]
+			}, {
+				"_id": "7",
+				"name": "Plankton Prøve Container",
+				"inputs": ["Sted","Dato","Fartøy","Serie Numer","Fiske Arter","Toktnavn","ToktNumer","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar"]
+			}, {
+				"_id": "8",
+				"name": "Plankton 100mL Flaske",
+				"inputs": ["Sted","Dato","Fartøy","Serie Numer","Fiske Arter","Toktnavn","ToktNumer","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"]
 			}],
 			"buttons" : {
 				"save" : "Neste Trinn",
 				"clear" : "Slette Alt"
 			}
+		},
+		"LendBoxComponent" : {
+			"info" : ["Navn","Sted","Dato"]
 		},
 		"footer": {
 			"text" : "Havforskningsinstituttet"
@@ -72,15 +115,35 @@
 			"forms": [{
 				"_id": "1",
 				"name": "Otolith Storage Box",
-				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Shelf", "Position","Comments"]
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Shelf", "Position","Lent","Comments"]
 			}, {
 				"_id": "2",
 				"name": "Otolith Little Box",
-				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Comments"]
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker","Lent", "Comments"]
 			}, {
 				"_id": "3",
 				"name": "Otolith Sac",
-				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Comments"]
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker","Lent", "Comments"]
+			}, {
+				"_id": "4",
+				"name": "Kartell Bottle 1L",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker", "Shelf","Lent", "Comments"]
+			}, {
+				"_id": "5",
+				"name": "Kartell Bottle 500mL",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker","Lent", "Comments"]
+			}, {
+				"_id": "6",
+				"name": "Kartell Bottle 250mL",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker","Lent", "Comments"]
+			}, {
+				"_id": "7",
+				"name": "Plankton Sample Container",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker","Lent", "Comments"]
+			}, {
+				"_id": "8",
+				"name": "Plankton 100mL Bottle",
+				"inputs": ["City", "Adress", "Floor", "Room", "Locker","Lent", "Comments"]
 			}],
 			"buttons" : {
 				"save": "Save & Print",
@@ -101,11 +164,34 @@
 				"_id": "3",
 				"name": "Otolith Sac",
 				"inputs": ["Number","Weight in gram","Length","Sex","Age","GAge","Stage","GSoner","Readability","M","Type","F","Rand","Leverv","Gonadev","Comments","Containers Id"]
+			}, {
+				"_id": "4",
+				"name": "Kartell Bottle 1L",
+				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"]
+			}, {
+				"_id": "5",
+				"name": "Kartell Bottle 500mL",
+				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"]
+			}, {
+				"_id": "6",
+				"name": "Kartell Bottle 250mL",
+				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"]
+			}, {
+				"_id": "7",
+				"name": "Plankton Sample Container",
+				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quantity","Volume","Box Number","Comments"]
+			}, {
+				"_id": "8",
+				"name": "Plankton 100mL Bottle",
+				"inputs": ["Place","Date","Ship","Serie Number","Fish Species","Cruise Name","Cruise Number","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"]
 			}],
 			"buttons" : {
 				"save": "Next Step",
 				"clear": "Clear All"
 			}
+		},
+		"LendBoxComponent" : {
+			"info" : ["Name","Place","Date"]
 		},
 		"footer": {
 			"text" : "Institute of Marine Research"

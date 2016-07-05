@@ -17,18 +17,72 @@ AddContentToBoxFormular = React.createClass({
 		return result;
 	},
 
-	getInitialState(){
+	createResponseSkeleton(selectedObject){
+		var tempResp = [];
+		for(var i = 0 ; i<selectedObject.length ; i++) // create the response skeleton
+		{
+			if(selectedObject[i] == "Containers Id")
+			{
+				tempResp.push({name : selectedObject[i] , value : this.props.boxId});
+			}
 
+			else{
+				tempResp.push({name : selectedObject[i] , value : ""});
+			}
+		}
+		// Add the box type
+		tempResp.push({name : "Box Type" , value : this.props.boxType});
+		
+		return tempResp;
+	},
+
+	changeResponseStateValue: function(index,input){
+		var tempArray = this.state.response.slice();
+		tempArray[index].value = input;
+		this.setState({response : tempArray.slice()});
+	},
+
+	clearAll()
+	{
+		console.log(this.state.selectedBoxTypeAttributes.length);
+		for (var i = 0 ; i<this.state.selectedBoxTypeAttributes.length ; i++) 
+		{
+			
+			if (this.refs["l"+i].value == "Containers Id")// The Containers Id cannot be changed
+			{
+				console.log(this.refs["l"+i].value);
+			}
+			else{
+				console.log(this.refs[i].value);
+				console.log(this.refs["l"+i].value);
+				this.refs[i].value = "";
+			}
+			
+		}
+
+		this.setState({ response : this.createResponseSkeleton(this.state.selectedBoxTypeAttributes)});
+	},
+
+	getInitialState(){
+		console.log("BOX TYPE PROPS : " + this.props.boxTypeToAdd);
 		var tempBoxTypeAttributes = this.findTheInputArray(this.props.boxTypeToAdd).slice();
+		var tempResponse = this.createResponseSkeleton(tempBoxTypeAttributes).slice();
+		console.log(tempResponse);
 
 		return {
-			selectedBoxTypeAttributes :tempBoxTypeAttributes.slice()
+			selectedBoxTypeAttributes :tempBoxTypeAttributes.slice(),
+			response : tempResponse
 		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		
-		this.setState({selectedBoxTypeAttributes : this.findTheInputArray(nextProps.boxTypeToAdd).slice()});
+		var tempBTA = this.findTheInputArray(nextProps.boxTypeToAdd).slice(); // New BoxType Choosen 
+		var tempR = this.createResponseSkeleton(tempBTA).slice(); // adapt the new response skeleton vs the new choosen box
+		this.clearAll(); //clearAll the inputs
+		console.log(tempBTA);
+		console.log(tempR);
+		this.setState({selectedBoxTypeAttributes : tempBTA});
+		this.setState({response : tempR});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -40,15 +94,67 @@ AddContentToBoxFormular = React.createClass({
 
 	},
 
+	handleSave: function(event)
+	{
+		console.log(event.target.value);
+		var insertableResponse ={};
+		for (var i=0 ; i< this.state.response.length ; i++) 
+		{
+			insertableResponse[this.state.response[i].name] = this.state.response[i].value;
+		}
+		console.log(insertableResponse);
+
+		Meteor.call('inholdinfodb.insert',insertableResponse,this.state.contentIndex,function(error, result){ console.log(result) }); // insert in the Database
+
+		// Route to the Container Box Again
+
+		var pathArray = FlowRouter.current().path.split("/");
+		console.log(pathArray);
+	  	pathArray.pop();
+	  	console.log(pathArray);
+	  	var tempPath = "";
+	  	for (var i =1; i<pathArray.length ; i++)
+	  	{
+	  		tempPath += "/";
+	  		tempPath += pathArray[i];
+	  		
+	  		console.log(tempPath);
+	  	}
+	  	console.log(tempPath);
+	  	FlowRouter.go(tempPath);
+	},
+
+	handleTypingInput: function(index,event)
+	{
+		console.log(this.state.response);
+		this.changeResponseStateValue(index,event.target.value);
+	},
+
+
 	renderForm(input,index){
-		return(
+
+		if(input =="Containers Id")
+		{
+			return(
+				<div key={index} className="form-group form-group-sm">
+				    <label ref={"l"+index} for="" className="col-sm-2 control-label" value={input}>{input}</label>
+				    <div className="col-sm-10">
+				      	<input type="text" ref={index} className="form-control" id="" placeholder={this.props.boxId} disabled/>
+				    </div>
+				</div>
+			);
+		}
+		else{
+			return(
 			<div key={index} className="form-group form-group-sm">
-			    <label for="inputEmail3" className="col-sm-2 control-label">{input}</label>
+			    <label ref={"l"+index} for="" className="col-sm-2 control-label" value={input}>{input}</label>
 			    <div className="col-sm-10">
-			      	<input type="email" className="form-control" id="inputEmail3"/>
+			      	<input type="text" ref={index} className="form-control" id="" onChange={this.handleTypingInput.bind(this,index)}/>
 			    </div>
 			</div>
-		);
+			);
+		}
+		
 	},
 
 	render(){
@@ -58,7 +164,8 @@ AddContentToBoxFormular = React.createClass({
 				<form className="form-horizontal">
 					{this.state.selectedBoxTypeAttributes.map(this.renderForm)}
 				</form>
-				<button type="button" className="btn btn-primary">Save (Not dynamic)</button>
+				<button type="button" className="btn btn-primary" onClick={this.clearAll}>Clear All (Not dynamic)</button>
+				<button type="button" className="btn btn-primary" onClick={this.handleSave}>Save (Not dynamic)</button>
 			</div>
 		);
 	}

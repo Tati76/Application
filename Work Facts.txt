@@ -10,3 +10,16 @@
 - Creation des pages d'ajout de contenu pour une boite selectionnée
 
 	RQ :Attention à componentWillReceiveProps dans lequel un setstate doit prendre nextProps !!!!
+
+
+04.07.2016
+
+- Possible d'enregistrer le contenu d'une boite
+- On peut éditer les info de la boite selectionnée
+
+
+05.07.2016
+
+- On peut emprunter la boite selectionnée 
+- On peut ajouter un conteneur à See Boxes
+- Le print nous reconduit directement vers la page de la boite créée

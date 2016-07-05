@@ -50,6 +50,7 @@ BoxInfo = React.createClass({
 		
 		for (var i = 0 ; i< this.state.usedLangObject.forms[this.state.formsIndex].inputs.length ; i++)
 			{
+				console.log(this.refs["a"+i].value);
 				this.refs["a"+i].value = "";
 			}
 			//console.log(this.state.response);

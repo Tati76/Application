@@ -46,7 +46,7 @@ AddContentToBox = React.createClass({
 			return(
 				<div className="container-fluid">
 					<AddContentToBoxSelect boxId={this.props.boxId} onClick={this.selectClicked}/>
-					<AddContentToBoxFormular boxId={this.props.boxId} boxTypeToAdd={this.state.selectedBox}/>
+					<AddContentToBoxFormular boxType={this.state.selectedBox} boxId={this.props.boxId} boxTypeToAdd={this.state.selectedBox}/>
 				</div>
 			);
 		}

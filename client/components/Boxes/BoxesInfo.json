@@ -36,7 +36,7 @@
 	}, {
 		"id": 4,
 		"name": {
-			"Norsk": "Katell Flaske 1L",
+			"Norsk": "Kartell Flaske 1L",
 			"English": "Kartell Bottle 1L"
 		},
 		"volume": 1000,
@@ -47,7 +47,7 @@
 	}, {
 		"id": 5,
 		"name": {
-			"Norsk": "Katell Flaske 500mL",
+			"Norsk": "Kartell Flaske 500mL",
 			"English": "Kartell Bottle 500mL"
 		},
 		"volume": 500,
@@ -58,7 +58,7 @@
 	}, {
 		"id": 6,
 		"name": {
-			"Norsk": "Katell Flaske 250mL",
+			"Norsk": "Kartell Flaske 250mL",
 			"English": "Kartell Bottle 250mL"
 		},
 		"volume": 250,

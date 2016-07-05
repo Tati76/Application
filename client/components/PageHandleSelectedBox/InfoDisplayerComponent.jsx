@@ -3,15 +3,12 @@ import { InholdInfoDb } from '../../../imports/api/inholdinfodb.js';
 
 InfoDisplayer = React.createClass({
 
-	mixins: [ReactMeteorData],
-
-	getMeteorData: function () {
-		var data = {};
-		var handle = Meteor.subscribe('inholdinfodb');
-	    if(handle.ready()) {
-	      	data.sample = InholdInfoDb.findOne(this.props.currentBoxId); // Only catches the boxes that are not storable in others
-	    }
-	    return data;
+	getInitialState()
+	{
+		return{
+			editCurrentBox : false,
+			lendCurrentBox : false
+		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
@@ -27,77 +24,70 @@ InfoDisplayer = React.createClass({
 
 	},
 
-	dateToString : function(choosenDate)
+	handleClick: function(event)
 	{
-		var tempSplit = choosenDate.toString().split(" ");
-		var tempDate = "";
-		for (var i=0 ; i<4; i++)
+		console.log("****************************************");
+		console.log(event.target.value);
+		console.log("****************************************");
+		if (event.target.value == "Lend" || event.target.value == "Return")  // Click to lend the box
 		{
-			tempDate += tempSplit[i];
-			tempDate += " ";
+			this.handleLend(event);
 		}
-		return tempDate;
-	},
-
-	renderDisplayer(input,index){
-
-		if (input =="createdAt")
+		else // Click to modify the Box Info
 		{
-			var dateToDisplay = this.dateToString(this.data.sample[input])
-			return(
-				<div className="form-group form-group-sm">
-				    <label for="inputEmail3" className="col-sm-2 control-label">{input}</label>
-				    <div className="col-sm-10">
-				      	<input type="email" className="form-control" id="inputEmail3" placeholder={dateToDisplay} disabled/>
-				    </div>
-				</div>
-			);
-		}
-
-		else if(input =="_id" || input =="Box Type")
-		{
-			return(
-				
-				<div className="form-group form-group-sm">
-				    <label for="inputEmail3" className="col-sm-2 control-label">{input} (Not dynamic)</label>
-				    <div className="col-sm-10">
-				      	<input type="email" className="form-control" id="inputEmail3" placeholder={this.data.sample[input]} disabled/>
-				    </div>
-				</div>
-				
-			);
-		}
-
-		else{
-			return(
-				
-				<div className="form-group form-group-sm">
-				    <label for="inputEmail3" className="col-sm-2 control-label">{input} (Not dynamic)</label>
-				    <div className="col-sm-10">
-				      	<input type="email" className="form-control" id="inputEmail3" placeholder={this.data.sample[input]}/>
-				    </div>
-				</div>
-				
-			);
+			this.handleEdit(event);
 		}
 		
 	},
 
+	handleEdit: function(event)
+	{
+		
+		console.log(event.target.value);
+		var tempEditState = !this.state.editCurrentBox;
+		this.setState({editCurrentBox : tempEditState});
+		console.log("click on Edit or save");
+		
+	},
+
+	handleLend: function(event)
+	{
+		console.log(event.target.value);
+		var tempLendState = !this.state.lendCurrentBox;
+		if (event.target.value != "Return") // In ordre not to change component if we return the box
+		{
+			this.setState({lendCurrentBox : tempLendState});
+		}
+		
+		console.log("click on Lend this Box");
+	},
+
 	render(){
-		return(
-			<div className="container-flux" style={{"border":"1px solid black","paddingLeft" : "30px","paddingRight" : "30px"}}>
-				<h2 className="text-center"> Info Displayer (Not dynamic)</h2>
-				<button type="button" className="btn btn-primary">Edit this box (Not dynamic)</button>
-				<form className="form-horizontal">
-				{this.data.sample? Object.keys(this.data.sample).map(this.renderDisplayer) : <p> Loading... </p>}
-				</form>
-				<button type="button" className="btn btn-primary">Lend this box (Not dynamic)</button>
-			</div>
-		);
+		if(this.state.editCurrentBox)
+		{
+			return(
+				<div className="container-fluid" style={{"border":"1px solid black","paddingLeft" : "30px","paddingRight" : "30px"}}>
+					<EditableInfoDisplayer currentBoxId={this.props.currentBoxId} onClick={this.handleClick}/>
+					<button type="button" className="btn btn-primary center-block" disabled>Lend this box (Not dynamic)</button>
+				</div>
+			);
+		}
+		else if(this.state.lendCurrentBox)
+		{
+			return( // has to implement the save disable
+				<div className="container-fluid" style={{"border":"1px solid black","paddingLeft" : "30px","paddingRight" : "30px"}}>
+					<LendBox currentBoxId={this.props.currentBoxId} onClick={this.handleClick}/>
+				</div>
+			);
+		}
+		else
+		{
+			return(
+				<div className="container-fluid" style={{"border":"1px solid black","paddingLeft" : "30px","paddingRight" : "30px"}}>
+					<NormalInfoDisplayer currentBoxId={this.props.currentBoxId} onClick={this.handleClick}/>
+				</div>
+			);
+		}
+		
 	}
 });
-
-//<p key={"d"+index} className="text-center text-primary" contenteditable="true"> {input} : {dateToDisplay} </p>
-				
-
-//<p key={"d"+index} className="text-center text-primary" contenteditable="true"> {input} : {this.data.sample[input]} </p>
