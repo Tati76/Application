@@ -92,8 +92,54 @@
 				"clear" : "Slette Alt"
 			}
 		},
-		"LendBoxComponent" : {
-			"info" : ["Navn","Sted","Dato"]
+		"borrowForm" : {
+			"info" : ["Name","Place","Date"],
+			"labels" : {
+				"title" : "Låne Formulær"
+			},
+			"button" : {
+				"lend" : "Låne"
+			}
+		},
+		"SeeBoxPage" : {
+			"buttons" : {
+				"addContent" : "Legge til ny Inhold"
+			}
+		},
+		"QRPage" : {
+			"buttons" : {
+				"print" : "Trykke ut"
+			}
+
+		},
+		"AddContentToBoxPage" : {
+			"buttons" : {
+				"save" : "Lagre",
+				"clear" : "Slette Alt"
+			}
+
+		},
+		"SelectedBoxPage" : {
+			"buttons" : {
+				"lend" : "Låne Box",
+				"addContent" : "Legge til ny Inhold",
+				"edit" : "Redigere"
+			}
+
+		},
+		"EditableInfoDisplayer" : {
+			"buttons" : {
+				"save" : "Lagre",
+				"lend" : "Låne Box"
+			}
+
+		},
+		"NormalInfoDisplayer" : {
+			"buttons" : {
+				"edit" : "Redigere",
+				"lend" : "Låne Box" 
+			}
+
 		},
 		"footer": {
 			"text" : "Havforskningsinstituttet"
@@ -190,8 +236,54 @@
 				"clear": "Clear All"
 			}
 		},
-		"LendBoxComponent" : {
-			"info" : ["Name","Place","Date"]
+		"borrowForm" : {
+			"info" : ["Name","Place","Date"],
+			"labels" : {
+				"title" : "Borrow Form"
+			},
+			"button" : {
+				"lend" : "Borrow"
+			}
+		},
+		"SeeBoxPage" : {
+			"buttons" : {
+				"addContent" : "Add Content"
+			}
+		},
+		"QRPage" : {
+			"buttons" : {
+				"print" : "Print"
+			}
+
+		},
+		"AddContentToBoxPage" : {
+			"buttons" : {
+				"save" : "Save",
+				"clear" : "Clear"
+			}
+
+		},
+		"SelectedBoxPage" : {
+			"buttons" : {
+				"lend" : "Lend Box",
+				"addContent" : "Add Content",
+				"edit" : "Edit"
+			}
+
+		},
+		"EditableInfoDisplayer" : {
+			"buttons" : {
+				"save" : "Save",
+				"lend" : "Lend Box"
+			}
+
+		},
+		"NormalInfoDisplayer" : {
+			"buttons" : {
+				"edit" : "Edit",
+				"lend" : "Lend Box" 
+			}
+
 		},
 		"footer": {
 			"text" : "Institute of Marine Research"

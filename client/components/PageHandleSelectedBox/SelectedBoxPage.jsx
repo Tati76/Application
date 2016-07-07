@@ -1,7 +1,7 @@
 import { InholdInfoDb } from '../../../imports/api/inholdinfodb.js';
 
 
-BoxContentSelectedBox = React.createClass({
+SelectedBoxContent = React.createClass({
 	mixins: [ReactMeteorData],
 
 	getMeteorData: function () 
@@ -46,12 +46,14 @@ BoxContentSelectedBox = React.createClass({
 	getInitialState(){
 		return{
 			attributeToSearch : "_id",
-			searchValue : ""
+			searchValue : "",
+			language : this.props.language,
+			index : this.props.index
 		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-
+		this.setState({index : nextProps.index, language : nextProps.language});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -93,7 +95,7 @@ BoxContentSelectedBox = React.createClass({
 	{
 		console.log("Rendering InfoDisplayer");
 		return(
-			<InfoDisplayer currentBoxId={this.props.boxId} />
+			<InfoDisplayer currentBoxId={this.props.boxId} language={this.state.language} index={this.state.index} boxObject={this.data.sample}/>
 		);
 
 	},
@@ -119,20 +121,20 @@ BoxContentSelectedBox = React.createClass({
 						{this.data.sample? this.renderInfoDisplayer() : <p> Loading... </p>}
 					</div>
 					<div className="col-lg-6">
-						<form className="form-inline ">
-							<p> Search Content </p>
-						  	<div className="form-group center-block">
-							    <select className="form-control input" onClick={this.clickSelect}>
-									{this.data.list? this.data.list.map(this.renderOptions) : <option> Loading... </option>}
-								</select>
+							<h2 className="text-center"> Search Content </h2>
+							<form className="form-inline ">
+							  	<div className="form-group ">
+								    <select className="form-control input" onClick={this.clickSelect}>
+										{this.data.list? this.data.list.map(this.renderOptions) : <option> Loading... </option>}
+									</select>
 
-							    <input type="text" className="form-control" id="exampleInputEmail2" placeholder="Search Content (Not Dynamic)" onChange={this.searchChanged}/>
-						  	
-							  	<button type="button" className="btn btn-default">
-								  	<span className="glyphicon glyphicon-search" aria-hidden="true"></span>
-								</button>
+								    <input type="text" className="form-control" id="exampleInputEmail2" placeholder="Search Content (Not Dynamic)" onChange={this.searchChanged}/>
+							  	
+								  	<button type="button" className="btn btn-default">
+									  	<span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+									</button>
 
-							</div>
+								</div>
 						</form>
 						<div className="container-fluid">
 							<div className="list-group">
@@ -142,6 +144,8 @@ BoxContentSelectedBox = React.createClass({
 						</div>
 					</div>
 				</div>
+				{this.data.sample? <BorrowingForm language={this.state.language} index={this.state.index} submit={false} boxObject={this.data.sample}/> : <p> Loading </p>}
+
 			</div>
 
 		);

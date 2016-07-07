@@ -115,7 +115,7 @@ EditableInfoDisplayer = React.createClass({
 
 		
 			return(
-				<div className="container-flux">
+				<div className="container-fluid">
 					<h2 className="text-center"> Info Displayer (Not dynamic)</h2>
 					<form>
 						<table border="1" className="table table-bordered">

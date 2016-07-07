@@ -76,7 +76,7 @@ InfoDisplayer = React.createClass({
 		{
 			return( // has to implement the save disable
 				<div className="container-fluid" style={{"border":"1px solid black","paddingLeft" : "30px","paddingRight" : "30px"}}>
-					<LendBox currentBoxId={this.props.currentBoxId} onClick={this.handleClick}/>
+					<BorrowingForm language={this.props.language} index={this.props.index} boxObject={this.props.boxObject} submit={false} onClick={this.handleClick}/>
 				</div>
 			);
 		}

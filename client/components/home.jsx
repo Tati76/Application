@@ -45,7 +45,7 @@ Home = React.createClass({
 		}
 		console.log(path);
 	  var res = path.concat("/InholdInfo");
-	  var res2 = path.concat("/Search");
+	  var res2 = path.concat("/LoadCruiseNr");
 	  var res3 = path.concat("/SeeBoxes");
 	  //console.log(require("./languages/Settings.json").setups[this.props.index].pageHome.hasOwnProperty("buttons"));
 

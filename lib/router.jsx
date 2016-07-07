@@ -14,13 +14,19 @@ FlowRouter.route('/:language/:index/SeeBoxes', {
 
 FlowRouter.route('/:language/:index/SeeBoxes/:id', {  
   action(params, queryParams) {
-   mount(MainLayout, { content: <BoxContentSelectedBox language={params.language} index={params.index} boxId={params.id}/>});
+   mount(MainLayout, { content: <SelectedBoxContent language={params.language} index={params.index} boxId={params.id}/>});
   }
 });
 
 FlowRouter.route('/:language/:index/SeeBoxes/:id/AddContent', {  
   action(params, queryParams) {
    mount(MainLayout, { content: <AddContentToBox language={params.language} index={params.index} boxId={params.id}/>});
+  }
+});
+
+FlowRouter.route('/:language/:index/LoadCruiseNr', {  
+  action(params, queryParams) {
+   mount(MainLayout, { content: <CruiseSearch language={params.language} index={params.index} boxId={params.id}/>});
   }
 });
 

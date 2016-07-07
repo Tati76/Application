@@ -7,7 +7,7 @@
 	RQ : Problemes pour charger le fichier JSON dans le programme, finalement on utilise "import boxFile from '../Boxes/BoxesInfo.json';" pour importer le fichier
 		après beaucoup d'erreurs cela marche.
 
-- Creation des pages d'ajout de contenu pour une boite selectionnée
+- Creation des pages d'ajout de contenu "AddContent" pour une boite selectionnée
 
 	RQ :Attention à componentWillReceiveProps dans lequel un setstate doit prendre nextProps !!!!
 
@@ -23,3 +23,22 @@
 - On peut emprunter la boite selectionnée 
 - On peut ajouter un conteneur à See Boxes
 - Le print nous reconduit directement vers la page de la boite créée
+
+06.07.2016
+
+- Création d'une page pour chercher les ToktNr 
+- Réflexion sur un moyen d'implémenter cette recherche dans des Forms (peut etre en mettant un form à l'intérieur d'un autre form) 
+	et réflexion sur la création d'un dossier forms dans lequel il y aurait tous les Forms que l'on utilise dans le programme et ceux-ci prendraient en compte
+	le changement de langue, la recherche du toktNr et aussi la vérification des bons types (int, string ...etc) dans les forms.
+	Cette vérification peut etre faite grace à un JSON dans lequel on met le type de chaque donnée, ou sinon on peut implémenter un nouvel attribut dans 
+	le JSON existant et mettre une fonction qui vérifie à chaque submit le bon type et renvoi des inputs rouges et vides pour les cases qui sont mal remplies.
+
+
+07.07.2016
+
+- Modification du fichier BoxesInfo.JSON dans lequel on a rajouté "oblidge","warning","dataType" qui pour chaque formulaire nous permet de determiner les données obligatoires et les 		autres.
+
+- Création du premier form dynamique qui est le "BorrowingForm", il affiche des inputs de différentes couleurs en fonction de si l'information est 
+	entrée ou pas et si elle est importante. Le form peut aussi gérer le changement de langue ! Dans chaque form il y aura un bouton pour mettre des fonctions internes au component mais aussi pour éviter de lancer une fonction qui ne peut pas de finir, comme l'update de la db à cause du coté asynchrone du changement de props que cela induirait si on ne mettait pas de boutons dans le form. On peut donc attacher une fonction des le clic du bouton dans le form et à la fin de cette fonction "this.props.onClick(event)" permet au parent de recevoir le clic.
+
+	RQ : Création d'une nouvelle fonction pour transformer une date en string efficace, voir pour un fichier où pourraient être toutes les fonctions utilisées dans le programme.
