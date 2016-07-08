@@ -4,8 +4,22 @@ CruiseSearch= React.createClass({
 		var tempArray = [];
 		return {
 			year : "",
-			ship : ""
+			ship : "",
+			startTime : new Date(),
+			stopTime : new Date(),
+			chosenDate : new Date()
 		};
+	},
+
+	dateInBetween(date)
+	{
+		if (date >= this.state.startTime && date <= this.state.stopTime)
+		{
+			return "true";
+		}
+		else{
+			return "false";
+		}
 	},
 
 	getXMLHttpRequest:function () {
@@ -30,16 +44,23 @@ CruiseSearch= React.createClass({
 	},
 
 
-	makeXMLHttpRequest : function(url,callback)
+	makeXMLHttpRequest : function(url,callback,dataType)
 	{
 		var xhr = this.getXMLHttpRequest();
 
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 				console.log("OK"); // C'est bon \o/
-				console.log(xhr.responseText); // Données textuelles récupérées		
-				callback(xhr.responseText);
-				return JSON.parse(xhr.responseText);
+				switch(dataType)
+				{
+					case "json" :
+					callback(JSON.parse(xhr.responseText));
+					case "XML" : 
+					callback(xhr.responseXML);
+				}
+				//console.log(xhr.responseText); // Données textuelles récupérées		
+				//callback(xhr.responseXML);
+				//return JSON.parse(xhr.responseText);
 			}
 		};
 
@@ -50,7 +71,21 @@ CruiseSearch= React.createClass({
 	},
 
 	readData: function(sData) {
-		console.log(JSON.parse(sData));
+		console.log(sData);
+    	var startTime = sData.getElementsByTagName("startTime")[0].childNodes[0].nodeValue;
+    	var stopTime = sData.getElementsByTagName("stopTime")[0].childNodes[0].nodeValue;
+    	console.log(startTime);
+    	console.log(typeof startTime);
+    	var tempStartDate = new Date(startTime);
+    	console.log(tempStartDate);
+    	console.log(stopTime);
+    	console.log(typeof stopTime);
+    	var tempStopDate = new Date(stopTime);
+    	this.setState({startTime : tempStartDate, stopTime : tempStopDate});
+    	console.log(tempStopDate);
+    	console.log(tempStartDate.getDate() - tempStopDate.getDate());
+		console.log(typeof sData);
+		
 		//this.setState({toktFileObject : JSON.parse(sData), toktFileArray : JSON.parse(sData).slice()});
 		
 		// On peut maintenant traiter les données sans encombrer l'objet XHR.
@@ -60,8 +95,9 @@ CruiseSearch= React.createClass({
 
 	handleClick: function(event)
 	{
-		console.log(this.makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData));
+		//this.makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData,"json");
 		//this.makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y/2016",this.readData);
+		this.makeXMLHttpRequest("http://tomcat7-test.imr.no:8080/apis/nmdapi/cruise/v1/Forskningsfart%C3%B8y/2016/Dr%20Fridtjof%20Nansen-LGWS/4-2016-1172-1",this.readData,"XML");
 		
 	},
 
@@ -97,6 +133,14 @@ CruiseSearch= React.createClass({
 		}
 	},
 
+	dateChange(event)
+	{
+		console.log(event.target.value);
+		console.log(typeof event.target.value);
+		console.log(new Date(event.target.value));
+		this.setState({chosenDate : new Date(event.target.value)});
+	},
+
 	render(){
 		console.log("render CruiseSearch");
 		return(
@@ -104,6 +148,9 @@ CruiseSearch= React.createClass({
 				<YearSelectComponent onClick={this.onYearClick}/>
 				<ShipSelectComponent year={this.state.year} onClick={this.onShipClick}/>
 				<CruiseDisplayComponent year={this.state.year} ship={this.state.ship}/>
+				<button onClick={this.handleClick}> CLick </button>
+				<input type="date" id="myDate" onChange={this.dateChange}/>
+				<p> Date in between : {this.dateInBetween(this.state.chosenDate)} </p>
 			</div>
 		);
 	}
