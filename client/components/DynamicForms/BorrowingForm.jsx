@@ -31,13 +31,13 @@ BorrowingForm = React.createClass({
 			}
 			else if(this.refs[i].value == "" && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
 			{
-				tempErrorArray.push(2)
+				tempErrorArray.push(2);
 			}
 			else{
 				tempErrorArray.push(1);
 			}
 		}
-		this.setState({errorArray : tempErrorArray.slice()})
+		this.setState({errorArray : tempErrorArray.slice()});
 
 		return errorSpotted;
 	},

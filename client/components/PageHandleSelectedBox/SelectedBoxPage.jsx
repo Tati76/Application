@@ -144,8 +144,6 @@ SelectedBoxContent = React.createClass({
 						</div>
 					</div>
 				</div>
-				{this.data.sample? <BorrowingForm language={this.state.language} index={this.state.index} submit={false} boxObject={this.data.sample}/> : <p> Loading </p>}
-
 			</div>
 
 		);

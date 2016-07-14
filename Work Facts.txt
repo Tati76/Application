@@ -42,3 +42,18 @@
 	entrée ou pas et si elle est importante. Le form peut aussi gérer le changement de langue ! Dans chaque form il y aura un bouton pour mettre des fonctions internes au component mais aussi pour éviter de lancer une fonction qui ne peut pas de finir, comme l'update de la db à cause du coté asynchrone du changement de props que cela induirait si on ne mettait pas de boutons dans le form. On peut donc attacher une fonction des le clic du bouton dans le form et à la fin de cette fonction "this.props.onClick(event)" permet au parent de recevoir le clic.
 
 	RQ : Création d'une nouvelle fonction pour transformer une date en string efficace, voir pour un fichier où pourraient être toutes les fonctions utilisées dans le programme.
+
+
+12.07.2016
+
+- Mise en place d'un fichier qui répertorie les functions à utiliser, ces fonctions sont ensuite importés dans le component qui en a besoin.
+- Découverte et utilisation d'un select avec choix multiple.
+- Adaptation du select à choix multiple dans les components pour trouver le toktNr en cours.
+- Correction du fichier BoxesInfo.json pour avoir une orthographe correcte.
+
+
+14.07.2016
+
+-fin des problemes de chargement asynchrone qui n'affichaient pas toutes les dates et bateaux avec
+- Probleme pour gérer les values des différents select et donc aussi impossibilité de gérer la suppression d'une année sur le select du dessous avec les bateaux... etc
+	Voir comment on peut changer les values dans les selects.

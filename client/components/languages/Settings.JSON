@@ -2,6 +2,9 @@
 	"languages": ["Norsk", "English"],
 	"setups": [{
 		"language": "Norsk",
+		"selectComponent": {
+			"wait" : "Velg fra listen"
+		},
 		"header": {
 			"text" : "Lagrings System"
 		},
@@ -139,13 +142,15 @@
 				"edit" : "Redigere",
 				"lend" : "Låne Box" 
 			}
-
 		},
 		"footer": {
 			"text" : "Havforskningsinstituttet"
 		}
 	}, {
 		"language": "English",
+		"selectComponent": {
+			"wait" : "Choose from list"
+		},
 		"header": {
 			"text" : "Backup System"
 		},

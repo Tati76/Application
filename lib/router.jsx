@@ -12,6 +12,12 @@ FlowRouter.route('/:language/:index/SeeBoxes', {
   }
 });
 
+FlowRouter.route('/:language/:index/AddBox', {  
+  action(params, queryParams) {
+   mount(MainLayout, { content: <AddBox language={params.language} index={params.index}/>});
+  }
+});
+
 FlowRouter.route('/:language/:index/SeeBoxes/:id', {  
   action(params, queryParams) {
    mount(MainLayout, { content: <SelectedBoxContent language={params.language} index={params.index} boxId={params.id}/>});

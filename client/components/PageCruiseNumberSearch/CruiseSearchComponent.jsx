@@ -1,4 +1,4 @@
-CruiseSearch= React.createClass({
+CruiseSearch = React.createClass({
 	getInitialState(){
 		var tempObject = {};
 		var tempArray = [];
@@ -92,7 +92,6 @@ CruiseSearch= React.createClass({
 		
 	},
 
-
 	handleClick: function(event)
 	{
 		//this.makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData,"json");
@@ -145,14 +144,15 @@ CruiseSearch= React.createClass({
 		console.log("render CruiseSearch");
 		return(
 			<div className='container-fluid'>
-				<YearSelectComponent onClick={this.onYearClick}/>
-				<ShipSelectComponent year={this.state.year} onClick={this.onShipClick}/>
-				<CruiseDisplayComponent year={this.state.year} ship={this.state.ship}/>
 				<button onClick={this.handleClick}> CLick </button>
 				<input type="date" id="myDate" onChange={this.dateChange}/>
 				<p> Date in between : {this.dateInBetween(this.state.chosenDate)} </p>
+				<DynamicForm language={this.props.language} index={this.props.index} info={[["Date","Ship","Cruise Number"],[true,false,true]]}/>
 			</div>
 		);
 	}
 });
 
+// <YearSelectComponent onClick={this.onYearClick}/>
+// 				<ShipSelectComponent year={this.state.year} onClick={this.onShipClick}/>
+// 				<CruiseDisplayComponent year={this.state.year} ship={this.state.ship}/>
