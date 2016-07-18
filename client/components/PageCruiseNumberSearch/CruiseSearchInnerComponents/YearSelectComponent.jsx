@@ -22,6 +22,7 @@ YearSelectComponent= React.createClass({
 		var tempArray = [];
 		return {
 			yearFile : tempObject,
+			clearAll : false
 		};
 	},
 
@@ -39,7 +40,7 @@ YearSelectComponent= React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-
+		// console.log("YearSelectComponent receives props, N1");
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -48,13 +49,13 @@ YearSelectComponent= React.createClass({
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 
-
+		// console.log("YearSelectComponent did update, N1");
 	},
 
 	handleValue(argument)
 	{
-		console.log("YearSelectComponent change value :");
-		console.log(argument);
+		// console.log("YearSelectComponent change value :");
+		// console.log(argument);
 		this.props.giveValue(argument);
 	},
 
@@ -65,11 +66,16 @@ YearSelectComponent= React.createClass({
 		);
 	},
 
+	clearAll()
+	{
+		this.setState({clearAll : true});
+	},
+
 	render(){
 
 		return(
 			<div className='container-fluid'>
-				{this.state.yearFile? <MultiSelectField incomingData={this.state.yearFile} giveValue={this.handleValue} /> : <p> Loading </p>}
+				{this.state.yearFile? <MultiSelectField clearAll={this.state.clearAll} incomingData={this.state.yearFile} giveValue={this.handleValue} doRemove={[false,""]}/> : <p> Loading </p>}
 			</div>		
 		);
 		

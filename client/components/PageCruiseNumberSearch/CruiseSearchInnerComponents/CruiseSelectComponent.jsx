@@ -10,8 +10,6 @@ CruiseSelectComponent= React.createClass({
 		if (prop.shipList)
 		{
 			var tempUrlArray = [];
-			// console.log"prop.shipList");
-			// console.logprop.shipList);
 			for(var i = 0 ; i<prop.shipList.length ; i++)
 			{
 				tempUrl = "http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y/";
@@ -20,21 +18,14 @@ CruiseSelectComponent= React.createClass({
 				tempUrl += encodeURI(prop.shipList[i].ship);
 				tempUrlArray.push(tempUrl);
 			}
-			// console.log'tempUrlArray');
-			// console.logtempUrlArray);
-			this.setState({urlArray : tempUrlArray.slice()},function(){this.makeAllXMLHttpRequests();});//// console.logthis.state.urlArray); 
-			// makeXMLHttpRequest(tempUrlArray[0],this.readData)
+			this.setState({urlArray : tempUrlArray.slice()},function(){this.makeAllXMLHttpRequests();});
 		}
 	},
 
 	makeAllXMLHttpRequests() //step 2
 	{	
-		// console.log"CruiseSelectComponent, makeAllXMLHttpRequests");
-		// console.logthis.state.urlArray);
 		for (var i = 0 ; i< this.state.urlArray.length ; i++)
 		{
-			// console.logthis.state.urlArray[i]);
-			// console.logthis.state.shipList[i].ship);
 			if (i == this.state.urlArray.length -1 )
 			{
 				makeXMLHttpRequest(this.state.urlArray[i],this.readData,[String(this.state.shipList[i].year) + " " + this.state.shipList[i].ship,true]);
@@ -47,88 +38,115 @@ CruiseSelectComponent= React.createClass({
 	},
 
 	readData: function(sData,option) {//step 3
-		
-		// var tempNameArray = [];
-		// // console.logoption);
-		// for (var i = 0 ; i<JSON.parse(sData).length ; i++)
-		// {
-		// 	tempNameArray.push({name : JSON.parse(sData)[i].name});
-		// }
-		// console.logoption);
-		// console.logthis.state.allCruise);
+
+		var tempCount = this.state.counter+1;
+		this.setState({counter : tempCount});
+
 		var tempAllCruise = this.state.allCruise;
-		// console.logtempAllCruise);
-		tempAllCruise.push({data : JSON.parse(sData), value : option[0]});
-		// console.log"READ DATA CRUISE");
-		// console.logJSON.parse(sData));
-		// console.logoption[1]);
-		if (option[1])
+
+		tempAllCruise.push({data : JSON.parse(sData), value : option[0],cruise : option[0]});
+
+		if (this.state.counter == this.state.urlArray.length) // if all the XMLHttpRequests are made
 		{
-			this.setState({allCruise : tempAllCruise.slice()},function(){this.createDisplayArray();});//console.log(this.state.allCruise);
+			this.setState({allCruise : tempAllCruise.slice(), counter : 0},function(){this.createDisplayArray();});
 		}
 		else{
-			this.setState({allCruise : tempAllCruise.slice()},function(){});//console.log(this.state.allCruise);});
+			this.setState({allCruise : tempAllCruise.slice()},function(){});
 		}
-		// console.log("readData finished");
-
-		// this.setState({cruiseFile : JSON.parse(sData), nameArray : tempNameArray.slice()});
-		// On peut maintenant traiter les données sans encombrer l'objet XHR.
-		// return JSON.parse(sData);
 		
 	},
 
 	createDisplayArray() //step 4
 	{
-		// console.log"shipList");
-		// console.logthis.state.shipList);
-		var tempCruiseArray = [];
-		for(var i = 0 ; i< this.state.shipList.length ; i++) // get all the ships selected
-		{	
-			tempCruiseArray.push({value : this.state.allCruise[i].value, name : this.state.allCruise[i].value , disabled: true,color : "red"}); // add the boat & the year
-			for (var a = 0 ; a<this.state.allCruise[i].data.length ; a++) // going through all the cruise nr
-			{
-				tempCruiseArray.push({value : this.state.allCruise[i].data[a].name, name : this.state.allCruise[i].data[a].name});
+		if("data" in this.state.allCruise[0])
+		{
+			var tempCruiseArray = [];
+			for(var i = 0 ; i< this.state.shipList.length ; i++) // get all the ships selected
+			{	
+				tempCruiseArray.push({value : this.state.allCruise[i].value, name : this.state.allCruise[i].value , disabled: true,color : "red", cruise : this.state.allCruise[i].value}); // add the boat & the year
+				for (var a = 0 ; a<this.state.allCruise[i].data.length ; a++) // going through all the cruise nr
+				{
+					tempCruiseArray.push({value : this.state.allCruise[i].data[a].name, name : this.state.allCruise[i].data[a].name, cruise : this.state.allCruise[i].value });
+				}
 			}
+			this.setState({ displayArray : tempCruiseArray.slice(),loading : false});
 		}
-
-		// console.logtempCruiseArray);
-		this.setState({allCruise : tempCruiseArray.slice()});
 	},
 
 	getInitialState(){
 
 		return {
 			allCruise : [],
-			yearList : [],
-			shipList : []
+			yearList : this.props.yearList,
+			shipList : this.props.shipList,
+			remove : false,
+			labelsToRemove : [],
+			loading : true,
+			currentDisplayedValues : [],
+			counter : 0,
+			displayArray : []
 		};
 	},
 
 	componentDidMount()
 	{
-		// makeXMLHttpRequest(this.state.url,this.readData);
-		// this.makeAllUrls(this.props);
 		
 	},
 
-	componentWillReceiveProps: function(nextProps) {
-		// console.log"new PROPSPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP");
-		// console.lognextProps.shipList);
-		console.log(nextProps.shipList);
-		if(nextProps.shipList)
+	isExistingShip : function(state,prop)
+	{
+		var res = false;
+		for( var a = 0 ; a < prop.length ; a++)
 		{
-			this.setState({shipList : nextProps.shipList.slice(),yearList : nextProps.yearList.slice()});
+			if(state.cruise.slice(5,state.cruise.length) == prop[a].ship) // if the cruise number is not corresponding to a cruise currently available
+			{
+				res = true;
+			}
+		}
+		return res;
+	},
+
+
+	removeUnexistingCruise : function(nextProps)
+	{ 
+		// find all the cruises that doesn't exist anymore
+		var listToRemove = [];
+		for( var i = 0 ; i<this.state.allCruise.length ; i++)
+		{
+			if(!this.isExistingShip(this.state.allCruise[i],nextProps.shipList))
+			{
+				listToRemove.push(this.state.allCruise[i].name); // get the name of the cruise that are not existing
+			}
+		}
+
+		return listToRemove;
+		// console.log(listToRemove);
+	},
+
+	componentWillReceiveProps: function(nextProps) {
+		// console.log("CruiseSelectComponent receives props, N3");
+
+		this.setState({labelsToRemove : this.removeUnexistingCruise(nextProps),remove : true}); // remove the labels
+		
+		if(nextProps.shipList.length > 0 && nextProps.shipList[0] != "") // if there are some ships
+		{
+			this.setState({shipList : nextProps.shipList.slice(),yearList : nextProps.yearList.slice()}); 
 			this.setState({allCruise : []},function(){this.makeAllUrls(nextProps);});
 		}
 
-		// this.setState({
-		// 	year : nextProps.year,
-		// 	url : tempUrl,
-		// 	ship : nextProps.ship
-		// });
-		// makeXMLHttpRequest(tempUrl,this.readData,"hello");
-		//the cruiseFile will change when the component did mount
-
+		else //if no ships
+		{
+			this.setState({
+				allCruise : [],
+				yearList : this.props.yearList,
+				shipList : [],
+				remove : false,
+				labelsToRemove : [],
+				currentDisplayedValues : [],
+				loading : true,
+				displayArray : []
+			});
+		}
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -136,27 +154,61 @@ CruiseSelectComponent= React.createClass({
 		return shallowCompare(this, nextProps, nextState);
 	},
 
-	componentDidUpdate: function(prevProps, prevState){ 
-		// console.log"old props");
-		// console.logthis.state.allCruise);
-		// console.logthis.state.shipList);
+	componentDidUpdate: function(prevProps, prevState){
+		// console.log("CruiseSelectComponent did update, N3");
+		// console.log("allCruise",this.state.allCruise);
+		// console.log("currentDisplayedValues", this.state.currentDisplayedValues);
+	},
+
+	findCruise(cruiseNr,allCruise)
+	{
+		var cruiseName = "";
+		for(var a = 0 ; a<allCruise.length ; a++)
+		{
+			for(var b = 0 ; b<allCruise[a].data.length ; b++)
+			{
+				if(allCruise[a].data[b].name == cruiseNr)
+				{
+					cruiseName = allCruise[a].cruise;
+					return cruiseName;
+				}
+			}
+		}
+		return cruiseName;
 	},
 
 	handleGiveValue(arg)
 	{
-		this.props.giveValue(arg);
+		// console.log(this.state.allCruise);
+		if(arg == null) 
+		{
+			this.setState({currentDisplayedValues : []});
+			this.props.giveValue([]);
+		}
+		else if (arg.length > 0)
+		{
+			var tempResponse = [];
+			for(var i=0; i<arg.split(",").length ; i++) // for each cruiseNr selected, we try to find the cruiseName linked to it
+			{
+				tempResponse.push({cruiseNr : arg.split(",")[i], cruise : this.findCruise(arg.split(",")[i],this.state.allCruise)});
+			}
+			this.setState({currentDisplayedValues : arg.split(",")});
+			this.props.giveValue(tempResponse);
+		}
 	},
 
-
+	handleRemoveState(arg)
+	{
+		if(arg[0]) // the labels have been removed
+		{
+			this.setState({remove : false, currentDisplayedValues: arg[1].split(",")});
+		}
+	},
 
 	render(){
-		// // console.log'render ShipSelectComponent');
-		// // console.log"this.state.cruiseFile");
-		// // console.logthis.state.cruiseFile);
-		
 			return(
 				<div className='container-fluid'>
-					<MultiSelectField incomingData={this.state.allCruise} giveValue={this.handleGiveValue}/>
+					<MultiSelectField incomingData={this.state.displayArray} loading={this.state.loading} giveValue={this.handleGiveValue} valuesRemoved={this.handleRemoveState} doRemove={[this.state.remove,this.state.labelsToRemove]}/>
 				</div>		
 			);
 		

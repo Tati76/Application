@@ -18,18 +18,70 @@ DynamicForm = React.createClass({
 		var errorSpotted = false;
 		for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
 		{
-			if (this.refs[i].value == "" && this.state.obligedFields[i]) // Case not filled as obliged to (error)
+			if(this.state.cruiseSearch[i] == 1)
 			{
-				tempErrorArray.push(3);
-				errorSpotted = true;
+				if (this.state.yearList.length <1 && this.state.obligedFields[i]) // no cruise & obliged
+				{
+					tempErrorArray.push(3);
+					errorSpotted = true;
+				}
+				else if(this.state.yearList.length <1 && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+				{
+					tempErrorArray.push(2);
+				}
+				else
+				{
+					tempErrorArray.push(1);
+				}
 			}
-			else if(this.refs[i].value == "" && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+			else if (this.state.cruiseSearch[i] == 2)
 			{
-				tempErrorArray.push(2);
+				if (this.state.shipList.length <1 && this.state.obligedFields[i]) // no cruise & obliged
+				{
+					tempErrorArray.push(3);
+					errorSpotted = true;
+				}
+				else if(this.state.shipList.length <1 && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+				{
+					tempErrorArray.push(2);
+				}
+				else
+				{
+					tempErrorArray.push(1);
+				}
 			}
-			else{
-				tempErrorArray.push(1);
+			else if(this.state.cruiseSearch[i] == 3)
+			{
+				if (this.state.cruiseList.length <1 && this.state.obligedFields[i]) // no cruise & obliged
+				{
+					tempErrorArray.push(3);
+					errorSpotted = true;
+				}
+				else if(this.state.cruiseList.length <1 && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+				{
+					tempErrorArray.push(2);
+				}
+				else
+				{
+					tempErrorArray.push(1);
+				}
 			}
+			else
+			{
+				if (this.refs[i].value == "" && this.state.obligedFields[i]) // Case not filled as obliged to (error)
+				{
+					tempErrorArray.push(3);
+					errorSpotted = true;
+				}
+				else if(this.refs[i].value == "" && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+				{
+					tempErrorArray.push(2);
+				}
+				else{
+					tempErrorArray.push(1);
+				}
+			}
+			
 		}
 		this.setState({errorArray : tempErrorArray.slice()});
 
@@ -49,10 +101,12 @@ DynamicForm = React.createClass({
 			toDisplay : this.props.info[0],
 			errorArray : tempErrorArray.slice(),
 			obligedFields : this.props.info[1],
-			yearList : null,
-			shipList : null,
+			cruiseSearch : this.props.info[2],
+			yearList : [],
+			shipList : [],
 			year : "",
-			ship : ""
+			ship : "",
+			cruiseList : []
 		};
 	},
 
@@ -66,48 +120,124 @@ DynamicForm = React.createClass({
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 
+		console.log("**************************************************");
+		console.log("yearList : ",this.state.yearList);
+		console.log("shipList : ",this.state.shipList);
+		console.log("cruiseList : ",this.state.cruiseList);
+		console.log("**************************************************");
+	},
 
+	isInYearList(yearList,ship)
+	{
+		var res = false;
+		for(var a = 0; a < yearList.length ; a++)
+		{
+			if(ship.year == yearList[a])
+			{
+				res = true;
+			}
+		}
+		return res;
 	},
 
 	handleYearList(arg)
 	{
-		console.log("In the form year list is equal to :");
-		console.log(arg);
+		// console.log("In the form year list is equal to :");
+		// console.log(arg);
 		//this.setState({yearList : arg.split(",").slice()},function(){console.log(this.state.yearList);});
-		if(!arg)
+		if(!arg) // if no year
 		{
-			this.setState({yearList : null, shipList : null },function(){console.log("yearlist : ",this.state.yearList);console.log("shipList", this.state.shipList);});
+			this.setState({yearList : [], shipList : [] },function(){});//console.log("yearlist : ",this.state.yearList);console.log("shipList", this.state.shipList);});
 		}
-		else
+		else // if some years selected
 		{
-			this.setState({yearList : arg.split(",").slice()},function(){console.log("yearlist : ",this.state.yearList);console.log("shipList", this.state.shipList);});
+			var tempShipList = this.state.shipList;
+			var tempShipListNameArray = [];
+			for(var i = 0 ; i< tempShipList.length ; i++) // delete the ships that are not in the yearList
+			{
+				if(!this.isInYearList(arg.split(","),tempShipList[i]))
+				{
+					tempShipList.splice(i,1); // delete the ship
+					i=i-1;
+				}
+				else
+				{
+					tempShipListNameArray.push(String(tempShipList[i].year + " " + tempShipList[i].ship));
+				}
+			}
+
+			this.setState({yearList : arg.split(",").slice()},function(){this.handleShipList(tempShipListNameArray);});//console.log("yearlist : ",this.state.yearList);console.log("shipList", this.state.shipList);this.handleShipList(tempShipListNameArray)});
 		}
 	},
 
 	handleShipList(arg)
 	{
-		console.log("In the form ship list is equal to :");
-		console.log(arg);
+		// console.log("In the form ship list is equal to :");
+		// console.log(arg);
+		var tempArg = arg;
 		var tempShipList = [];
-		if (arg)
+		if (arg!== null)
 		{
-				for (var i = 0 ; i<arg.split(",").length ; i++)
+			if(arg.length >0 ) // if some ships selected
 			{
-				tempShipList.push({year : arg.split(",")[i].slice(0,4) , ship : arg.split(",")[i].slice(5,arg.length)});
+				
+
+				for (var i = 0 ; i<tempArg.length ; i++) 
+				{
+					if(!this.isInYearList(this.state.yearList,{year : tempArg[i].slice(0,4)})) // delete the ships that are not allowed
+					{
+						tempArg.splice(i,1); // delete the ship
+						i=i-1;
+					}
+					else
+					{
+						tempShipList.push({year : tempArg[i].slice(0,4) , ship : tempArg[i].slice(5,tempArg[i].length)});
+					}
+					
+				}
+				// console.log(tempShipList);
+				this.setState({shipList : tempShipList},function(){this.handleCruiseList(this.state.cruiseList);});//console.log(this.state.shipList);this.handleCruiseList(this.state.cruiseList)});
 			}
-			// console.log(tempShipList);
-			this.setState({shipList : tempShipList},function(){console.log(this.state.shipList);});
+			else{
+				this.setState({shipList : []},function(){});//console.log(this.state.shipList);});
+			}
 		}
-		else{
-			this.setState({shipList : []},function(){console.log(this.state.shipList);});
+		else
+		{ // if no ship selected
+			this.setState({shipList : []},function(){});//console.log(this.state.shipList);});
 		}
 		
 	},
 
+	isInShipList(inCruise,shipList)
+	{
+		var response = false;
+		var tempCruiseName = "";
+		for(var a = 0 ; a< shipList.length ; a++)
+		{
+			tempCruiseName = shipList[a].year + " " + shipList[a].ship;
+			if(inCruise == tempCruiseName)
+			{
+				response = true;
+			}
+		}
+		return response;
+	},
+
 	handleCruiseList(arg)
 	{
-		console.log("In the form cruise list is equal to :");
-		console.log(arg);
+		var tempCruiseList = [];
+		// verify if the cruiseNr is from the ships in shipList
+		for(var i = 0 ; i<arg.length ; i++)
+		{
+			if(this.isInShipList(arg[i].cruise,this.state.shipList)) // existing cruise so the cruiseNr has to be added to the response array
+			{
+				tempCruiseList.push(arg[i]);
+			}
+		}
+		// console.log("In the form cruise list is equal to :");
+		// console.log(arg);
+		this.setState({cruiseList : tempCruiseList.slice()});
 	},
 
 	renderForm: function(input,index)
@@ -131,7 +261,7 @@ DynamicForm = React.createClass({
 		        break;
 		}
 
-		if (input == "Date" || input == "Dato")
+		if (this.state.cruiseSearch[index] == 1)
 		{
 			return(
  			<div className={errorMessage.concat(" form-group")} key={index}>
@@ -142,7 +272,7 @@ DynamicForm = React.createClass({
 				</div>
 			);
 		}
-		else if( input == "Ship" || input == "Fartøy")
+		else if(this.state.cruiseSearch[index] == 2)
 		{
 			
 			return(
@@ -154,7 +284,7 @@ DynamicForm = React.createClass({
 				</div>
 			);
 		}
-		else if( input=="Cruise Nur" || input == "ToktNer")
+		else if(this.state.cruiseSearch[index] == 3)
 		{
  			return(
  			<div className={errorMessage.concat(" form-group")} key={index}>
@@ -177,7 +307,7 @@ DynamicForm = React.createClass({
 		}
 	},
 
-	handleClick(event)
+	handleClick(event) //render
 	{
 		if(!this.isErrorOnField())
 		{
@@ -187,8 +317,8 @@ DynamicForm = React.createClass({
 				tempResponse[this.refs["l"+i].value] = this.refs[i].value;
 			}
 
-			console.log(tempResponse);
-			console.log("Should set in the DB");
+			// console.log(tempResponse);
+			// console.log("Should set in the DB");
 		}
 		
 	},

@@ -21,7 +21,7 @@ MultiSelectField = React.createClass({
 		label: React.PropTypes.string,
 	},
 	getInitialState () {
-		console.log(this.props.incomingData);
+		// console.log(this.props.incomingData);
 		if(this.props.incomingData)
 		{
 			return {
@@ -29,7 +29,8 @@ MultiSelectField = React.createClass({
 				crazy: false,
 				options: this.props.incomingData.slice(),
 				value: "",
-				loading : true
+				loading : true,
+				clearAll : false
 			};
 		}
 		else {
@@ -38,7 +39,8 @@ MultiSelectField = React.createClass({
 				crazy: false,
 				options: [{}],
 				value: "",
-				loading : this.props.loading
+				loading : this.props.loading,
+				clearAll : false
 			};
 		}
 		
@@ -55,10 +57,10 @@ MultiSelectField = React.createClass({
 		else{
 			this.setState({options : nextProps.incomingData.slice(),loading: nextProps.loading},function(){});// console.log(this.state.options);});
 		}
-		// if(nextProps.doRemove[0] && nextProps.doRemove[1].length >0)
-		// {
-		// 	this.removeValues(nextProps.doRemove[1]); // remove the values at the index of doRemove[1]
-		// }
+		if(nextProps.doRemove[0] && nextProps.doRemove[1].length >0)
+		{
+			this.removeValues(nextProps.doRemove[1]); // remove the values at the index of doRemove[1]
+		}
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -72,38 +74,41 @@ MultiSelectField = React.createClass({
 
 	handleSelectChange (value) {
 		// console.log('You\'ve selected:', value);
-		console.log("change made in multifield : ",value);
+		// console.log("change made in multifield : ",value);
+		// console.log(typeof value);
 		this.setState({ value });
 		// console.log(value);
 		// console.log(typeof value);
 		this.props.giveValue(value);
 	},
 
-	// removeValues(array)
-	// {
-	// 	var index = 0;
-	// 	var tempStateValueArray = this.state.value.split(",");
-	// 	for(var i = 0 ; i < array.length ; i++)
-	// 	{
-	// 		index = tempStateValueArray.indexOf(array[0]); // search the element 
-	// 		if (index > -1) { // delete the element
-	// 		    tempStateValueArray.splice(index, 1);
-	// 		}
-	// 	}
-	// 	var tempStateValueString = "";
-	// 	for(var i = 0 ; i < tempStateValueArray.length ; i++) // reform the value
-	// 	{
-	// 		tempStateValueString += tempStateValueArray[i];
+	removeValues(array)
+	{
+		var index = 0;
+		var tempStateValueArray = this.state.value.split(",");
+		for(var i = 0 ; i < array.length ; i++)
+		{
+			index = tempStateValueArray.indexOf(array[i]); // search the element 
 
-	// 		if(i != tempStateValueArray.length-1)
-	// 		{
-	// 			tempStateValueString += ",";
-	// 		}
-	// 	}
+			if (index > -1) 
+			{ // delete the element
+			    tempStateValueArray.splice(index, 1);
+			}
+		}
+		var tempStateValueString = "";
+		for(var i = 0 ; i < tempStateValueArray.length ; i++) // reform the value
+		{
+			tempStateValueString += tempStateValueArray[i];
 
-	// 	this.setState({value : tempStateValueString});
-	// 	this.props.valuesRemoved(true);
-	// },
+			if(i != tempStateValueArray.length-1)
+			{
+				tempStateValueString += ",";
+			}
+		}
+
+		this.setState({value : tempStateValueString});
+		this.props.valuesRemoved([true,tempStateValueString]);
+	},
 
 	renderOption: function(option) {
 		return <span style={{ "color": option.color }}>{option.name}</span>;
@@ -111,15 +116,15 @@ MultiSelectField = React.createClass({
 
 	inputChange(arg)
 	{
-		console.log("inputChange");
-		console.log(arg);
+		// console.log("inputChange");
+		// console.log(arg);
 	},
 
 	render () {
 		return (
 			<div className="section">
 				<h3 className="section-heading">{this.props.label}</h3>
-				<Select multi simpleValue value={this.state.value} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="value" onChange={this.handleSelectChange} />
+				<Select multi simpleValue value={this.state.value} disabled={false} clearable={true} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="value" onChange={this.handleSelectChange} />
 			</div>
 		);
 	}

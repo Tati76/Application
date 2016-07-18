@@ -57,3 +57,10 @@
 -fin des problemes de chargement asynchrone qui n'affichaient pas toutes les dates et bateaux avec
 - Probleme pour gérer les values des différents select et donc aussi impossibilité de gérer la suppression d'une année sur le select du dessous avec les bateaux... etc
 	Voir comment on peut changer les values dans les selects.
+
+
+18.07.2016
+- Enfin les select multiples marchent ! De gros problemes lors de la suppression des années qui n'etait pas prise en compte dans les selects du dessous,
+	mise en place de correction d'erreurs dans le dynamic form mais aussi dans tous les autres composants pour assurer une suppression dynamique sur les 3 niveaux de la recherche
+	de toktNummer ! Les valeurs collectées des differents selects sont un array d'années pour le choix d'années mais pour le choix du bateau et du ToktNummer c'est des array 
+	d'objets avec des informations necessaires pour la correction d'erreurs au niveau du dynamicForm. Quelle saloperie à coder ! 

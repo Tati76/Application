@@ -2,20 +2,21 @@
 	{
 		"id": 1,
 		"name": {
-			"Norsk": "Otolitt Stor Kartong Box",
+			"Norsk": "Otolitt Stor Kartong Boks",
 			"English": "Otolith Storage Box"
 		},
 		"forms" : {
 			"content" : {
-				"Norsk" : ["Sted","Dato","Fartøy","ToktNumer","Serie Numer","Fiske Arter","Toktnavn","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar"],
-				"English" : ["Place","Date","Ship","Cruise Number","Serie Number","Fish Species","Cruise Name","Station Number","Inholds Quantity","Volume","Box Number","Comments"],
+				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar"],
+				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments"],
+				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0],
 				"obliged" : [true,true,true,true,false,false,false,false,false,false,false,false],
 				"warning" : [true,true,true,true,false,true,false,false,false,false,false,false],
 				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text"]
 			},
 			"storage" : {
-				"Norsk" : ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle", "Posisjon","Komentar"],
-				"English" : ["City", "Adress", "Floor", "Room", "Locker", "Shelf", "Position","Comments"],
+				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap", "Hylle", "Posisjon","Kommentar"],
+				"English" : ["City", "Address", "Floor", "Room", "Locker", "Shelf", "Position","Comments"],
 				"obliged" : [true,true,false,false,false,false,false,false],
 				"warning" : [true,true,false,false,false,false,false,false],
 				"dataType" : ["text","text","text","text","text","text","text","text"]
@@ -36,20 +37,21 @@
 	}, {
 		"id": 2,
 		"name": {
-			"Norsk": "Liten Otolitt Box",
+			"Norsk": "Liten Otolitt Boks",
 			"English": "Otolith Little Box"
 		},
 		"forms" : {
 			"content" : {
-				"Norsk" : ["Sted","Dato","Fartøy","ToktNumer","Serie Numer","Fiske Arter","Toktnavn","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"],
-				"English" : ["Place","Date","Ship","Cruise Number","Serie Number","Fish Species","Cruise Name","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"],
+				"Norsk" : ["Sted","Dato","Fartøy","Toktummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
+				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
+				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [true,false,true,false,false,false,true,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
 				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
 			},
 			"storage" : {
-				"Norsk" : ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"],
-				"English" : ["City", "Adress", "Floor", "Room", "Locker", "Comments"],
+				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
+				"English" : ["City", "Address", "Floor", "Room", "Locker", "Comments"],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
 				"dataType" : ["text","text","text","text","text","text"]
@@ -72,19 +74,20 @@
 		"id": 3,
 		"name": {
 			"Norsk": "Otolitt Pose",
-			"English": "Otolith Sac"
+			"English": "Otolith Bag"
 		},
 		"forms" : {
 			"content" : {
-				"Norsk" : ["Numer.","Vekt i gram","Lengde","Kjønn","Alder","G.Alder","Stadium","G.Soner","Lesbarhet","M","Type","F","Rand","Leverv.","Gonadev.","Komentar","Inneholders Id"],
-				"English" : ["Number","Weight in gram","Length","Sex","Age","GAge","Stage","GSoner","Readability","M","Type","F","Rand","Leverv","Gonadev","Comments","Containers Id"],
+				"Norsk" : ["Nummer.","Vekt i gram","Lengde","Kjønn","Alder","G.Alder","Stadium","G.Soner","Lesbarhet","M","Type","F","Rand","Leverv.","Gonadev.","Kommentar","Forelder Id"],
+				"English" : ["Number","Weight in gram","Length","Sex","Age","GAge","Stage","GSoner","Readability","M","Type","F","Rand","Liverv","Gonadv","Comments","Parent Id"],
+				"cruiseSearch" : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				"obliged" : [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
 				"warning" : [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
 				"dataType" : ["number","number","number","text","number","number","text","text","text","text","text","text","text","text","text","text","text"]
 			},
 			"storage" : {
-				"Norsk" : ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"],
-				"English" : ["City", "Adress", "Floor", "Room", "Locker", "Comments"],
+				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
+				"English" : ["City", "Address", "Floor", "Room", "Locker", "Comments"],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
 				"dataType" : ["text","text","text","text","text","text"]
@@ -110,15 +113,16 @@
 		},
 		"forms" : {
 			"content" : {
-				"Norsk" : ["Sted","Dato","Fartøy","ToktNumer","Serie Numer","Fiske Arter","Toktnavn","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"],
-				"English" : ["Place","Date","Ship","Cruise Number","Serie Number","Fish Species","Cruise Name","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"],
+				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
+				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
+				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [true,false,true,false,false,false,true,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
 				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
 			},
 			"storage" : {
-				"Norsk" : ["By", "GateAdress", "Etasje", "Rom", "Skap", "Hylle","Komentar"],
-				"English" : ["City", "Adress", "Floor", "Room", "Locker", "Shelf", "Comments"],
+				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap", "Hylle","Kommentar"],
+				"English" : ["City", "Address", "Floor", "Room", "Locker", "Shelf", "Comments"],
 				"obliged" : [true,true,false,false,false,false,false],
 				"warning" : [true,true,false,false,false,false,false],
 				"dataType" : ["text","text","text","text","text","text","text"]
@@ -144,15 +148,16 @@
 		},
 		"forms" : {
 			"content" : {
-				"Norsk" : ["Sted","Dato","Fartøy","ToktNumer","Serie Numer","Fiske Arter","Toktnavn","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"],
-				"English" : ["Place","Date","Ship","Cruise Number","Serie Number","Fish Species","Cruise Name","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"],
+				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
+				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
+				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [true,false,true,false,false,false,true,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
 				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
 			},
 			"storage" : {
-				"Norsk" : ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"],
-				"English" : ["City", "Adress", "Floor", "Room", "Locker", "Comments"],
+				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Komentar"],
+				"English" : ["City", "Address", "Floor", "Room", "Locker", "Comments"],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
 				"dataType" : ["text","text","text","text","text","text"]
@@ -178,15 +183,16 @@
 		},
 		"forms" : {
 			"content" : {
-				"Norsk" : ["Sted","Dato","Fartøy","ToktNumer","Serie Numer","Fiske Arter","Toktnavn","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"],
-				"English" : ["Place","Date","Ship","Cruise Number","Serie Number","Fish Species","Cruise Name","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"],
+				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
+				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
+				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [true,false,true,false,false,false,true,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
 				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
 			},
 			"storage" : {
-				"Norsk" : ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"],
-				"English" : ["City", "Adress", "Floor", "Room", "Locker", "Comments"],
+				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Komentar"],
+				"English" : ["City", "Address", "Floor", "Room", "Locker", "Comments"],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
 				"dataType" : ["text","text","text","text","text","text"]
@@ -212,15 +218,16 @@
 		},
 		"forms" : {
 			"content" : {
-				"Norsk" : ["Sted","Dato","Fartøy","ToktNumer","Serie Numer","Fiske Arter","Toktnavn","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar"],
-				"English" : ["Place","Date","Ship","Cruise Number","Serie Number","Fish Species","Cruise Name","Station Number","Inholds Quantity","Volume","Box Number","Comments"],
+				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar"],
+				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments"],
+				"obliged" : [0,1,2,3,0,0,0,0,0,0,0,0],
 				"obliged" : [true,false,true,false,false,false,true,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
 				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
 			},
 			"storage" : {
-				"Norsk" : ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"],
-				"English" : ["City", "Adress", "Floor", "Room", "Locker", "Comments"],
+				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
+				"English" : ["City", "Address", "Floor", "Room", "Locker", "Comments"],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
 				"dataType" : ["text","text","text","text","text","text"]
@@ -246,15 +253,16 @@
 		},
 		"forms" : {
 			"content" : {
-				"Norsk" : ["Sted","Dato","Fartøy","ToktNumer","Serie Numer","Fiske Arter","Toktnavn","StasjonsNumer","Inneholder Mengde","Volum","Box Numer","Komentar","Inneholders Id"],
-				"English" : ["Place","Date","Ship","Cruise Number","Serie Number","Fish Species","Cruise Name","Station Number","Inholds Quantity","Volume","Box Number","Comments","Containers Id"],
+				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
+				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
+				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [true,false,true,false,false,false,true,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
 				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
 			},
 			"storage" : {
-				"Norsk" : ["By", "GateAdress", "Etasje", "Rom", "Skap","Komentar"],
-				"English" : ["City", "Adress", "Floor", "Room", "Locker", "Comments"],
+				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
+				"English" : ["City", "Address", "Floor", "Room", "Locker", "Comments"],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
 				"dataType" : ["text","text","text","text","text","text"]
