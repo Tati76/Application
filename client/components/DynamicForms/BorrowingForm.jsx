@@ -45,7 +45,7 @@ BorrowingForm = React.createClass({
 	findTheBoxTypeInTheCurrentLanguage: function(language,props)
 	{
 		if (props.boxObject["Box Type"] != "") // if the boxObject isn't void & if BoxType exists
-		{
+		{ 
 			var incomingBoxType = props.boxObject["Box Type"];
 
 			for(var i = 0 ; i< boxFile.length ; i++)

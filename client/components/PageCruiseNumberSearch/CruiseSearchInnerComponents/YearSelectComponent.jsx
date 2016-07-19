@@ -74,7 +74,7 @@ YearSelectComponent= React.createClass({
 	render(){
 
 		return(
-			<div className='container-fluid'>
+			<div>
 				{this.state.yearFile? <MultiSelectField clearAll={this.state.clearAll} incomingData={this.state.yearFile} giveValue={this.handleValue} doRemove={[false,""]}/> : <p> Loading </p>}
 			</div>		
 		);

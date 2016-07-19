@@ -89,7 +89,7 @@ SeeBoxes = React.createClass({
 		var tempArray = [];
 		tempArray = FlowRouter.current().path.split("/");
 		tempArray.pop();
-		tempArray.push("InholdInfo");
+		tempArray.push("AddBox");
 		var tempPathString = "";
 		for (var i = 1 ; i< tempArray.length ; i++)
 		{

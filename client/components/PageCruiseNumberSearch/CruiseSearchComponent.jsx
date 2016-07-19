@@ -148,6 +148,7 @@ CruiseSearch = React.createClass({
 				<input type="date" id="myDate" onChange={this.dateChange}/>
 				<p> Date in between : {this.dateInBetween(this.state.chosenDate)} </p>
 				<DynamicForm language={this.props.language} index={this.props.index} info={[["Date","Ship","Cruise Number","Test"],[true,false,true,false],[1,2,3,0]]}/>
+				<SelectBoxTypeComponent language={this.props.language} index={this.props.index}  />
 			</div>
 		);
 	}

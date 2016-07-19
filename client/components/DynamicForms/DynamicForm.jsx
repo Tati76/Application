@@ -20,12 +20,12 @@ DynamicForm = React.createClass({
 		{
 			if(this.state.cruiseSearch[i] == 1)
 			{
-				if (this.state.yearList.length <1 && this.state.obligedFields[i]) // no cruise & obliged
+				if (this.state.yearList.length <1 && this.state.obliged[i]) // no cruise & obliged
 				{
 					tempErrorArray.push(3);
 					errorSpotted = true;
 				}
-				else if(this.state.yearList.length <1 && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+				else if(this.state.yearList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
 				{
 					tempErrorArray.push(2);
 				}
@@ -36,12 +36,12 @@ DynamicForm = React.createClass({
 			}
 			else if (this.state.cruiseSearch[i] == 2)
 			{
-				if (this.state.shipList.length <1 && this.state.obligedFields[i]) // no cruise & obliged
+				if (this.state.shipList.length <1 && this.state.obliged[i]) // no cruise & obliged
 				{
 					tempErrorArray.push(3);
 					errorSpotted = true;
 				}
-				else if(this.state.shipList.length <1 && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+				else if(this.state.shipList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
 				{
 					tempErrorArray.push(2);
 				}
@@ -52,12 +52,12 @@ DynamicForm = React.createClass({
 			}
 			else if(this.state.cruiseSearch[i] == 3)
 			{
-				if (this.state.cruiseList.length <1 && this.state.obligedFields[i]) // no cruise & obliged
+				if (this.state.cruiseList.length <1 && this.state.obliged[i]) // no cruise & obliged
 				{
 					tempErrorArray.push(3);
 					errorSpotted = true;
 				}
-				else if(this.state.cruiseList.length <1 && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+				else if(this.state.cruiseList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
 				{
 					tempErrorArray.push(2);
 				}
@@ -68,12 +68,12 @@ DynamicForm = React.createClass({
 			}
 			else
 			{
-				if (this.refs[i].value == "" && this.state.obligedFields[i]) // Case not filled as obliged to (error)
+				if (this.refs[i].value == "" && this.state.obliged[i]) // Case not filled as obliged to (error)
 				{
 					tempErrorArray.push(3);
 					errorSpotted = true;
 				}
-				else if(this.refs[i].value == "" && !this.state.obligedFields[i]) // Case not filled and not obliged to (warning)
+				else if(this.refs[i].value == "" && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
 				{
 					tempErrorArray.push(2);
 				}
@@ -87,8 +87,19 @@ DynamicForm = React.createClass({
 
 		return errorSpotted;
 	},
+
+	setErrorArrayToZero()
+	{
+		var tempArray = [];
+		for (var i = 0 ; i<this.state.errorArray.length ; i++)
+		{
+			tempArray.push(0);
+		}
+		this.setState({errorArray : tempArray.slice()});
+	},
 	
 	getInitialState(){
+		console.log(this.props.info);
 		var tempErrorArray = [];
 		for (var i = 0 ; i< this.props.info[0] ; i++)
 		{
@@ -100,18 +111,22 @@ DynamicForm = React.createClass({
 			index : this.props.index,
 			toDisplay : this.props.info[0],
 			errorArray : tempErrorArray.slice(),
-			obligedFields : this.props.info[1],
+			obliged : this.props.info[1],
 			cruiseSearch : this.props.info[2],
 			yearList : [],
 			shipList : [],
 			year : "",
 			ship : "",
-			cruiseList : []
+			cruiseList : [],
+			dbInfo : this.props.dbInfo,
+			boxType : this.props.boxType
 		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({language : nextProps.language, index : nextProps.index, toDisplay : nextProps.info[0], obliged : nextProps.info[1]});
+		this.setState({language : nextProps.language, index : nextProps.index, toDisplay : nextProps.info[0], obliged : nextProps.info[1],cruiseSearch : nextProps.info[2],dbInfo : nextProps.dbInfo, boxType : nextProps.boxType});
+		this.setErrorArrayToZero();
+		console.log(nextProps.info);
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -145,7 +160,7 @@ DynamicForm = React.createClass({
 		// console.log("In the form year list is equal to :");
 		// console.log(arg);
 		//this.setState({yearList : arg.split(",").slice()},function(){console.log(this.state.yearList);});
-		if(!arg) // if no year
+		if(arg == null) // if no year
 		{
 			this.setState({yearList : [], shipList : [] },function(){});//console.log("yearlist : ",this.state.yearList);console.log("shipList", this.state.shipList);});
 		}
@@ -267,7 +282,7 @@ DynamicForm = React.createClass({
  			<div className={errorMessage.concat(" form-group")} key={index}>
 					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
 					<div className="col-sm-10">
-						<YearSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleYearList}/>
+						<YearSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/>
 					</div>
 				</div>
 			);
@@ -307,9 +322,53 @@ DynamicForm = React.createClass({
 		}
 	},
 
+	yearListToString()
+	{
+		var tempString = "";
+		for (var i = 0 ; i< this.state.yearList.length ; i++)
+		{
+			tempString += this.state.yearList[i];
+			if(i!= this.state.yearList.length -1)
+			{
+				tempString+= ",";
+			}
+		}
+		return tempString;
+	},
+
+	shipListToString()
+	{
+		var tempString = "";
+		for (var i = 0 ; i< this.state.shipList.length ; i++)
+		{
+			tempString += this.state.shipList[i].year;
+			tempString += " ";
+			tempString += this.state.shipList[i].ship;
+			if(i!= this.state.shipList.length -1)
+			{
+				tempString+= ",";
+			}
+		}
+		return tempString;
+	},
+
+	cruiseListToString()
+	{
+		var tempString = "";
+		for (var i = 0 ; i< this.state.cruiseList.length ; i++)
+		{
+			tempString += this.state.cruiseList[i].cruiseNr;
+			if(i!= this.state.cruiseList.length -1)
+			{
+				tempString+= ",";
+			}
+		}
+		return tempString;
+	},
+
 	handleClick(event) //render
 	{
-		if(!this.isErrorOnField())
+		if(!this.isErrorOnField() && this.state.boxType != "")
 		{
 			var tempResponse = {};
 			for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
@@ -317,10 +376,65 @@ DynamicForm = React.createClass({
 				tempResponse[this.refs["l"+i].value] = this.refs[i].value;
 			}
 
+			var tempObject = {};
+			
+			for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
+			{
+				switch (this.state.cruiseSearch[i]) {
+				    case 0:
+				        console.log(this.refs["l"+i].value,this.refs[i].value);
+				        tempObject[this.state.dbInfo[i]] = this.refs[i].value;
+				        break;
+				    case 1:
+				        console.log(this.refs["l"+i].value,this.state.yearList);
+				        tempObject[this.state.dbInfo[i]] = this.yearListToString();
+				        break;
+				    case 2:
+				        console.log(this.refs["l"+i].value,this.state.shipList);
+				        tempObject[this.state.dbInfo[i]] = this.shipListToString();
+				        break;
+				    case 3:
+				        console.log(this.refs["l"+i].value,this.state.cruiseList);
+				        tempObject[this.state.dbInfo[i]] = this.cruiseListToString();
+				        break;
+				}
+			}
+			console.log("tempObject",tempObject);
+			tempObject["Box Type"] = this.state.boxType;
+		
+			this.props.giveValue(tempObject);
 			// console.log(tempResponse);
 			// console.log("Should set in the DB");
 		}
 		
+	},
+
+	objectToString(object,attribute)
+	{
+
+	},
+
+	clearAll(event)
+	{
+		for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
+		{
+			switch (this.state.cruiseSearch[i]) {
+			    case 0:
+			        console.log(this.refs["l"+i].value,this.refs[i].value);
+			        this.refs[i].value = "";
+			        break;
+			    case 1:
+			        console.log(this.refs["l"+i].value,this.state.yearList);
+			        break;
+			    case 2:
+			        console.log(this.refs["l"+i].value,this.state.shipList);
+			        break;
+			    case 3:
+			        console.log(this.refs["l"+i].value,this.state.cruiseList);
+			        break;
+			}
+		}
+		// this.setState({yearList : []});
 	},
 
 	render(){
@@ -328,6 +442,7 @@ DynamicForm = React.createClass({
 			<div className="container-fluid form-horizontal">
 				 {this.state.toDisplay.map(this.renderForm)}
 				 <button className="btn btn-primary center-block" onClick={this.handleClick}> submit (not dyn) </button>
+				 <button className="btn btn-primary center-block" onClick={this.clearAll}> clearAll (not dyn) </button>
 			</div>
 		);
 	}

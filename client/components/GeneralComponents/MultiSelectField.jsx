@@ -105,9 +105,11 @@ MultiSelectField = React.createClass({
 				tempStateValueString += ",";
 			}
 		}
-
 		this.setState({value : tempStateValueString});
+		this.setState({clearAll : true});
 		this.props.valuesRemoved([true,tempStateValueString]);
+		this.setState({clearAll : false});
+
 	},
 
 	renderOption: function(option) {
@@ -122,10 +124,11 @@ MultiSelectField = React.createClass({
 
 	render () {
 		return (
-			<div className="section">
-				<h3 className="section-heading">{this.props.label}</h3>
+			<div>
 				<Select multi simpleValue value={this.state.value} disabled={false} clearable={true} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="value" onChange={this.handleSelectChange} />
 			</div>
 		);
 	}
 });
+
+//<h3 className="section-heading">{this.props.label}</h3>

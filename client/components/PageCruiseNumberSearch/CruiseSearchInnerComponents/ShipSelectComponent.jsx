@@ -215,7 +215,7 @@ ShipSelectComponent= React.createClass({
 	render()
 	{
 			return(
-				<div className='container-fluid'>
+				<div>
 					<MultiSelectField incomingData={this.state.displayArray} loading={this.state.loading} giveValue={this.handleValue} valuesRemoved={this.handleRemoveState} doRemove={[this.state.remove,this.state.labelsToRemove]}/> 
 				</div>		
 			);

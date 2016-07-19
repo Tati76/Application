@@ -128,7 +128,7 @@ InholdInfo = React.createClass({
 	  //*******************************************
 	  
 	  //var thisID = InholdInfoDb.insert(this.state.response);
-	  
+	   
 	  console.log(this.state.contentIndex);
 	  console.log(insertableResponse);
 	  try{
