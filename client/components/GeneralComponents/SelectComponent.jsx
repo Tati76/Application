@@ -10,7 +10,9 @@ SelectComponent= React.createClass({
 		return {
 			 info : this.props.info,
 			 index : this.props.index,
-			 language : this.props.language
+			 language : this.props.language,
+			 selectedIndex : 0,
+			 selectedValue : ""
 		};
 	},
 
@@ -18,7 +20,8 @@ SelectComponent= React.createClass({
 		this.setState({
 			info : nextProps.info,
 			index : nextProps.index,
-			language : nextProps.language
+			language : nextProps.language,
+			selectedValue : nextProps.info[this.state.selectedIndex]
 		});
 	},
 
@@ -41,11 +44,9 @@ SelectComponent= React.createClass({
 	handleClick(event)
 	{
 
-		if (this.state.currentElement != event.target.value)
+		if (this.state.currentElement != event.target.value && !event.target[event.target.selectedIndex].hidden)
 		{
-			console.log(event.target.value);
-			console.log(event.target.selectedIndex);
-			this.setState({currentElement : event.target.value});
+			this.setState({selectedValue : event.target.value, selectedIndex : event.target.selectedIndex});
 			this.props.onClick(event);
 		}
 
@@ -53,10 +54,10 @@ SelectComponent= React.createClass({
 	},
 
 	render(){
-		console.log(this.state.language);
+		console.log("render selectComponent");
 		return(
 			<select className="form-control input" onClick={this.handleClick}>
-				<option  hidden> {displayFile.setups[this.state.index].selectComponent.wait}</option>
+				<option  hidden={true}> {displayFile.setups[this.state.index].selectComponent.wait}</option>
 				{this.state.info.map(this.renderSelect)}
 			</select>
 		);

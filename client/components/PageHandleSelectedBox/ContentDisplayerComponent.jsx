@@ -11,13 +11,13 @@ ContentDisplayer = React.createClass({
 	    if(handle.ready()) {
 	    	if (this.props.searchOptions[1] == "")
 	    	{
-	    		data.content = InholdInfoDb.find({"Containers Id" : this.props.containerId}).fetch(); // Only catches the boxes that are not storable in others
+	    		data.content = InholdInfoDb.find({"Parent Id" : this.props.containerId}).fetch(); // Only catches the boxes that are not storable in others
 	      		
 	    	}
 	    	else // Searching the wanted boxes
 	    	{
 	    		data.content = [];
-	    		data.wholeContent = InholdInfoDb.find({"Containers Id" : this.props.containerId }).fetch();
+	    		data.wholeContent = InholdInfoDb.find({"Parent Id" : this.props.containerId }).fetch();
 	    		var searchingIn = "";
 	    		var reseachedValue = this.props.searchOptions[1];
 	    		for (var i =0; i< data.wholeContent.length ; i++)

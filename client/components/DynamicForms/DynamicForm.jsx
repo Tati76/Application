@@ -1,4 +1,4 @@
-// <DynamicForm language={this.props.language} index={this.props.index} info=[toDisplay list,obliged list]
+// <DynamicForm language={this.props.language} index={this.props.index} info=[toDisplay list,obliged listthis.state.cruiseSearch]} dbInfo={this.state.dbFields} boxType={this.state.boxType} giveValue={this.clickSubmit}
 
 // CLASSIFICATION OF THE DIFFERENT INPUT DISPLAYS AVAILABLE
 // VALUE    EFFECT
@@ -119,12 +119,13 @@ DynamicForm = React.createClass({
 			ship : "",
 			cruiseList : [],
 			dbInfo : this.props.dbInfo,
-			boxType : this.props.boxType
+			boxType : this.props.boxType, 
+			placeHolder : this.props.placeHold
 		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({language : nextProps.language, index : nextProps.index, toDisplay : nextProps.info[0], obliged : nextProps.info[1],cruiseSearch : nextProps.info[2],dbInfo : nextProps.dbInfo, boxType : nextProps.boxType});
+		this.setState({placeHolder : nextProps.placeHold,language : nextProps.language, index : nextProps.index, toDisplay : nextProps.info[0], obliged : nextProps.info[1],cruiseSearch : nextProps.info[2],dbInfo : nextProps.dbInfo, boxType : nextProps.boxType});
 		this.setErrorArrayToZero();
 		console.log(nextProps.info);
 	},
@@ -311,14 +312,28 @@ DynamicForm = React.createClass({
 			);
 		}
 		else{
-			return(
-				<div className={errorMessage.concat(" form-group")} key={index}>
-					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
-					<div className="col-sm-10">
-						<input type="text" key={index} ref={index} className="form-control" id={"inp"+index}/>
+			if(this.state.placeHolder[1] == input)
+			{
+				return(
+					<div className={errorMessage.concat(" form-group")} key={index}>
+						<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
+						<div className="col-sm-10">
+							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0]} placeholder={this.state.placeHolder[0]} disabled/>
+						</div>
 					</div>
-				</div>
-			);
+				);
+			}
+			else{
+				return(
+					<div className={errorMessage.concat(" form-group")} key={index}>
+						<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
+						<div className="col-sm-10">
+							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index}/>
+						</div>
+					</div>
+				);
+			}
+			
 		}
 	},
 
