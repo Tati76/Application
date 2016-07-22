@@ -10,25 +10,34 @@ BoxDisplayer = React.createClass({
 
 	    		data.sample = InholdInfoDb.find({"Containers Id": { $exists: false } } ).fetch(); // Only catches the boxes that are not storable in others
 	    		console.log(data.sample[0]);
-
-	    		// Search Function
-		      	//*****************************************************************************************
-		      	data.samplesFittingTheCriterias = [];
-				var stringToSearchIn = "";
-				var stringToSearch = "";
-				stringToSearch = this.props.searchOptions[1];
-		      	for (var i=0 ; i<data.sample.length ; i++)
-		      	{
-		      		console.log(data.samplesFittingTheCriterias);
-		      		stringToSearchIn = data.sample[i][this.props.searchOptions[0]];
-		      		if(stringToSearchIn.search(stringToSearch) > -1)
-		      		{
-		      			data.samplesFittingTheCriterias.push(data.sample[i]);
-		      		}
-		      	}   	
-	      	
-
-	      //*****************************************************************************************
+				data.samplesFittingTheCriterias = [];
+	    		if(this.props.searchOptions[1] != "")
+	    		{
+	    			// Search Function
+			      	//*****************************************************************************************
+			      	
+					var stringToSearchIn = "";
+					var stringToSearch = "";
+					stringToSearch = this.props.searchOptions[1];
+			      	for (var i=0 ; i<data.sample.length ; i++)
+			      	{
+			      		console.log(data.samplesFittingTheCriterias);
+			      		stringToSearchIn = data.sample[i][this.props.searchOptions[0]];
+			      		if(stringToSearchIn.search(stringToSearch) > -1)
+			      		{
+			      			data.samplesFittingTheCriterias.push(data.sample[i]);
+			      		}
+			      	}   	
+		      		//*****************************************************************************************
+	    		}
+	    		else
+	    		{
+	    			for (var i=0 ; i<data.sample.length ; i++)
+			      	{
+			      		data.samplesFittingTheCriterias.push(data.sample[i]);
+			      	} 
+	    		}
+	    		
 	    }
 	    return data;
 	},

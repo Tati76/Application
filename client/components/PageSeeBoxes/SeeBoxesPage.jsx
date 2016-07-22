@@ -1,4 +1,7 @@
 import { InholdInfoDb } from '../../../imports/api/inholdinfodb.js';
+import {translateWord} from '../Functions/functionFile.js'
+import boxFile from '../Boxes/BoxesInfo.json';
+import displayFile from '../languages/Settings.json';
 
 SeeBoxes = React.createClass({
 
@@ -35,13 +38,15 @@ SeeBoxes = React.createClass({
 	{
 		return {
 			searchAttribute : "_id",
-			searchValue : ""
+			searchValue : "",
+			language: this.props.language,
+			index : this.props.index
 
 		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-
+		this.setState({language : nextProps.language , index: nextProps.index});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -75,7 +80,7 @@ SeeBoxes = React.createClass({
 			<div className="form-group center-block">
 
 				<AttributeSelector onClick={this.handleSearchAttribute}/>
-				<input type="text" className="form-control" id="exampleInputEmail2" placeholder="Search Content (Not Dynamic)" onChange={this.handleSearch}/>
+				<input type="text" className="form-control" placeholder={displayFile.setups[this.state.index].searchComponent.input.placeholder} onChange={this.handleSearch}/>
 				<button type="button" className="btn btn-default">
 					<span className="glyphicon glyphicon-search" aria-hidden="true"></span>
 				</button>
@@ -100,6 +105,11 @@ SeeBoxes = React.createClass({
 		FlowRouter.go(tempPathString);
 	},
 
+	translate()
+	{
+		console.log(translateWord("Skap","English","Plankton 100mL Bottle"));
+	},
+
 	render()
 	{
 
@@ -114,9 +124,10 @@ SeeBoxes = React.createClass({
 
 							<BoxDisplayer searchOptions={[this.state.searchAttribute,this.state.searchValue]}/>
 
-							<button type="button" className="btn btn-primary" onClick={this.clickAddBox}>Add Box (Not Dynamic)</button>
+							<button type="button" className="btn btn-primary" onClick={this.clickAddBox}>{displayFile.setups[this.state.index].SeeBoxPage.buttons.addContent}</button>
 						</div>
 					</div>
+					<button onClick={this.translate}> TEST </button>
 				</div>
 
 		);

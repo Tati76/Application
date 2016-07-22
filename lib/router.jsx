@@ -42,7 +42,7 @@ FlowRouter.route('/:language/:index/Search', {
   }
 });
 
-FlowRouter.route('/:language/:index/:id/:boxIndex/pageQr', {  
+FlowRouter.route('/:language/:index/SeeBoxes/:id/pageQr', {  
   action(params, queryParams) {
     console.log("qr");
     mount(MainLayout, { content: <QRPage language={params.language} index={params.index} id={params.id}/>});

@@ -6,6 +6,10 @@
 			"English": "Otolith Storage Box"
 		},
 		"forms" : {
+			"dbInfo" :{
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar"],
 				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments"],
@@ -41,6 +45,10 @@
 			"English": "Otolith Little Box"
 		},
 		"forms" : {
+			"dbInfo" :{
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
 				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
@@ -77,6 +85,10 @@
 			"English": "Otolith Bag"
 		},
 		"forms" : {
+			"dbInfo" :{
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+			},
 			"content" : {
 				"Norsk" : ["Nummer.","Vekt i gram","Lengde","Kjønn","Alder","G.Alder","Stadium","G.Soner","Lesbarhet","M","Type","F","Rand","Leverv.","Gonadev.","Kommentar","Forelder Id"],
 				"English" : ["Number","Weight in gram","Length","Sex","Age","GAge","Stage","GSoner","Readability","M","Type","F","Rand","Liverv","Gonadv","Comments","Parent Id"],
@@ -112,6 +124,10 @@
 			"English": "Kartell Bottle 1L"
 		},
 		"forms" : {
+			"dbInfo" :{
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
 				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
@@ -147,6 +163,10 @@
 			"English": "Kartell Bottle 500mL"
 		},
 		"forms" : {
+			"dbInfo" :{
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
 				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
@@ -182,6 +202,10 @@
 			"English": "Kartell Bottle 250mL"
 		},
 		"forms" : {
+			"dbInfo" :{
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
 				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],
@@ -217,6 +241,10 @@
 			"English": "Plankton Sample Container"
 		},
 		"forms" : {
+			"dbInfo" :{
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar"],
 				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments"],
@@ -252,6 +280,10 @@
 			"English": "Plankton 100mL Bottle"
 		},
 		"forms" : {
+			"dbInfo" :{
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
 				"English" : ["Place","Date","Ship","Cruise Number","Serial Number","Fish Species","Cruise Name","Station Number","Content Quantity","Volume","Box Number","Comments","Parent Id"],

@@ -1,3 +1,4 @@
+
 SampleViewer = React.createClass({
 
 	getInitialState(){
@@ -8,22 +9,10 @@ SampleViewer = React.createClass({
 		};
 	},
 
-	dateToString : function(choosenDate)
-	{
-		var tempSplit = choosenDate.toString().split(" ");
-		var tempDate = "";
-		for (var i=0 ; i<4; i++)
-		{
-			tempDate += tempSplit[i];
-			tempDate += " ";
-		}
-		return tempDate;
-	},
-
 	componentWillReceiveProps: function(nextProps) {
 		if(nextProps.chosenAttribute == "createdAt")
 		{
-			var dateToShow = this.dateToString(nextProps.dbObject[nextProps.chosenAttribute]);
+			var dateToShow = nextProps.dbObject[nextProps.chosenAttribute];
 			var tempAttributesToDisplay = [{one : "ID", two : nextProps.dbObject._id}, {one : 'Box Type',two :nextProps.dbObject['Box Type'] }, {one : nextProps.chosenAttribute,two : dateToShow} ];
 		}
 		else{

@@ -15,6 +15,7 @@
 
 import boxFile from '../Boxes/BoxesInfo.json';
 import displayFile from '../languages/Settings.json';
+import {dateToString} from '../Functions/functionFile.js'
 
 BorrowingForm = React.createClass({
 
@@ -61,15 +62,6 @@ BorrowingForm = React.createClass({
 		}
 		
 	},
-
-	dateToString(tempdate)
-	{
-		console.log(String(tempdate).split(" "));
-		var date = tempdate;
-		var stringdate = "";
-		stringdate += date.getDate() + '/' + (date.getMonth() + 1) + '/' +  date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" +date.getSeconds();
-		return stringdate;
-	},
 	
 	findTheGoodBorrowingArray: function(language,props)
 	{
@@ -97,6 +89,8 @@ BorrowingForm = React.createClass({
 		}
 		//All the inputLabels are in this state variable
 		return {
+			language: this.props.language,
+			index : this.props.index,
 			dbInputLabelsArray : this.findTheGoodBorrowingArray("English",this.props).slice(),
 			inputLabelsArray : this.findTheGoodBorrowingArray(this.props.language,this.props).slice(),
 			displayTitle : tempTitle,	
@@ -160,7 +154,7 @@ BorrowingForm = React.createClass({
 					tempResponse[borrowPrefix.concat(this.state.dbInputLabelsArray[i])] = this.refs[i].value;
 					borrowPrefix = "Borrowing ";
 			}
-			tempResponse["Borrowing Date"] = this.dateToString(new Date());
+			tempResponse["Borrowing Date"] = dateToString(new Date());
 			console.log(tempResponse);
 
 			Meteor.call('inholdinfodb.update',this.props.boxObject._id,tempResponse,function(error, result){console.log(result);});
@@ -202,6 +196,11 @@ BorrowingForm = React.createClass({
 		);
 	},
 
+	clickReturn(event)
+	{
+		this.props.onClick(event);
+	},
+
 	render(){
 
 		return(
@@ -214,7 +213,14 @@ BorrowingForm = React.createClass({
 								{this.state.inputLabelsArray.map(this.renderForm)}
 							</tbody>
 						</table>
-						<button type="button" className="btn btn-primary center-block" onClick={this.clickBorrow} value="Lend">Lend this box (Not dynamic)</button>
+						<div className="btn-group btn-group-justified" role="group" aria-label="...">
+							<div className="btn-group" role="group">
+								<button type="button" className="btn btn-primary center-block" onClick={this.clickBorrow} value="Lend">{displayFile.setups[this.state.index].borrowForm.buttons.lend}</button>
+							</div>
+							<div className="btn-group" role="group">
+								<button type="button" className="btn btn-primary center-block" onClick={this.clickReturn} value="Back">{displayFile.setups[this.state.index].borrowForm.buttons.return}</button>
+							</div>
+						</div>
 					</form>
 				</div>
 		);

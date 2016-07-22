@@ -39,7 +39,7 @@ AddBox= React.createClass({
 			language:this.props.language,
 			index: this.props.index,
 			form : [],
-			oblidged : [],
+			obliged : [],
 			boxType : "",
 			cruiseSearch : [],
 			dbFields : [],
@@ -50,7 +50,7 @@ AddBox= React.createClass({
 	componentWillReceiveProps: function(nextProps) {
 		var tempBoxObject = this.findBoxObject(event.target.value,nextProps); // bizarre event ici
 		this.setState({form : tempBoxObject[0] ,
-			oblidged : tempBoxObject[1] ,
+			obliged : tempBoxObject[1] ,
 			cruiseSearch : tempBoxObject[2],
 			boxType : tempBoxObject[4],
 			language: nextProps.language,
@@ -73,7 +73,7 @@ AddBox= React.createClass({
 	{
 		var tempBoxObject = this.findBoxObject(event.target.value,this.props);
 		this.setState({form : tempBoxObject[0] ,
-			oblidged : tempBoxObject[1] ,
+			obliged : tempBoxObject[1] ,
 			boxType : event.target.value,
 			cruiseSearch : tempBoxObject[2],
 			dbFields : tempBoxObject[3],
@@ -111,6 +111,22 @@ AddBox= React.createClass({
 		}
 	},
 
+	clickReturn(event)
+	{
+		var tempCurrentRouteArray = FlowRouter.current().path.split("/");
+		tempCurrentRouteArray.pop();
+		tempCurrentRouteArray.push("SeeBoxes");
+		var tempPathString = "";
+		for(var i = 1 ; i<tempCurrentRouteArray.length ; i++)
+		{
+			tempPathString+= "/";
+			tempPathString += tempCurrentRouteArray[i];
+		}
+		console.log(tempPathString);
+
+		FlowRouter.go(tempPathString);
+	},
+
 	render(){
 		var getOptions = function(input, callback) {
 		    setTimeout(function() {
@@ -126,11 +142,22 @@ AddBox= React.createClass({
 		    }, 5000);
 		};
 
-
 		return(
 			<div className='container-fluid'>
-				<SelectBoxTypeComponent language={this.state.language} index={this.state.index} onClick={this.clickBoxSelect} />
-				<DynamicForm language={this.state.language} index={this.state.index} info={[this.state.form,this.state.oblidged,this.state.cruiseSearch]} dbInfo={this.state.dbFields} boxType={this.state.boxType} giveValue={this.clickSubmit}/>
+				<SelectBoxTypeComponent 
+					language={this.state.language} 
+					index={this.state.index} 
+					onClick={this.clickBoxSelect} />
+				<DynamicForm 
+					language={this.state.language} 
+					index={this.state.index} 
+					info={[this.state.form,this.state.obliged,this.state.cruiseSearch]} 
+					dbInfo={this.state.dbFields} 
+					boxType={this.state.boxType} 
+					giveValue={this.clickSubmit}
+					onReturn={this.clickReturn}
+					placeHold={["",""]}
+					isTable={false}/>
 				
 			</div>
 		);

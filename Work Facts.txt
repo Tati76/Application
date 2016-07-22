@@ -64,3 +64,16 @@
 	mise en place de correction d'erreurs dans le dynamic form mais aussi dans tous les autres composants pour assurer une suppression dynamique sur les 3 niveaux de la recherche
 	de toktNummer ! Les valeurs collectées des differents selects sont un array d'années pour le choix d'années mais pour le choix du bateau et du ToktNummer c'est des array 
 	d'objets avec des informations necessaires pour la correction d'erreurs au niveau du dynamicForm. Quelle saloperie à coder ! 
+
+
+21.07.2016
+- Dynamisation des pages seeBox, il manque le select qui n'est pas dynamique et les boxDisplayers qui ne le sont pas non plus,
+- Dynamisation de infoDisplayer 
+- Création d'une fonction pour chercher un mot et le traduire ! bam !
+
+22.07.2016
+- Ajout des boutons print et storageInfo sur le InfoDisplayer
+- Traduction des attributs de InfoDisplayer
+- Création de la page de storage info qui marche avec DynamicForm en tableau
+- Dans le InfoDisplayer tout marche sauf le EDIT, a voir si on modifie le DynamicForm ou pas pour faire en sorte d'afficher les 
+	tokt qui sont deja choisis, cad introduire dans les state de depart du component un array placeHolder qui y est deja et adapter cette fonction à tous les sous composants de ce form

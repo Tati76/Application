@@ -87,7 +87,7 @@ SelectedBoxContent = React.createClass({
 	renderCompo(attribute)
 	{
 		return(
-			<ContentDisplayer containerId={this.props.boxId} chosenAttribute={attribute} searchOptions={[attribute,this.state.searchValue]}/>
+			<ContentDisplayer language={this.state.language} index={this.state.index} containerId={this.props.boxId} chosenAttribute={attribute} searchOptions={[attribute,this.state.searchValue]}/>
 		);
 	},
 
@@ -95,7 +95,7 @@ SelectedBoxContent = React.createClass({
 	{
 		console.log("Rendering InfoDisplayer");
 		return(
-			<InfoDisplayer currentBoxId={this.props.boxId} language={this.state.language} index={this.state.index} boxObject={this.data.sample}/>
+			<InfoDisplayer language={this.state.language} index={this.state.index} currentBoxId={this.props.boxId} language={this.state.language} index={this.state.index} boxObject={this.data.sample}/>
 		);
 
 	},

@@ -20,6 +20,7 @@ ContentDisplayer = React.createClass({
 	    		data.wholeContent = InholdInfoDb.find({"Parent Id" : this.props.containerId }).fetch();
 	    		var searchingIn = "";
 	    		var reseachedValue = this.props.searchOptions[1];
+	    		
 	    		for (var i =0; i< data.wholeContent.length ; i++)
 	    		{
 	    			searchingIn = data.wholeContent[i][this.props.searchOptions[0]]

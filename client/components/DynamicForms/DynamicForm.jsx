@@ -1,4 +1,11 @@
-// <DynamicForm language={this.props.language} index={this.props.index} info=[toDisplay list,obliged listthis.state.cruiseSearch]} dbInfo={this.state.dbFields} boxType={this.state.boxType} giveValue={this.clickSubmit}
+// <DynamicForm language={this.props.language} 
+	// index={this.props.index} 
+	// info=[toDisplay list,obliged listthis.state.cruiseSearch]} 
+	// dbInfo={this.state.dbFields} 
+	// boxType={this.state.boxType} 
+	// giveValue={this.clickSubmit} 
+	// placehold={[what, where]} 
+	// isTable={this.state.isTable}/>
 
 // CLASSIFICATION OF THE DIFFERENT INPUT DISPLAYS AVAILABLE
 // VALUE    EFFECT
@@ -8,6 +15,8 @@
 //   3 		ERROR
 //   4 		Info
 
+import boxFile from '../Boxes/BoxesInfo.json';
+import settingsFile from '../languages/Settings.json';
 
 
 DynamicForm = React.createClass({
@@ -120,12 +129,22 @@ DynamicForm = React.createClass({
 			cruiseList : [],
 			dbInfo : this.props.dbInfo,
 			boxType : this.props.boxType, 
-			placeHolder : this.props.placeHold
+			placeHolder : this.props.placeHold,
+			isTable : this.props.isTable
 		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({placeHolder : nextProps.placeHold,language : nextProps.language, index : nextProps.index, toDisplay : nextProps.info[0], obliged : nextProps.info[1],cruiseSearch : nextProps.info[2],dbInfo : nextProps.dbInfo, boxType : nextProps.boxType});
+		this.setState({placeHolder : nextProps.placeHold,
+						language : nextProps.language, 
+						index : nextProps.index, 
+						toDisplay : nextProps.info[0], 
+						obliged : nextProps.info[1],
+						cruiseSearch : nextProps.info[2],
+						dbInfo : nextProps.dbInfo, 
+						boxType : nextProps.boxType,
+						isTable : nextProps.isTable
+					});
 		this.setErrorArrayToZero();
 		console.log(nextProps.info);
 	},
@@ -337,6 +356,109 @@ DynamicForm = React.createClass({
 		}
 	},
 
+	translate(word)
+	{
+		if(word != "_id")
+		{
+			if(word.split(" ")[0] == "Borrowing" || word.split(" ")[0] == "Storage")
+			{
+				var tempString = "";
+				for(var i = 0 ; i<word.split(" ").length ; i++)
+				{
+					console.log(word.split(" ")[i]);
+					console.log(word.split(" ")[i].length);
+					console.log("box db data :",this.state.list);
+					tempString += translateWord(word.split(" ")[i],this.state.language,this.state.boxType);
+					if(i != word.split(" ").length-1)
+					{
+						tempString += " ";
+					}
+				}
+				return tempString;
+			}
+			else
+			{
+				console.log(word);
+				return translateWord(word,this.state.language,this.state.boxType);
+			}
+		}
+		else
+		{
+			return "ID";
+		}
+	},
+
+	renderFormTable: function(input,index)
+	{
+		var errorMessage = "";
+		switch (this.state.errorArray[index]) {
+		    case 0:
+		        errorMessage = "";
+		        break;
+		    case 1:
+		        errorMessage = "has-success";
+		        break;
+		    case 2:
+		        errorMessage = "has-warning";
+		        break;
+		    case 3:
+		        errorMessage = "has-error";
+		        break;
+		    case 4:
+		        errorMessage = "has-info";
+		        break;
+		}
+
+		if (this.state.cruiseSearch[index] == 1)
+		{
+			return(
+				<tr className={errorMessage.concat(" form-group")} key={index}>
+					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+					<td className="text-center"><YearSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/></td>
+				</tr>
+			);
+		}
+		else if(this.state.cruiseSearch[index] == 2)
+		{
+			
+			return(
+				<tr className={errorMessage.concat(" form-group")} key={index}>
+					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+					<td className="text-center"><ShipSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/></td>
+				</tr>
+			);
+		}
+		else if(this.state.cruiseSearch[index] == 3)
+		{
+ 			return(
+ 				<tr className={errorMessage.concat(" form-group")} key={index}>
+					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+					<td className="text-center"><CruiseSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} shipList={this.state.shipList} giveValue={this.handleCruiseList}/></td>
+				</tr>
+			);
+		}
+		else{
+			if(this.state.placeHolder[1] == input)
+			{
+				return(
+					<tr className={errorMessage.concat(" form-group")} key={index}>
+						<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+						<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0]} placeholder={this.state.placeHolder[0]} disabled/></td>
+					</tr>
+				);
+			}
+			else{
+				return(
+					<tr className={errorMessage.concat(" form-group")} key={index}>
+						<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+						<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index}/></td>
+					</tr>
+				);
+			}
+			
+		}
+	},
+
 	yearListToString()
 	{
 		var tempString = "";
@@ -452,13 +574,59 @@ DynamicForm = React.createClass({
 		// this.setState({yearList : []});
 	},
 
+	handleReturn(event)
+	{
+		this.props.onReturn(event);
+	},
+
 	render(){
-		return(
-			<div className="container-fluid form-horizontal">
-				 {this.state.toDisplay.map(this.renderForm)}
-				 <button className="btn btn-primary center-block" onClick={this.handleClick}> submit (not dyn) </button>
-				 <button className="btn btn-primary center-block" onClick={this.clearAll}> clearAll (not dyn) </button>
-			</div>
-		);
+		console.log("render DynamicForm");
+		console.log(settingsFile.setups[this.state.index].AddContent.buttons.clear);
+		if(this.state.isTable)
+		{
+			return(
+				<div className="container-fluid">
+					<form>
+						<table border="1" className="table table-bordered">
+							<tbody>
+								{this.state.toDisplay.map(this.renderFormTable)}
+							</tbody>
+						</table>
+						
+						<div className="btn-group btn-group-justified" role="group" aria-label="...">
+							<div className="btn-group" role="group">
+								<button type="button" className="btn btn-primary" onClick={this.clearAll}>{settingsFile.setups[this.state.index].AddContent.buttons.clear}</button>
+							</div>
+							<div className="btn-group" role="group">
+								 <button type="button" className="btn btn-primary" onClick={this.handleClick}>{settingsFile.setups[this.state.index].AddContent.buttons.save}</button>
+							</div>
+							<div className="btn-group" role="group">
+								 <button type="button" className="btn btn-primary" onClick={this.handleReturn} value='Back'>{settingsFile.setups[this.state.index].AddContent.buttons.return}</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			);
+		}
+		else
+		{
+			return(
+				<div className="container-fluid form-horizontal">
+					{this.state.toDisplay.map(this.renderForm)}
+					<div className="btn-group btn-group-justified" role="group" aria-label="...">
+						<div className="btn-group" role="group">
+							<button type="button" className="btn btn-primary" onClick={this.clearAll}>{settingsFile.setups[this.state.index].AddContent.buttons.clear}</button>
+						</div>
+						<div className="btn-group" role="group">
+							 <button type="button" className="btn btn-primary" onClick={this.handleClick}>{settingsFile.setups[this.state.index].AddContent.buttons.save}</button>
+						</div>
+						<div className="btn-group" role="group">
+							 <button type="button" className="btn btn-primary" onClick={this.handleReturn} value='Back'>{settingsFile.setups[this.state.index].AddContent.buttons.return}</button>
+						</div>
+					</div>
+				</div>
+			);
+		}
+		
 	}
 });

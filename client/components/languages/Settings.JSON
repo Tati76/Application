@@ -96,31 +96,33 @@
 			}
 		},
 		"borrowForm" : {
-			"info" : ["Name","Place","Date"],
 			"labels" : {
 				"title" : "Låne Formulær"
 			},
-			"button" : {
-				"lend" : "Låne"
+			"buttons" : {
+				"lend" : "Låne",
+				"return" : "Tilbake"
 			}
 		},
 		"SeeBoxPage" : {
 			"buttons" : {
-				"addContent" : "Legge til ny Inhold"
+				"addContent" : "Legge til ny Boks"
 			}
 		},
 		"QRPage" : {
+			"title" : "Boks Informasjon",
 			"buttons" : {
-				"print" : "Trykke ut"
+				"print" : "Trykk ut",
+				"return" : "Tilbake"
 			}
 
 		},
-		"AddContentToBoxPage" : {
+		"AddContent" : {
 			"buttons" : {
 				"save" : "Lagre",
-				"clear" : "Slette Alt"
+				"clear" : "Slette Alt",
+				"return" : "Tilbake"
 			}
-
 		},
 		"SelectedBoxPage" : {
 			"buttons" : {
@@ -128,20 +130,32 @@
 				"addContent" : "Legge til ny Inhold",
 				"edit" : "Redigere"
 			}
-
 		},
 		"EditableInfoDisplayer" : {
+			"title" : "Boks Informasjon",
 			"buttons" : {
 				"save" : "Lagre",
 				"lend" : "Låne Box"
 			}
-
 		},
 		"NormalInfoDisplayer" : {
+			"title" : "Boks Informasjon",
+			"info" : "Boks Alerede Lånnt",
 			"buttons" : {
 				"edit" : "Redigere",
-				"lend" : "Låne Box" 
+				"lend" : "Låne Box",
+				"print" : "Trykk ut Lapp",
+				"storage" : "Forandre Lagrings Info",
+				"return" : "Gi Tilbake Boks"
 			}
+		},
+		"searchComponent" : {
+			"input" : {
+				"placeholder" : "Lete etter en prøve"
+			}
+		},
+		"storageForm" : {
+			"title" : "Lagrings Informasjon"
 		},
 		"footer": {
 			"text" : "Havforskningsinstituttet"
@@ -242,31 +256,32 @@
 			}
 		},
 		"borrowForm" : {
-			"info" : ["Name","Place","Date"],
 			"labels" : {
 				"title" : "Borrow Form"
 			},
-			"button" : {
-				"lend" : "Borrow"
+			"buttons" : {
+				"lend" : "Borrow",
+				"return" : "Back"
 			}
 		},
 		"SeeBoxPage" : {
 			"buttons" : {
-				"addContent" : "Add Content"
+				"addContent" : "Add Box"
 			}
 		},
 		"QRPage" : {
+			"title" : "Box Information",
 			"buttons" : {
-				"print" : "Print"
+				"print" : "Print",
+				"return" : "Back"
 			}
-
 		},
-		"AddContentToBoxPage" : {
+		"AddContent" : {
 			"buttons" : {
 				"save" : "Save",
-				"clear" : "Clear"
+				"clear" : "Clear",
+				"return" : "Previous Page"
 			}
-
 		},
 		"SelectedBoxPage" : {
 			"buttons" : {
@@ -274,21 +289,32 @@
 				"addContent" : "Add Content",
 				"edit" : "Edit"
 			}
-
 		},
 		"EditableInfoDisplayer" : {
+			"title" : "Box Information",
 			"buttons" : {
 				"save" : "Save",
 				"lend" : "Lend Box"
 			}
-
 		},
 		"NormalInfoDisplayer" : {
+			"title" : "Box Informastion",
+			"info" : "Box Already Borrowed",
 			"buttons" : {
 				"edit" : "Edit",
-				"lend" : "Lend Box" 
+				"lend" : "Lend Box",
+				"print" : "Print the Flyer",
+				"storage" : "Update Storage Info",
+				"return" : "Give Back Box"
 			}
-
+		},
+		"searchComponent" : {
+			"input" : {
+				"placeholder" : "Look after some content"
+			}
+		},
+		"storageForm" : {
+			"title" : "Storage Information"
 		},
 		"footer": {
 			"text" : "Institute of Marine Research"

@@ -211,9 +211,19 @@ AddContent = React.createClass({
 		}
 	},
 
-	onbuttonClick(event)
+	clickReturn(event)
 	{
-		console.log(this.findBoxTypes(this.state.language,this.data.sample["Box Type"]));
+		var tempCurrentRouteArray = FlowRouter.current().path.split("/");
+		tempCurrentRouteArray.pop();
+		var tempPathString = "";
+		for(var i = 1 ; i<tempCurrentRouteArray.length ; i++)
+		{
+			tempPathString+= "/";
+			tempPathString += tempCurrentRouteArray[i];
+		}
+		console.log(tempPathString);
+
+		FlowRouter.go(tempPathString);
 	},
 
 	renderPage:function(dataSample)
@@ -231,8 +241,9 @@ AddContent = React.createClass({
 							dbInfo={this.state.dbFields} 
 							boxType={this.state.selectedBoxType} 
 							giveValue={this.clickSubmit} 
-							placeHold={[this.state.boxId,this.findContainerIdLabel(this.state.language,this.state.selectedBoxType)]}/>
-				<button onClick={this.onbuttonClick}> test </button>
+							onReturn={this.clickReturn}
+							placeHold={[this.state.boxId,this.findContainerIdLabel(this.state.language,this.state.selectedBoxType)]}
+							isTable={false}/>
 			</div>
 		);
 	},

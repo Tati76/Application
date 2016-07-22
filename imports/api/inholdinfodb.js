@@ -1,10 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
-
 export const InholdInfoDb = new Mongo.Collection('inholdinfodb');
- 
- 
+
  if (Meteor.isServer) {
 	// This code only runs on the server
 	Meteor.publish('inholdinfodb', function inholdInfoDbPublication() {
@@ -18,8 +16,10 @@ Meteor.methods({
 	},
 	'inholdinfodb.insert'(newSample,options) {
 		//check(newSample, Object);
-		
-		newSample['createdAt'] = new Date();
+		var date = new Date();
+		var stringdate = "";
+		stringdate += date.getDate() + '/' + (date.getMonth() + 1) + '/' +  date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" +date.getSeconds();		
+		newSample['CreatedAt'] = stringdate;
 		var thisID = InholdInfoDb.insert(
 			newSample
 		);
