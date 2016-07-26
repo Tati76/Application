@@ -14,7 +14,7 @@ ContentDisplayer = React.createClass({
 	    		data.content = InholdInfoDb.find({"Parent Id" : this.props.containerId}).fetch(); // Only catches the boxes that are not storable in others
 	      		
 	    	}
-	    	else // Searching the wanted boxes
+	    	else // Searching the wanted boxes 
 	    	{
 	    		data.content = [];
 	    		data.wholeContent = InholdInfoDb.find({"Parent Id" : this.props.containerId }).fetch();
@@ -23,11 +23,15 @@ ContentDisplayer = React.createClass({
 	    		
 	    		for (var i =0; i< data.wholeContent.length ; i++)
 	    		{
-	    			searchingIn = data.wholeContent[i][this.props.searchOptions[0]]
-	    			if ( searchingIn.search(reseachedValue) > -1)
+	    			if(data.wholeContent[i].hasOwnProperty(this.props.searchOptions[0])) // if it has the property
 	    			{
-	    				data.content.push(data.wholeContent[i]);
+	    				searchingIn = data.wholeContent[i][this.props.searchOptions[0]]
+		    			if ( searchingIn.search(reseachedValue) > -1)
+		    			{
+		    				data.content.push(data.wholeContent[i]);
+		    			}
 	    			}
+	    			
 	    		}
 	    	}
 	      	console.log(data.content);
@@ -36,11 +40,14 @@ ContentDisplayer = React.createClass({
 	},
 	
 	getInitialState(){
-		return null;
+		return {
+			language : this.props.language,
+			index : this.props.index
+		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-
+		this.setState({language : nextProps.language,index : nextProps.index});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -70,7 +77,7 @@ ContentDisplayer = React.createClass({
 
 		return(
 			<a href={finalPath} className="list-group-item">
-				<SampleViewer key={"c"+index} dbObject={this.data.content[input]} chosenAttribute={this.props.chosenAttribute}/>
+				<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={this.data.content[input]} chosenAttribute={this.props.chosenAttribute}/>
 			</a>
 		);
 	},

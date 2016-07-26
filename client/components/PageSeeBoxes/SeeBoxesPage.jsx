@@ -73,13 +73,13 @@ SeeBoxes = React.createClass({
 		}
 	},
 
-	renderSearch()
+	renderSearch() 
 	{
 		return(
 
 			<div className="form-group center-block">
 
-				<AttributeSelector onClick={this.handleSearchAttribute}/>
+				<AttributeSelector onClick={this.handleSearchAttribute} language={this.state.language} index={this.state.index} boxType={"Otolith Storage Box"}/>
 				<input type="text" className="form-control" placeholder={displayFile.setups[this.state.index].searchComponent.input.placeholder} onChange={this.handleSearch}/>
 				<button type="button" className="btn btn-default">
 					<span className="glyphicon glyphicon-search" aria-hidden="true"></span>
@@ -105,11 +105,6 @@ SeeBoxes = React.createClass({
 		FlowRouter.go(tempPathString);
 	},
 
-	translate()
-	{
-		console.log(translateWord("Skap","English","Plankton 100mL Bottle"));
-	},
-
 	render()
 	{
 
@@ -122,12 +117,10 @@ SeeBoxes = React.createClass({
 							  	{this.renderSearch()}
 							</form>
 
-							<BoxDisplayer searchOptions={[this.state.searchAttribute,this.state.searchValue]}/>
-
-							<button type="button" className="btn btn-primary" onClick={this.clickAddBox}>{displayFile.setups[this.state.index].SeeBoxPage.buttons.addContent}</button>
+							<BoxDisplayer language={this.state.language} index={this.state.index} searchOptions={[this.state.searchAttribute,this.state.searchValue]}/>
+							<button  type="button" className="btn btn-primary center-block" onClick={this.clickAddBox}>{displayFile.setups[this.state.index].SeeBoxPage.buttons.addContent}</button>
 						</div>
 					</div>
-					<button onClick={this.translate}> TEST </button>
 				</div>
 
 		);

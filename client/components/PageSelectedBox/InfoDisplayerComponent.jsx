@@ -94,8 +94,7 @@ InfoDisplayer = React.createClass({
 			
 			return(
 				<div className="container-fluid" style={{"border":"1px solid black","paddingLeft" : "30px","paddingRight" : "30px"}}>
-					<EditableInfoDisplayer language={this.state.language} index={this.state.index} currentBoxId={this.state.currentBoxId} onClick={this.handleClick}/>
-					<button type="button" className="btn btn-primary center-block" disabled>Lend this box (Not dynamic)</button>
+					<EditableInfoDisplayer language={this.state.language} index={this.state.index} currentBoxId={this.state.currentBoxId} boxType={this.state.boxObject["Box Type"]} onClick={this.handleClick}/>
 				</div>
 			);
 		}

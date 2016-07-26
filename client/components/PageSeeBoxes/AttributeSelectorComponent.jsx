@@ -1,4 +1,5 @@
 import { InholdInfoDb } from '../../../imports/api/inholdinfodb.js';
+import {translate} from '../Functions/functionFile.js';
 
 AttributeSelector = React.createClass({
 	mixins: [ReactMeteorData],
@@ -30,11 +31,15 @@ AttributeSelector = React.createClass({
 	},
 	
 	getInitialState(){
-		return null;
+		return {
+			language : this.props.language,
+			index : this.props.index,
+			boxType : this.props.boxType
+		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-
+		this.setState({language : nextProps.language, index : nextProps.index, boxType : nextProps.boxType});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -50,14 +55,14 @@ AttributeSelector = React.createClass({
 	{
 
 		return(
-			<option key={index}> {input}</option>
+			<option key={index} value={input}> {translate(input,this.state.language,this.state.boxType)}</option>
 		);
 	},
 
 	render(){
 		return(
 			<div> 
-				<select onClick={this.props.onClick}>
+				<select className='form-control input' onClick={this.props.onClick}>
 					{this.data.list? this.data.list.map(this.renderSelector) : <option> Loading </option>}
 				</select>
 			</div>

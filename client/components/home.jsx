@@ -55,16 +55,20 @@ Home = React.createClass({
     	
 		
 		<div className="btn-group btn-group-justified" role="group" aria-label="...">
-			  <div className="btn-group" role="group">
-			    <a href={res}><button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.save}</button></a>
-			  </div>
-			  <div className="btn-group" role="group">
-			   <a href={res3}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.addContent}</button></a>
-			  </div>
-			  <div className="btn-group" role="group">
-			   <a href={res2}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.search}</button></a>
-			  </div>
+			<div className="btn-group" role="group">
+				<a href={res3}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.addContent}</button></a>
+			</div>
 		</div>
     )
   }
 });
+
+// <div className="btn-group" role="group">
+// 			    <a href={res}><button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.save}</button></a>
+// 			  </div>
+// 			  <div className="btn-group" role="group">
+// 			   <a href={res3}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.addContent}</button></a>
+// 			  </div>
+// 			  <div className="btn-group" role="group">
+// 			   <a href={res2}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.search}</button></a>
+// 			  </div>

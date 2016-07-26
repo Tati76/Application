@@ -1,7 +1,7 @@
 import { InholdInfoDb } from '../../../../imports/api/inholdinfodb.js';
 import boxFile from '../../Boxes/BoxesInfo.json';
 import displayFile from '../../languages/Settings.json';
-import {translateWord} from '../../Functions/functionFile.js'
+import {translateWord, translate} from '../../Functions/functionFile.js'
 
 NormalInfoDisplayer = React.createClass({
 
@@ -43,10 +43,30 @@ NormalInfoDisplayer = React.createClass({
 	{
 		if(input == "_id")
 		{
+			
 			return(
 					<tr key={index}>
 						<td className="text-center">ID</td>
 						<td className="text-center">{this.data.sample[input]}</td>
+					</tr>
+				);
+		}
+		else if (translate(input,this.state.language,this.data.sample["Box Type"]) == translate("Forelder Id",this.state.language,this.data.sample["Box Type"]))
+		{
+			var tempArray = [];
+			tempArray = FlowRouter.current().path.split("/");
+			tempArray.pop();
+			tempArray.push(this.data.sample[input]);
+			var tempPathString = "";
+			for (var i = 1 ; i< tempArray.length ; i++)
+			{
+				tempPathString += "/";
+				tempPathString += tempArray[i];
+			}
+			return(
+					<tr key={index}>
+						<td className="text-center">{input}</td>
+						<td className="text-center"><a href={tempPathString}>{this.data.sample[input]}</a></td>
 					</tr>
 				);
 		}

@@ -77,3 +77,5 @@
 - Création de la page de storage info qui marche avec DynamicForm en tableau
 - Dans le InfoDisplayer tout marche sauf le EDIT, a voir si on modifie le DynamicForm ou pas pour faire en sorte d'afficher les 
 	tokt qui sont deja choisis, cad introduire dans les state de depart du component un array placeHolder qui y est deja et adapter cette fonction à tous les sous composants de ce form
+
+- Problème de traduction du sampleViewer ! à voir lundi mais tout se traduit mais pas le dernier, peut etre changer la fonction pour choisir cet attribut.

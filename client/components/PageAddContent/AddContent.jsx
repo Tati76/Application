@@ -4,6 +4,7 @@
 import { InholdInfoDb } from '../../../imports/api/inholdinfodb.js';
 import boxFile from '../Boxes/BoxesInfo.json';
 import settingsFile from '../languages/Settings.json';
+import {translate} from '../Functions/functionFile.js';
 
 AddContent = React.createClass({
 
@@ -242,7 +243,7 @@ AddContent = React.createClass({
 							boxType={this.state.selectedBoxType} 
 							giveValue={this.clickSubmit} 
 							onReturn={this.clickReturn}
-							placeHold={[this.state.boxId,this.findContainerIdLabel(this.state.language,this.state.selectedBoxType)]}
+							placeHold={[[this.state.boxId],[this.findContainerIdLabel(this.state.language,this.state.selectedBoxType)]]}
 							isTable={false}/>
 			</div>
 		);

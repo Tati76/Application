@@ -145,7 +145,7 @@ AddBox= React.createClass({
 		return(
 			<div className='container-fluid'>
 				<SelectBoxTypeComponent 
-					language={this.state.language} 
+					language={this.state.language}
 					index={this.state.index} 
 					onClick={this.clickBoxSelect} />
 				<DynamicForm 
@@ -156,7 +156,7 @@ AddBox= React.createClass({
 					boxType={this.state.boxType} 
 					giveValue={this.clickSubmit}
 					onReturn={this.clickReturn}
-					placeHold={["",""]}
+					placeHold={[["jlsf"],["klsdfjl"]]}
 					isTable={false}/>
 				
 			</div>

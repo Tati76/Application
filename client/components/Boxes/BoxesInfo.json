@@ -5,10 +5,10 @@
 			"Norsk": "Otolitt Stor Kartong Boks",
 			"English": "Otolith Storage Box"
 		},
-		"forms" : {
+		"forms" : { 
 			"dbInfo" :{
-				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
-				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"]
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar"],
@@ -46,8 +46,8 @@
 		},
 		"forms" : {
 			"dbInfo" :{
-				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
-				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"]
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -86,8 +86,8 @@
 		},
 		"forms" : {
 			"dbInfo" :{
-				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
-				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"]
 			},
 			"content" : {
 				"Norsk" : ["Nummer.","Vekt i gram","Lengde","Kjønn","Alder","G.Alder","Stadium","G.Soner","Lesbarhet","M","Type","F","Rand","Leverv.","Gonadev.","Kommentar","Forelder Id"],
@@ -125,8 +125,8 @@
 		},
 		"forms" : {
 			"dbInfo" :{
-				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
-				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"]
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -164,8 +164,8 @@
 		},
 		"forms" : {
 			"dbInfo" :{
-				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
-				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"]
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -203,8 +203,8 @@
 		},
 		"forms" : {
 			"dbInfo" :{
-				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
-				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"]
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -242,8 +242,8 @@
 		},
 		"forms" : {
 			"dbInfo" :{
-				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
-				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"]
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar"],
@@ -281,8 +281,8 @@
 		},
 		"forms" : {
 			"dbInfo" :{
-				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings"],
-				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage"]
+				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
+				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"]
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],

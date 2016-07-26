@@ -2,7 +2,7 @@ import boxFile from '../Boxes/BoxesInfo.json';
 import settingsFile from '../languages/Settings.json';
 
 
-export function PrintHello() {
+export function PrintHello() { 
 	console.log("hello");
 };
 
@@ -93,7 +93,7 @@ export function translateWord(word,desiredLanguage,boxType) {
 								// console.log(5);
 								if(boxFile[i].forms[Object.keys(boxFile[i].forms)[b]][boxNameArray[c]][d] == word)
 								{
-									console.log(boxFile[i].forms[Object.keys(boxFile[i].forms)[b]][desiredLanguage][d]);
+									// console.log(boxFile[i].forms[Object.keys(boxFile[i].forms)[b]][desiredLanguage][d]);
 									// return boxFile[i].forms[Object.keys(boxFile[i].forms)[b]][desiredLanguage][d];
 									resp = boxFile[i].forms[Object.keys(boxFile[i].forms)[b]][desiredLanguage][d];
 									break;
@@ -112,4 +112,33 @@ export function translateWord(word,desiredLanguage,boxType) {
 		return false;
 	}
 	
+};
+
+export function translate(word,desiredLanguage,boxType)
+	{
+		if(word != "_id" || word != "ID" || word != "Box Type")
+		{
+			if(word.split(" ")[0] == "Borrowing" || word.split(" ")[0] == "Storage"|| word.split(" ")[0] == "Låne" ||word.split(" ")[0] == "Lagrings")
+			{
+				var tempString = "";
+				for(var i = 0 ; i<word.split(" ").length ; i++)
+				{
+					tempString += translateWord(word.split(" ")[i],desiredLanguage,boxType);
+					if(i != word.split(" ").length-1)
+					{
+						tempString += " ";
+					}
+				}
+				return tempString;
+			}
+			else
+			{
+				// console.log(word);
+				return translateWord(word,desiredLanguage,boxType);
+			}
+		}
+		else
+		{
+			return "ID";
+		}
 };

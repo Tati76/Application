@@ -3,6 +3,8 @@ CruiseSearch = React.createClass({
 		var tempObject = {};
 		var tempArray = [];
 		return {
+			language : this.props.language,
+			index : this.props.index,
 			year : "",
 			ship : "",
 			startTime : new Date(),
@@ -101,7 +103,7 @@ CruiseSearch = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-
+		this.setState({language : nextProps.language, index : nextProps.index });
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -147,8 +149,15 @@ CruiseSearch = React.createClass({
 				<button onClick={this.handleClick}> CLick </button>
 				<input type="date" id="myDate" onChange={this.dateChange}/>
 				<p> Date in between : {this.dateInBetween(this.state.chosenDate)} </p>
-				<DynamicForm language={this.props.language} index={this.props.index} info={[["Date","Ship","Cruise Number","Test"],[true,false,true,false],[1,2,3,0]]}/>
-				<SelectBoxTypeComponent language={this.props.language} index={this.props.index}  />
+				<DynamicForm language={this.state.language} 
+							index={this.state.index} 
+							info={[["Date","Ship","Cruise Number","Test"],[true,false,true,false],[1,2,3,0]]}
+							dbInfo={["Date","Ship","Cruise Number","Test"]} 
+							boxType={"Otolith Storage Box"} 
+							giveValue={this.clickSubmit} 
+							onReturn={this.clickReturn}
+							placeHold={[[""],[""]]}
+							isTable={false}/>
 			</div>
 		);
 	}

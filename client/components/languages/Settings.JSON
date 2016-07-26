@@ -105,6 +105,9 @@
 			}
 		},
 		"SeeBoxPage" : {
+			"titles" : {
+				"content" : "Se Etter Innhold"
+			},
 			"buttons" : {
 				"addContent" : "Legge til ny Boks"
 			}
@@ -127,7 +130,7 @@
 		"SelectedBoxPage" : {
 			"buttons" : {
 				"lend" : "Låne Box",
-				"addContent" : "Legge til ny Inhold",
+				"addContent" : "Legge til nytt Inhold",
 				"edit" : "Redigere"
 			}
 		},
@@ -135,7 +138,8 @@
 			"title" : "Boks Informasjon",
 			"buttons" : {
 				"save" : "Lagre",
-				"lend" : "Låne Box"
+				"lend" : "Låne Box",
+				"return" : "Tilbake"
 			}
 		},
 		"NormalInfoDisplayer" : {
@@ -265,6 +269,9 @@
 			}
 		},
 		"SeeBoxPage" : {
+			"titles" : {
+				"content" : "Look For Content"
+			},
 			"buttons" : {
 				"addContent" : "Add Box"
 			}
@@ -294,11 +301,12 @@
 			"title" : "Box Information",
 			"buttons" : {
 				"save" : "Save",
-				"lend" : "Lend Box"
+				"lend" : "Lend Box",
+				"return" : "Back"
 			}
 		},
 		"NormalInfoDisplayer" : {
-			"title" : "Box Informastion",
+			"title" : "Box Information",
 			"info" : "Box Already Borrowed",
 			"buttons" : {
 				"edit" : "Edit",

@@ -21,11 +21,14 @@ BoxDisplayer = React.createClass({
 					stringToSearch = this.props.searchOptions[1];
 			      	for (var i=0 ; i<data.sample.length ; i++)
 			      	{
-			      		console.log(data.samplesFittingTheCriterias);
-			      		stringToSearchIn = data.sample[i][this.props.searchOptions[0]];
-			      		if(stringToSearchIn.search(stringToSearch) > -1)
-			      		{
-			      			data.samplesFittingTheCriterias.push(data.sample[i]);
+			      		if(data.sample[i].hasOwnProperty(this.props.searchOptions[0])) // if it has the property
+	    				{
+				      		console.log(data.samplesFittingTheCriterias);
+				      		stringToSearchIn = data.sample[i][this.props.searchOptions[0]];
+				      		if(stringToSearchIn.search(stringToSearch) > -1)
+				      		{
+				      			data.samplesFittingTheCriterias.push(data.sample[i]);
+				      		}
 			      		}
 			      	}   	
 		      		//*****************************************************************************************
@@ -44,12 +47,14 @@ BoxDisplayer = React.createClass({
 	
 	getInitialState(){
 		return {
-			searchedAttribute : this.props.searchOptions[0]
+			searchedAttribute : this.props.searchOptions[0],
+			language : this.props.language,
+			index : this.props.index
 		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({searchedAttribute : nextProps.searchOptions[0]});
+		this.setState({searchedAttribute : nextProps.searchOptions[0], language:nextProps.language, index : nextProps.index});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -67,7 +72,7 @@ BoxDisplayer = React.createClass({
 
 		return(
 			<a href={FlowRouter.current().path + "/" + input._id} className="list-group-item">
-				<SampleViewer key={"c"+index} dbObject={input} chosenAttribute={this.props.searchOptions[0]}/>
+				<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={input} chosenAttribute={this.props.searchOptions[0]}/>
 			</a>
 		);
 	},

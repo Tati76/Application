@@ -331,13 +331,14 @@ DynamicForm = React.createClass({
 			);
 		}
 		else{
-			if(this.state.placeHolder[1] == input)
+			var indexOfPlaceHolder = this.isInPlaceHolder(input);
+			if(indexOfPlaceHolder > -1)
 			{
 				return(
 					<div className={errorMessage.concat(" form-group")} key={index}>
 						<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
 						<div className="col-sm-10">
-							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0]} placeholder={this.state.placeHolder[0]} disabled/>
+							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/>
 						</div>
 					</div>
 				);
@@ -354,6 +355,20 @@ DynamicForm = React.createClass({
 			}
 			
 		}
+	},
+
+	isInPlaceHolder(word)
+	{
+		for (var i = 0 ; i<this.state.placeHolder[1].length; i++)
+		{
+			var res = -1;
+			if(this.state.placeHolder[1][i] == word)
+			{
+				res = i;
+				break;
+			}
+		}
+		return res;
 	},
 
 	translate(word)
