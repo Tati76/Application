@@ -8,60 +8,29 @@ MultiSelectField = React.createClass({
 	propTypes: {
 		label: React.PropTypes.string,
 	},
+
 	getInitialState () {
-		// console.log(this.props.incomingData);
-		if(this.props.incomingData)
-		{
-			return {
-				disabled: false,
-				crazy: false,
-				options: this.props.incomingData.slice(),
-				value: "",
-				loading : true,
-				clearAll : false
-			};
-		}
-		else {
-			return {
-				disabled: false,
-				crazy: false,
-				options: [{}],
-				value: "",
-				loading : this.props.loading,
-				clearAll : false
-			};
+		return{
+			value : null,
+			loading : this.props.loading,
+			options : this.props.incomingData
 		}
 		
 	},
 
 
 	componentWillReceiveProps: function(nextProps) {
-
-		//the shipFile will change when the component did mount
-		if (!nextProps.incomingData)
+		console.log("receives clearAll prop : ", nextProps.clearAll);
+		if(nextProps.clearAll > this.props.clearAll)
 		{
-			this.setState({incomingData : [], loading: nextProps.loading, value : null});
+			this.clearInput();
 		}
-		else{
-			this.setState({options : nextProps.incomingData.slice(),loading: nextProps.loading},function(){});// console.log(this.state.options);});
-		}
-		if(nextProps.doRemove[0] && nextProps.doRemove[1].length >0)
-		{
-			this.removeValues(nextProps.doRemove[1]); // remove the values at the index of doRemove[1]
-		}
+		
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-		if(nextState.value != this.state.value || nextState.options != this.state.options)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		// var shallowCompare = require('react-addons-shallow-compare');
-		// return shallowCompare(this, nextProps, nextState);
+		var shallowCompare = require('react-addons-shallow-compare');
+		return shallowCompare(this, nextProps, nextState);
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 
@@ -69,42 +38,13 @@ MultiSelectField = React.createClass({
 	},
 
 	handleSelectChange (value) {
-		// console.log('You\'ve selected:', value);
-		// console.log("change made in multifield : ",value);
-		// console.log(typeof value);
-		this.setState({ value });
-		// console.log(value);
-		// console.log(typeof value);
-		this.props.giveValue(value);
+		this.setState({value});
+		console.log("value",value);
 	},
 
 	removeValues(array)
 	{
-		var index = 0;
-		var tempStateValueArray = this.state.value.split(",");
-		for(var i = 0 ; i < array.length ; i++)
-		{
-			index = tempStateValueArray.indexOf(array[i]); // search the element 
-
-			if (index > -1) 
-			{ // delete the element
-			    tempStateValueArray.splice(index, 1);
-			}
-		}
-		var tempStateValueString = "";
-		for(var i = 0 ; i < tempStateValueArray.length ; i++) // reform the value
-		{
-			tempStateValueString += tempStateValueArray[i];
-
-			if(i != tempStateValueArray.length-1)
-			{
-				tempStateValueString += ",";
-			}
-		}
-		this.setState({value : tempStateValueString});
-		this.setState({clearAll : true});
-		this.props.valuesRemoved([true,tempStateValueString]);
-		this.setState({clearAll : false});
+		
 
 	},
 
@@ -114,21 +54,18 @@ MultiSelectField = React.createClass({
 
 	inputChange(arg)
 	{
-		// console.log("inputChange");
-		// console.log(arg);
+		
 	},
 
 	clearInput()
 	{
-		this.setState({value : ""});
-		this.props.valuesRemoved([true,""]);
-
+		this.setState({value : null});
 	},
 
 	render () {
 		return (
 			<div>
-				<Select multi simpleValue value={this.state.value} resetValue={null} disabled={false} clearable={true} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="value" onChange={this.handleSelectChange} />
+				<Select multi simpleValue value={this.state.value} resetValue={null} disabled={false} clearable={true} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="name" onChange={this.handleSelectChange} />
 				<button onClick={this.clearInput}>clear</button>
 			</div>
 		);
