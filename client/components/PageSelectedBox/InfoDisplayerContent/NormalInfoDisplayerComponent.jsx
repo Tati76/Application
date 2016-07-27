@@ -1,7 +1,8 @@
 import { InholdInfoDb } from '../../../../imports/api/inholdinfodb.js';
 import boxFile from '../../Boxes/BoxesInfo.json';
 import displayFile from '../../languages/Settings.json';
-import {translateWord, translate} from '../../Functions/functionFile.js'
+import {translateWord, translate} from '../../Functions/functionFile.js';
+import {wordWRAP} from './NormalInfoDisplayerStyle.css';
 
 NormalInfoDisplayer = React.createClass({
 
@@ -85,7 +86,7 @@ NormalInfoDisplayer = React.createClass({
 			return(
 					<tr key={index}>
 						<td className="text-center">{translateWord(input,this.state.language,this.data.sample["Box Type"])}</td>
-						<td className="text-center">{this.data.sample[input]}</td>
+						<td className="text-center wordWRAP">{this.data.sample[input]}</td>
 					</tr>
 				);
 		}
@@ -119,7 +120,7 @@ NormalInfoDisplayer = React.createClass({
 							 <button type="button" className="btn btn-primary" onClick={this.clickPrint}>{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.print}</button>
 						</div>
 						<div className="btn-group" role="group">
-							 <button type="button" className="btn btn-primary" onClick={this.props.onClick} value="Store">{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.storage}</button>
+							 <button type="button" className="btn btn-primary wordWRAP" onClick={this.props.onClick} value="Store">{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.storage}</button>
 						</div>
 					</div>
 				</div>
@@ -136,7 +137,7 @@ NormalInfoDisplayer = React.createClass({
 						<button type="button" className="btn btn-primary" onClick={this.clickPrint}>{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.print}</button>
 					</div>
 					<div className="btn-group" role="group">
-						<button type="button" className="btn btn-primary" onClick={this.props.onClick} value="Store">{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.storage}</button>
+						<button type="button" className="btn btn-primary button-padding" onClick={this.props.onClick} value="Store">{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.storage}</button>
 					</div>
 				</div>
 			);
@@ -147,7 +148,7 @@ NormalInfoDisplayer = React.createClass({
 		console.log("render NormalInfoDisplayer");
 		return(
 			<div className="container-fluid" >
-				<h2 className="text-center"> {displayFile.setups[this.state.index].NormalInfoDisplayer.title}</h2>
+				<h2 className="text-center text-primary"> {displayFile.setups[this.state.index].NormalInfoDisplayer.title}</h2>
 				<form>
 					<table border="1" className="table table-bordered">
 						<thead>

@@ -1,4 +1,4 @@
-import {getXMLHttpRequest,makeXMLHttpRequest,dynamicSort} from '../../Functions/functionFile.js';
+import {getXMLHttpRequest,makeHttpRequest,dynamicSort} from '../../Functions/functionFile.js';
 
 
 
@@ -27,10 +27,10 @@ ShipSelectComponent= React.createClass({
 		{
 			if (i== yearList.length -1)
 			{
-				makeXMLHttpRequest(urlList[i],this.readData,[yearList[i],true,shipFiles,urlList,yearList]);
+				makeHttpRequest(urlList[i],this.readData,[yearList[i],true,shipFiles,urlList,yearList]);
 			}
 			else{
-				makeXMLHttpRequest(urlList[i],this.readData,[yearList[i],false,shipFiles,urlList,yearList]);
+				makeHttpRequest(urlList[i],this.readData,[yearList[i],false,shipFiles,urlList,yearList]);
 			}
 		}
 		

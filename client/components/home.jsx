@@ -58,6 +58,9 @@ Home = React.createClass({
 			<div className="btn-group" role="group">
 				<a href={res3}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.addContent}</button></a>
 			</div>
+			<div className="btn-group" role="group">
+		   		<a href={res2}> <button type="button" className="btn btn-default">{this.state.usedLangObject.buttons.search}</button></a>
+		  	</div>
 		</div>
     )
   }

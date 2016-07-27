@@ -1,4 +1,4 @@
-import {getXMLHttpRequest,makeXMLHttpRequest} from '../../Functions/functionFile.js';
+import {getXMLHttpRequest,makeHttpRequest} from '../../Functions/functionFile.js';
 
 
 YearSelectComponent= React.createClass({
@@ -28,14 +28,14 @@ YearSelectComponent= React.createClass({
 
 	componentDidMount()
 	{
-		makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData)
+		makeHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData)
 		
 	},
 
 	handleClick: function(event)
 	{
-		makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData)
-		//this.makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y/2016",this.readData);
+		makeHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData)
+		//this.makeHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y/2016",this.readData);
 		
 	},
 

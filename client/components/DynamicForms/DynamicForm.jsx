@@ -1,4 +1,4 @@
-// <DynamicForm language={this.props.language} 
+ // <DynamicForm language={this.props.language} 
 	// index={this.props.index} 
 	// info=[toDisplay list,obliged listthis.state.cruiseSearch]} 
 	// dbInfo={this.state.dbFields} 
@@ -150,8 +150,17 @@ DynamicForm = React.createClass({
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-		var shallowCompare = require('react-addons-shallow-compare');
-		return shallowCompare(this, nextProps, nextState);
+		// var shallowCompare = require('react-addons-shallow-compare');
+		// return shallowCompare(this, nextProps, nextState);
+
+		if (nextState.tempCruiseList != this.state.cruiseList)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 

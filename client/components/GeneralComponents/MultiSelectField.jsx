@@ -2,18 +2,6 @@ import React from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-const FLAVOURS = [
-	{ label: 'Chocolate', value: 'chocolate' },
-	{ label: 'Vanilla', value: 'vanilla' },
-	{ label: 'Strawberry', value: 'strawberry' },
-	{ label: 'Caramel', value: 'caramel' },
-	{ label: 'Cookies and Cream', value: 'cookiescream' },
-	{ label: 'Peppermint', value: 'peppermint' },
-];
-
-const WHY_WOULD_YOU = [
-	{ label: 'Chocolate (are you crazy?)', value: 'chocolate', disabled: true },
-].concat(FLAVOURS.slice(1));
 
 MultiSelectField = React.createClass({
 	displayName: 'MultiSelectField',
@@ -52,7 +40,7 @@ MultiSelectField = React.createClass({
 		//the shipFile will change when the component did mount
 		if (!nextProps.incomingData)
 		{
-			this.setState({incomingData : [], loading: nextProps.loading});
+			this.setState({incomingData : [], loading: nextProps.loading, value : null});
 		}
 		else{
 			this.setState({options : nextProps.incomingData.slice(),loading: nextProps.loading},function(){});// console.log(this.state.options);});
@@ -64,8 +52,16 @@ MultiSelectField = React.createClass({
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-		var shallowCompare = require('react-addons-shallow-compare');
-		return shallowCompare(this, nextProps, nextState);
+		if(nextState.value != this.state.value || nextState.options != this.state.options)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		// var shallowCompare = require('react-addons-shallow-compare');
+		// return shallowCompare(this, nextProps, nextState);
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 
@@ -122,10 +118,18 @@ MultiSelectField = React.createClass({
 		// console.log(arg);
 	},
 
+	clearInput()
+	{
+		this.setState({value : ""});
+		this.props.valuesRemoved([true,""]);
+
+	},
+
 	render () {
 		return (
 			<div>
-				<Select multi simpleValue value={this.state.value} disabled={false} clearable={true} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="value" onChange={this.handleSelectChange} />
+				<Select multi simpleValue value={this.state.value} resetValue={null} disabled={false} clearable={true} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="value" onChange={this.handleSelectChange} />
+				<button onClick={this.clearInput}>clear</button>
 			</div>
 		);
 	}
