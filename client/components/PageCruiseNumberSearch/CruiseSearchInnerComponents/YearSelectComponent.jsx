@@ -3,21 +3,29 @@ import {getXMLHttpRequest,makeHttpRequest} from '../../Functions/functionFile.js
 
 YearSelectComponent= React.createClass({
 
-	readData: function(sData) {
+	readData: function(sData,option) {
+
+		var tempArray = [];
+		for (var i=0 ; i<JSON.parse(sData).length ; i++ ) // put the value attribute in each year to display it
+		{
+			tempArray.push(JSON.parse(sData)[i]);
+			tempArray[i]["value"] = JSON.parse(sData)[i].name;
+		}
+		this.setState({yearFile : tempArray,loading : false});
 		
 	},
 
 	getInitialState(){
-		
 		return {
-			yearFile : [{value :"45", name:'forty five'},{value :"34", name:'thirty four'}],
-			clearAll : 0
+			yearFile : [],
+			clearAll : 0,
+			loading : true
 		};
 	},
 
 	componentDidMount()
 	{
-		
+		makeHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData,null);
 	},
 
 	handleClick: function(event)
@@ -26,14 +34,17 @@ YearSelectComponent= React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-
+		if (nextProps.clearYear > this.props.clearYear)
+		{
+			this.clearAll();
+		}
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
 	// 	var shallowCompare = require('react-addons-shallow-compare');
 	// 	return shallowCompare(this, nextProps, nextState);
 	console.log(nextState.clearAll != this.state.clearAll);
-		if (nextState.clearAll > this.state.clearAll)
+		if (nextState.clearAll > this.state.clearAll || this.state.yearFile != nextState.yearFile)
 		{
 			return true;
 		}
@@ -49,7 +60,7 @@ YearSelectComponent= React.createClass({
 
 	handleValue(argument)
 	{
-
+		this.props.giveValue(argument);
 	},
 
 	clearAll(event)
@@ -70,7 +81,7 @@ YearSelectComponent= React.createClass({
 
 		return(
 			<div>
-				{this.state.yearFile? <MultiSelectField clearAll={this.state.clearAll} incomingData={this.state.yearFile} giveValue={this.handleValue} doRemove={[false,""]}/> : <p> Loading </p>}
+				<MultiSelectField clearAll={this.state.clearAll} loading={this.state.loading} incomingData={this.state.yearFile} giveValue={this.handleValue} doRemove={[false,""]}/>
 				<button onClick={this.clearAll}> clearAll </button>
 			</div>		
 		);

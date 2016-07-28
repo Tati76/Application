@@ -130,7 +130,8 @@ DynamicForm = React.createClass({
 			dbInfo : this.props.dbInfo,
 			boxType : this.props.boxType, 
 			placeHolder : this.props.placeHold,
-			isTable : this.props.isTable
+			isTable : this.props.isTable,
+			clearYearCounter : 0
 		};
 	},
 
@@ -153,7 +154,19 @@ DynamicForm = React.createClass({
 		// var shallowCompare = require('react-addons-shallow-compare');
 		// return shallowCompare(this, nextProps, nextState);
 
-		if (nextState.tempCruiseList != this.state.cruiseList)
+		if (nextState.yearList != this.state.yearList)
+		{
+			return true;
+		}
+		else if (nextState.shipList != this.state.shipList)
+		{
+			return true;
+		}
+		else if (nextState.cruiseList != this.state.cruiseList)
+		{
+			return true;
+		}
+		else if (nextState.clearYearCounter > this.state.clearYearCounter)
 		{
 			return true;
 		}
@@ -186,71 +199,28 @@ DynamicForm = React.createClass({
 
 	handleYearList(arg)
 	{
-		// console.log("In the form year list is equal to :");
-		// console.log(arg);
-		//this.setState({yearList : arg.split(",").slice()},function(){console.log(this.state.yearList);});
-		if(arg == null) // if no year
+		console.log("In the form year list is equal to : ",arg);
+		if (arg == null || arg =="")
 		{
-			this.setState({yearList : [], shipList : [] },function(){});//console.log("yearlist : ",this.state.yearList);console.log("shipList", this.state.shipList);});
+			this.setState({yearList : []});
 		}
-		else // if some years selected
+		else
 		{
-			var tempShipList = this.state.shipList;
-			var tempShipListNameArray = [];
-			for(var i = 0 ; i< tempShipList.length ; i++) // delete the ships that are not in the yearList
-			{
-				if(!this.isInYearList(arg.split(","),tempShipList[i]))
-				{
-					tempShipList.splice(i,1); // delete the ship
-					i=i-1;
-				}
-				else
-				{
-					tempShipListNameArray.push(String(tempShipList[i].year + " " + tempShipList[i].ship));
-				}
-			}
-
-			this.setState({yearList : arg.split(",").slice()},function(){this.handleShipList(tempShipListNameArray);});//console.log("yearlist : ",this.state.yearList);console.log("shipList", this.state.shipList);this.handleShipList(tempShipListNameArray)});
+			this.setState({yearList : arg.split(',')});
 		}
 	},
 
 	handleShipList(arg)
 	{
-		// console.log("In the form ship list is equal to :");
-		// console.log(arg);
-		var tempArg = arg;
-		var tempShipList = [];
-		if (arg!== null)
+		console.log("In the form ship list is equal to : ",arg);
+		if (arg == null || arg =="")
 		{
-			if(arg.length >0 ) // if some ships selected
-			{
-				
-
-				for (var i = 0 ; i<tempArg.length ; i++) 
-				{
-					if(!this.isInYearList(this.state.yearList,{year : tempArg[i].slice(0,4)})) // delete the ships that are not allowed
-					{
-						tempArg.splice(i,1); // delete the ship
-						i=i-1;
-					}
-					else
-					{
-						tempShipList.push({year : tempArg[i].slice(0,4) , ship : tempArg[i].slice(5,tempArg[i].length)});
-					}
-					
-				}
-				// console.log(tempShipList);
-				this.setState({shipList : tempShipList},function(){this.handleCruiseList(this.state.cruiseList);});//console.log(this.state.shipList);this.handleCruiseList(this.state.cruiseList)});
-			}
-			else{
-				this.setState({shipList : []},function(){});//console.log(this.state.shipList);});
-			}
+			this.setState({shipList : []});
 		}
 		else
-		{ // if no ship selected
-			this.setState({shipList : []},function(){});//console.log(this.state.shipList);});
+		{
+			this.setState({shipList : arg.split(',')});
 		}
-		
 	},
 
 	isInShipList(inCruise,shipList)
@@ -270,18 +240,16 @@ DynamicForm = React.createClass({
 
 	handleCruiseList(arg)
 	{
-		var tempCruiseList = [];
-		// verify if the cruiseNr is from the ships in shipList
-		for(var i = 0 ; i<arg.length ; i++)
+		console.log("In the form cruise list is equal to : ",arg);
+		if (arg == null || arg =="")
 		{
-			if(this.isInShipList(arg[i].cruise,this.state.shipList)) // existing cruise so the cruiseNr has to be added to the response array
-			{
-				tempCruiseList.push(arg[i]);
-			}
+			this.setState({cruiseList : []});
 		}
-		// console.log("In the form cruise list is equal to :");
-		// console.log(arg);
-		this.setState({cruiseList : tempCruiseList.slice()});
+		else
+		{
+			var test = arg.split(',');
+			this.setState({cruiseList : arg.split(',')});
+		}
 	},
 
 	renderForm: function(input,index)
@@ -311,7 +279,7 @@ DynamicForm = React.createClass({
  			<div className={errorMessage.concat(" form-group")} key={index}>
 					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
 					<div className="col-sm-10">
-						<YearSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/>
+						<YearSelectComponent key={index} ref={index} clearYear={this.state.clearYearCounter} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/>
 					</div>
 				</div>
 			);
@@ -457,7 +425,7 @@ DynamicForm = React.createClass({
  			return(
  				<tr className={errorMessage.concat(" form-group")} key={index}>
 					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
-					<td className="text-center"><CruiseSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} shipList={this.state.shipList} giveValue={this.handleCruiseList}/></td>
+					<td className="text-center"><CruiseSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} shipList={this.state.shipList} giveValue={this.handleCruiseList}/></td>
 				</tr>
 			);
 		}
@@ -595,7 +563,8 @@ DynamicForm = React.createClass({
 			        break;
 			}
 		}
-		// this.setState({yearList : []});
+		var tempClearYearCounter = this.state.clearYearCounter + 1;
+		this.setState({clearYearCounter : tempClearYearCounter});
 	},
 
 	handleReturn(event)
