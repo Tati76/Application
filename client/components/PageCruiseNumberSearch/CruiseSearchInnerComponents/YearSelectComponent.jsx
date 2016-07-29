@@ -19,7 +19,9 @@ YearSelectComponent= React.createClass({
 		return {
 			yearFile : [],
 			clearAll : 0,
-			loading : true
+			loading : true,
+			language: this.props.language,
+			index : this.props.index
 		};
 	},
 
@@ -34,6 +36,7 @@ YearSelectComponent= React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
+		this.setState({language: nextProps.language, index : nextProps.index});
 		if (nextProps.clearYear > this.props.clearYear)
 		{
 			this.clearAll();
@@ -43,7 +46,11 @@ YearSelectComponent= React.createClass({
 	shouldComponentUpdate: function(nextProps, nextState) {
 	// 	var shallowCompare = require('react-addons-shallow-compare');
 	// 	return shallowCompare(this, nextProps, nextState);
-	console.log(nextState.clearAll != this.state.clearAll);
+	//console.log(nextState.clearAll != this.state.clearAll);
+		if(this.state.language != nextState.language)
+		{
+			return true;
+		}
 		if (nextState.clearAll > this.state.clearAll || this.state.yearFile != nextState.yearFile)
 		{
 			return true;
@@ -66,7 +73,7 @@ YearSelectComponent= React.createClass({
 	clearAll(event)
 	{
 		var tempClAl = this.state.clearAll+1;
-		console.log(tempClAl);
+		//console.log(tempClAl);
 		this.setState({clearAll : tempClAl});
 	},
 
@@ -81,8 +88,7 @@ YearSelectComponent= React.createClass({
 
 		return(
 			<div>
-				<MultiSelectField clearAll={this.state.clearAll} loading={this.state.loading} incomingData={this.state.yearFile} giveValue={this.handleValue} doRemove={[false,""]}/>
-				<button onClick={this.clearAll}> clearAll </button>
+				<MultiSelectField language={this.state.language} index={this.state.index} clearAll={this.state.clearAll} loading={this.state.loading} incomingData={this.state.yearFile} giveValue={this.handleValue} doRemove={[false,""]}/>
 			</div>		
 		);
 		

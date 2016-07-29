@@ -1,6 +1,7 @@
 import React from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import displayFile from "../languages/Settings.json";
 
 
 MultiSelectField = React.createClass({
@@ -13,7 +14,9 @@ MultiSelectField = React.createClass({
 		return{
 			value : null,
 			loading : this.props.loading,
-			options : this.props.incomingData
+			options : this.props.incomingData,
+			language : this.props.language,
+			index : this.props.index
 		}
 		
 	},
@@ -63,8 +66,8 @@ MultiSelectField = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({options : nextProps.incomingData,loading : nextProps.loading});
-		console.log("receives clearAll prop : ", nextProps.clearAll);
+		this.setState({options : nextProps.incomingData,loading : nextProps.loading, language: nextProps.language, index : nextProps.index});
+		//console.log("receives clearAll prop : ", nextProps.clearAll);
 		if(nextProps.clearAll > this.props.clearAll)
 		{
 			this.clearInput();
@@ -84,12 +87,12 @@ MultiSelectField = React.createClass({
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 
-		//console.log(this.state.value);
+		////console.log(this.state.value);
 	},
 
 	handleSelectChange (value) {
 		this.setState({value});
-		console.log("value",value);
+		//console.log("value",value);
 		this.props.giveValue(value);
 	},
 
@@ -119,8 +122,7 @@ MultiSelectField = React.createClass({
 	render () {
 		return (
 			<div>
-				<Select multi simpleValue value={this.state.value} resetValue={null} disabled={false} clearable={true} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="name" onChange={this.handleSelectChange} />
-				<button onClick={this.clearInput}>clear</button>
+				<Select multi simpleValue value={this.state.value} resetValue={null} disabled={false} clearable={true} isLoading={this.state.loading} placeholder={displayFile.setups[this.state.index].cruiseSelect.placeholder} onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="name" onChange={this.handleSelectChange} />
 			</div>
 		);
 	}

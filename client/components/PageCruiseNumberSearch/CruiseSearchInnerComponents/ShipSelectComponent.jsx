@@ -12,7 +12,9 @@ ShipSelectComponent= React.createClass({
 			displayArray : [],
 			loading: true,
 			urlReceivedRequestsCounter : 0,
-			requestsResponses: []
+			requestsResponses: [],
+			language : this.props.language,
+			index : this.props.index
 		};
 	},
 
@@ -23,24 +25,31 @@ ShipSelectComponent= React.createClass({
 
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({yearList : nextProps.yearList});
-		if (nextProps.yearList.length == 0 || nextProps.yearList[0] == "") // cas 1, no years selected, case 2, one year deleted
+		this.setState({language: nextProps.language, index : nextProps.index});
+		if (this.props.yearList != nextProps.yearList)
 		{
-			this.clearAll();
+			this.setState({yearList : nextProps.yearList});
+			if (nextProps.yearList.length == 0 || nextProps.yearList[0] == "") // cas 1, no years selected, case 2, one year deleted
+			{
+				this.clearAll();
+			}
+			else 
+			{
+				//console.log("ShipSelectComponent received props");
+				this.setState({loading : true});
+				this.createDisplayArray(nextProps);
+			}
 		}
-		else 
-		{
-			console.log("ShipSelectComponent received props");
-			this.createDisplayArray(nextProps);
-		}
-
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
 		// var shallowCompare = require('react-addons-shallow-compare');
 		// return shallowCompare(this, nextProps, nextState);
-
-		if (this.state.yearList != nextState.yearList)
+		if(this.state.language != nextState.language)
+		{
+			return true;
+		}
+		if (this.state.yearList != nextState.yearList || this.state.displayArray != nextState.displayArray)
 		{
 			return true;
 		}
@@ -73,6 +82,7 @@ ShipSelectComponent= React.createClass({
 
 	makeAllHttpRequests(urlList)// step 2
 	{
+		//console.log("urlList",urlList);
 		for (var i=0 ; i<urlList.length ;i++)
 		{
 			makeHttpRequest(urlList[i],this.readData,[urlList.length,urlList[i].slice(urlList[i].length-4,urlList[i].length)]);
@@ -92,7 +102,8 @@ ShipSelectComponent= React.createClass({
 				tempObject["data"] = JSON.parse(sData);
 				var tempArray = this.state.requestsResponses;
 				tempArray.push(tempObject);
-				this.setState({requestsResponses :tempArray});
+				var tempDispArr = this.makeTheDisplayArrayFromRequestsResponses(tempArray).slice();
+				this.setState({urlReceivedRequestsCounter: 0,loading: false,displayArray : tempDispArr,requestsResponses : []});
 			}
 			else// there are other requests to come
 			{
@@ -109,12 +120,26 @@ ShipSelectComponent= React.createClass({
 		});
 	},
 
+	makeTheDisplayArrayFromRequestsResponses(requestsResponses)
+	{
+		var tempRespArray = [];
+		for (var i = 0 ; i< requestsResponses.length ; i++)
+		{
+			tempRespArray.push({name : requestsResponses[i].year, value : requestsResponses[i].year, disabled: true, color : "red"});
+			for (var a = 0 ; a<requestsResponses[i].data.length ; a++)
+			{
+				tempRespArray.push({name:'('+requestsResponses[i].year+') '+requestsResponses[i].data[a].name , value : requestsResponses[i].year+' '+requestsResponses[i].data[a].name});
+			}
+		}
+		return tempRespArray;
+	},
+
 	createDisplayArray(prop)
 	{
 		// Check for the unwanted options
 		var urlList = this.findAllUrls(prop.yearList);
 		this.makeAllHttpRequests(urlList);
-		// create a function to transform this.state.requestsResponses into an array of objects 
+		// in makeAllHttpRequests, there is a function to transform this.state.requestsResponses into an array of objects 
 		//     -----------------------
 		//     - YEAR1               - value : year, name: year
 		//     -     Ship1           - name: year + " " + value, value: year + " " + value
@@ -130,25 +155,25 @@ ShipSelectComponent= React.createClass({
 		//     -     Ship4           - name: year + " " + value, value: year + " " + value
 		//     -----------------------
 		// then set This array to this.setState({displayArray: the array from above})
-		var tempArray = [];
-		for (var i = 0 ; i<prop.yearList.length ; i++)
-		{
-			tempArray.push({name : prop.yearList[i], value : prop.yearList[i],random : 'ShipSelectComponent'});
-		}
-		this.setState({loading: false,displayArray : tempArray.slice()});
+		// var tempArray = [];
+		// for (var i = 0 ; i<prop.yearList.length ; i++)
+		// {
+		// 	tempArray.push({name : prop.yearList[i], value : prop.yearList[i]});
+		// }
+		// this.setState({loading: false,displayArray : tempArray.slice(),requestsResponses : []});
 	},
 
 	clearAll()
 	{
 		var tempClAl = this.state.clearAll;
-		this.setState({clearAll : tempClAl+1,displayArray : [], loading: true});
+		this.setState({clearAll : tempClAl+1,displayArray : [], loading: true, urlReceivedRequestsCounter: 0,requestsResponses : []});
 	},
 
 	render()
 	{
 			return(
 				<div>
-					<MultiSelectField clearAll={this.state.clearAll} incomingData={this.state.displayArray} loading={this.state.loading} giveValue={this.handleValue} valuesRemoved={this.handleRemoveState} doRemove={[this.state.remove,this.state.labelsToRemove]}/> 
+					<MultiSelectField language={this.state.language} index={this.state.index} clearAll={this.state.clearAll} incomingData={this.state.displayArray} loading={this.state.loading} giveValue={this.handleValue} valuesRemoved={this.handleRemoveState} doRemove={[this.state.remove,this.state.labelsToRemove]}/> 
 				</div>		
 			);
 	}

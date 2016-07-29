@@ -158,6 +158,14 @@ DynamicForm = React.createClass({
 		{
 			return true;
 		}
+		else if (nextState.toDisplay != this.state.toDisplay)
+		{
+			return true;
+		}
+		else if (nextState.errorArray != this.state.errorArray)
+		{
+			return true;
+		}
 		else if (nextState.shipList != this.state.shipList)
 		{
 			return true;
@@ -279,7 +287,7 @@ DynamicForm = React.createClass({
  			<div className={errorMessage.concat(" form-group")} key={index}>
 					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
 					<div className="col-sm-10">
-						<YearSelectComponent key={index} ref={index} clearYear={this.state.clearYearCounter} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/>
+						<YearSelectComponent key={index} ref={index} language={this.state.language} index={this.state.index} clearYear={this.state.clearYearCounter} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/>
 					</div>
 				</div>
 			);
@@ -291,7 +299,7 @@ DynamicForm = React.createClass({
  			<div className={errorMessage.concat(" form-group")} key={index}>
 					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
 					<div className="col-sm-10">
-						<ShipSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/>
+						<ShipSelectComponent key={index} ref={index} language={this.state.language} index={this.state.index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/>
 					</div>
 				</div>
 			);
@@ -302,7 +310,7 @@ DynamicForm = React.createClass({
  			<div className={errorMessage.concat(" form-group")} key={index}>
 					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
 					<div className="col-sm-10">
-						<CruiseSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} shipList={this.state.shipList} giveValue={this.handleCruiseList}/>
+						<CruiseSelectComponent key={index} ref={index} language={this.state.language} index={this.state.index} className="form-control" id={"inp"+index} yearList={this.state.yearList} shipList={this.state.shipList} giveValue={this.handleCruiseList}/>
 					</div>
 				</div>
 			);
@@ -406,7 +414,7 @@ DynamicForm = React.createClass({
 			return(
 				<tr className={errorMessage.concat(" form-group")} key={index}>
 					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
-					<td className="text-center"><YearSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/></td>
+					<td className="text-center"><YearSelectComponent key={index} language={this.state.language} index={this.state.index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/></td>
 				</tr>
 			);
 		}
@@ -416,7 +424,7 @@ DynamicForm = React.createClass({
 			return(
 				<tr className={errorMessage.concat(" form-group")} key={index}>
 					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
-					<td className="text-center"><ShipSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/></td>
+					<td className="text-center"><ShipSelectComponent key={index} language={this.state.language} index={this.state.index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/></td>
 				</tr>
 			);
 		}
@@ -425,7 +433,7 @@ DynamicForm = React.createClass({
  			return(
  				<tr className={errorMessage.concat(" form-group")} key={index}>
 					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
-					<td className="text-center"><CruiseSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} shipList={this.state.shipList} giveValue={this.handleCruiseList}/></td>
+					<td className="text-center"><CruiseSelectComponent key={index} language={this.state.language} index={this.state.index} ref={index} className="form-control" id={"inp"+index} shipList={this.state.shipList} giveValue={this.handleCruiseList}/></td>
 				</tr>
 			);
 		}
@@ -459,7 +467,7 @@ DynamicForm = React.createClass({
 			tempString += this.state.yearList[i];
 			if(i!= this.state.yearList.length -1)
 			{
-				tempString+= ",";
+				tempString+= ", ";
 			}
 		}
 		return tempString;
@@ -470,12 +478,10 @@ DynamicForm = React.createClass({
 		var tempString = "";
 		for (var i = 0 ; i< this.state.shipList.length ; i++)
 		{
-			tempString += this.state.shipList[i].year;
-			tempString += " ";
-			tempString += this.state.shipList[i].ship;
+			tempString += this.state.shipList[i];
 			if(i!= this.state.shipList.length -1)
 			{
-				tempString+= ",";
+				tempString+= ", ";
 			}
 		}
 		return tempString;
@@ -486,10 +492,10 @@ DynamicForm = React.createClass({
 		var tempString = "";
 		for (var i = 0 ; i< this.state.cruiseList.length ; i++)
 		{
-			tempString += this.state.cruiseList[i].cruiseNr;
+			tempString += this.state.cruiseList[i];
 			if(i!= this.state.cruiseList.length -1)
 			{
-				tempString+= ",";
+				tempString+= ", ";
 			}
 		}
 		return tempString;
