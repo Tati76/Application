@@ -1,4 +1,5 @@
 import {getXMLHttpRequest,makeXMLHttpRequest} from '../../Functions/functionFile.js';
+import { HTTP } from 'meteor/http';
 
 
 YearSelectComponent= React.createClass({
@@ -28,8 +29,47 @@ YearSelectComponent= React.createClass({
 
 	componentDidMount()
 	{
-		makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData)
+		// makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData);
+		this.getFunction();
 		
+	},
+
+	getFunction()
+	{
+		// Meteor.http.get("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",{}, function (error, result) {
+		// 	if (error) 
+		// 	{
+		// 	console.log('http post FAILED!');
+		// 	} 
+		// 	else 
+		// 	{
+		// 		if (result.statusCode === 200) {
+		// 		console.log('http post ok!');
+		// 		}
+		// 	}
+		// });
+		// xhr.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+
+	 //    // Request methods you wish to allow
+	 //    xhr.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+	 //    // Request headers you wish to allow
+	 //    xhr.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+
+	 //    // Set to true if you need the website to include cookies in the requests sent
+	 //    // to the API (e.g. in case you use sessions)
+	 //    xhr.setHeader('Access-Control-Allow-Origin':'http://localhost:3000','Access-Control-Allow-Methods':'GET, POST, OPTIONS, PUT, PATCH, DELETE','Access-Control-Allow-Headers':'X-Requested-With,content-type','Access-Control-Allow-Credentials', true);
+
+		HTTP.call("get","http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",
+          {"headers": {'Access-Control-Allow-Origin':'http://localhost:3000/Norsk/0/AddBox',
+          'Access-Control-Allow-Methods':'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+          'Access-Control-Allow-Headers':'X-Requested-With,content-type',
+          'Access-Control-Allow-Credentials': true}},
+          function (error, result) {
+            if (!error) {
+              console.log(result);
+            }
+          });
 	},
 
 	handleClick: function(event)

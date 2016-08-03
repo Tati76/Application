@@ -300,7 +300,7 @@ DynamicForm = React.createClass({
 		{
 			return(
  			<div className={errorMessage.concat(" form-group")} key={index}>
-					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
+					<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 					<div className="col-sm-10">
 						<YearSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/>
 					</div>
@@ -312,7 +312,7 @@ DynamicForm = React.createClass({
 			
 			return(
  			<div className={errorMessage.concat(" form-group")} key={index}>
-					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
+					<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 					<div className="col-sm-10">
 						<ShipSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/>
 					</div>
@@ -323,7 +323,7 @@ DynamicForm = React.createClass({
 		{
  			return(
  			<div className={errorMessage.concat(" form-group")} key={index}>
-					<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
+					<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 					<div className="col-sm-10">
 						<CruiseSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} shipList={this.state.shipList} giveValue={this.handleCruiseList}/>
 					</div>
@@ -336,7 +336,7 @@ DynamicForm = React.createClass({
 			{
 				return(
 					<div className={errorMessage.concat(" form-group")} key={index}>
-						<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
+						<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 						<div className="col-sm-10">
 							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/>
 						</div>
@@ -346,7 +346,7 @@ DynamicForm = React.createClass({
 			else{
 				return(
 					<div className={errorMessage.concat(" form-group")} key={index}>
-						<label for={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" for="" value={input}>{input} </label>
+						<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 						<div className="col-sm-10">
 							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index}/>
 						</div>
@@ -428,7 +428,7 @@ DynamicForm = React.createClass({
 		{
 			return(
 				<tr className={errorMessage.concat(" form-group")} key={index}>
-					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+					<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
 					<td className="text-center"><YearSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/></td>
 				</tr>
 			);
@@ -438,7 +438,7 @@ DynamicForm = React.createClass({
 			
 			return(
 				<tr className={errorMessage.concat(" form-group")} key={index}>
-					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+					<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
 					<td className="text-center"><ShipSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/></td>
 				</tr>
 			);
@@ -447,7 +447,7 @@ DynamicForm = React.createClass({
 		{
  			return(
  				<tr className={errorMessage.concat(" form-group")} key={index}>
-					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+					<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
 					<td className="text-center"><CruiseSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} shipList={this.state.shipList} giveValue={this.handleCruiseList}/></td>
 				</tr>
 			);
@@ -457,7 +457,7 @@ DynamicForm = React.createClass({
 			{
 				return(
 					<tr className={errorMessage.concat(" form-group")} key={index}>
-						<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+						<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
 						<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0]} placeholder={this.state.placeHolder[0]} disabled/></td>
 					</tr>
 				);
@@ -465,7 +465,7 @@ DynamicForm = React.createClass({
 			else{
 				return(
 					<tr className={errorMessage.concat(" form-group")} key={index}>
-						<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
+						<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
 						<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index}/></td>
 					</tr>
 				);

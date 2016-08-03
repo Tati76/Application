@@ -1,7 +1,7 @@
 //<AddBox language   index
 import boxFile from '../Boxes/BoxesInfo.json';
 import displayFile from '../languages/Settings.json';
-
+import { HTTP } from 'meteor/http';
 
 AddBox= React.createClass({
 
@@ -45,6 +45,25 @@ AddBox= React.createClass({
 			dbFields : [],
 			boxType : ""
 		};
+	},
+
+	componentDidMount()
+	{
+		HTTP.call("get","http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",
+          {"headers": {'Access-Control-Allow-Origin':'http://localhost:3000/',
+          'Access-Control-Allow-Methods':'GET, POST, OPTIONS, PUT, PATCH, DELETE',
+          'Access-Control-Allow-Headers':'X-Requested-With,content-type',
+          'Access-Control-Allow-Credentials': true}},
+          function (error, result) {
+            if (error) {
+             console.log("ERROR");
+            	console.error(error);
+            }
+            else
+            {
+            	console.log(result);
+            }
+          });
 	},
 
 	componentWillReceiveProps: function(nextProps) {

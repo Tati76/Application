@@ -33,7 +33,7 @@ Footer = React.createClass({
 				</div>
 				<div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul className="nav navbar-nav navbar-right">
-						<li><a class="navbar-link">2016</a></li>
+						<li><a className="navbar-link">2016</a></li>
 					</ul>
 				</div>
 			</div>
