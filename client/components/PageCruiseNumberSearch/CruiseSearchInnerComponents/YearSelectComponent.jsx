@@ -1,6 +1,7 @@
 import {getXMLHttpRequest,makeXMLHttpRequest} from '../../Functions/functionFile.js';
 import { HTTP } from 'meteor/http';
 
+// test
 
 YearSelectComponent= React.createClass({
 
