@@ -5,34 +5,32 @@ import { HTTP } from 'meteor/http';
 
 YearSelectComponent= React.createClass({
 
-	readData: function(sData) {
-		// console.log(JSON.parse(sData));
+	readData: function(sData,option) {
+
 		var tempArray = [];
 		for (var i=0 ; i<JSON.parse(sData).length ; i++ ) // put the value attribute in each year to display it
 		{
 			tempArray.push(JSON.parse(sData)[i]);
 			tempArray[i]["value"] = JSON.parse(sData)[i].name;
 		}
-		// console.log(tempArray);
-		this.setState({yearFile : tempArray});
-		// On peut maintenant traiter les données sans encombrer l'objet XHR.
+		this.setState({yearFile : tempArray,loading : false});
 		
 	},
 
 	getInitialState(){
-		var tempObject = [{}];
-		var tempArray = [];
 		return {
-			yearFile : tempObject,
-			clearAll : false
+			yearFile : [],
+			clearAll : 0,
+			loading : true,
+			language: this.props.language,
+			index : this.props.index
 		};
 	},
 
 	componentDidMount()
 	{
-		// makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData);
-		this.getFunction();
-		
+
+		makeHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData,null);
 	},
 
 	getFunction()
@@ -75,29 +73,49 @@ YearSelectComponent= React.createClass({
 
 	handleClick: function(event)
 	{
-		makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData)
-		//this.makeXMLHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y/2016",this.readData);
 		
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		// console.log("YearSelectComponent receives props, N1");
+		this.setState({language: nextProps.language, index : nextProps.index});
+		if (nextProps.clearYear > this.props.clearYear)
+		{
+			this.clearAll();
+		}
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-		var shallowCompare = require('react-addons-shallow-compare');
-		return shallowCompare(this, nextProps, nextState);
+	// 	var shallowCompare = require('react-addons-shallow-compare');
+	// 	return shallowCompare(this, nextProps, nextState);
+	//console.log(nextState.clearAll != this.state.clearAll);
+		if(this.state.language != nextState.language)
+		{
+			return true;
+		}
+		if (nextState.clearAll > this.state.clearAll || this.state.yearFile != nextState.yearFile)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 
-		// console.log("YearSelectComponent did update, N1");
+
 	},
 
 	handleValue(argument)
 	{
-		// console.log("YearSelectComponent change value :");
-		// console.log(argument);
 		this.props.giveValue(argument);
+	},
+
+	clearAll(event)
+	{
+		var tempClAl = this.state.clearAll+1;
+		//console.log(tempClAl);
+		this.setState({clearAll : tempClAl});
 	},
 
 	renderYear(input, index)
@@ -107,21 +125,14 @@ YearSelectComponent= React.createClass({
 		);
 	},
 
-	clearAll()
-	{
-		this.setState({clearAll : true});
-	},
-
 	render(){
 
 		return(
 			<div>
-				{this.state.yearFile? <MultiSelectField clearAll={this.state.clearAll} incomingData={this.state.yearFile} giveValue={this.handleValue} doRemove={[false,""]}/> : <p> Loading </p>}
+				<MultiSelectField language={this.state.language} index={this.state.index} clearAll={this.state.clearAll} loading={this.state.loading} incomingData={this.state.yearFile} giveValue={this.handleValue} doRemove={[false,""]}/>
 			</div>		
 		);
 		
 		
 	}
 });
-//doRemove={[false,[false]]}
-// {this.state.yearFile? <MultiSelectField incomingData={this.state.yearFile}/> : <option> Loading </option>}

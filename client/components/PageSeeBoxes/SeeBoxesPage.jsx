@@ -7,7 +7,7 @@ SeeBoxes = React.createClass({
 
 	mixins: [ReactMeteorData],
 
-	getMeteorData: function () 
+	getMeteorData() 
 	{
 		var data = {};
 		var handle = Meteor.subscribe('inholdinfodb');

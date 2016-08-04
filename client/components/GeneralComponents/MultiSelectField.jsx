@@ -1,65 +1,83 @@
 import React from 'react';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import displayFile from "../languages/Settings.json";
 
-const FLAVOURS = [
-	{ label: 'Chocolate', value: 'chocolate' },
-	{ label: 'Vanilla', value: 'vanilla' },
-	{ label: 'Strawberry', value: 'strawberry' },
-	{ label: 'Caramel', value: 'caramel' },
-	{ label: 'Cookies and Cream', value: 'cookiescream' },
-	{ label: 'Peppermint', value: 'peppermint' },
-];
-
-const WHY_WOULD_YOU = [
-	{ label: 'Chocolate (are you crazy?)', value: 'chocolate', disabled: true },
-].concat(FLAVOURS.slice(1));
 
 MultiSelectField = React.createClass({
 	displayName: 'MultiSelectField',
 	propTypes: {
 		label: React.PropTypes.string,
 	},
+
 	getInitialState () {
-		// console.log(this.props.incomingData);
-		if(this.props.incomingData)
-		{
-			return {
-				disabled: false,
-				crazy: false,
-				options: this.props.incomingData.slice(),
-				value: "",
-				loading : true,
-				clearAll : false
-			};
-		}
-		else {
-			return {
-				disabled: false,
-				crazy: false,
-				options: [{}],
-				value: "",
-				loading : this.props.loading,
-				clearAll : false
-			};
+		return{
+			value : null,
+			loading : this.props.loading,
+			options : this.props.incomingData,
+			language : this.props.language,
+			index : this.props.index
 		}
 		
 	},
 
+	isInIncData(stateValue,incDatas)
+	{
+		var res = false;
+		for (var a = 0 ; a<incDatas.length ; a++)
+		{
+			if (stateValue == incDatas[a].value)
+			{
+				res = true ;
+				break;
+			}
+		}
+		return res;
+	},
+
+	clearImpossibleValues(incomingData)
+	{
+		if (this.state.value != null)
+		{
+			var tempStateValue = this.state.value.split(',');
+			for (var i = 0 ; i<tempStateValue.length ; i++)
+			{ 
+				var isInData = this.isInIncData(tempStateValue[i],incomingData); // check if some data
+				if(!isInData)
+				{
+					tempStateValue.splice(i,1);
+					i=i-1;
+				}
+			}
+
+
+			var tempResponseString = '';
+			for (var i = 0 ; i<tempStateValue.length; i++) // make a string to replace value
+			{
+				tempResponseString += tempStateValue[i];
+				if (i != tempStateValue.length-1)
+				{
+					tempResponseString += ",";
+				}
+			}
+			this.setState({value : tempResponseString});
+			this.props.giveValue(tempResponseString);
+		}
+	},
 
 	componentWillReceiveProps: function(nextProps) {
-
-		//the shipFile will change when the component did mount
-		if (!nextProps.incomingData)
+		this.setState({options : nextProps.incomingData,loading : nextProps.loading, language: nextProps.language, index : nextProps.index});
+		//console.log("receives clearAll prop : ", nextProps.clearAll);
+		if(nextProps.clearAll > this.props.clearAll)
 		{
-			this.setState({incomingData : [], loading: nextProps.loading});
+			this.clearInput();
 		}
-		else{
-			this.setState({options : nextProps.incomingData.slice(),loading: nextProps.loading},function(){});// console.log(this.state.options);});
-		}
-		if(nextProps.doRemove[0] && nextProps.doRemove[1].length >0)
+		if(nextProps.incomingData.length < this.props.incomingData.length)
 		{
-			this.removeValues(nextProps.doRemove[1]); // remove the values at the index of doRemove[1]
+			if(this.state.value != null)
+			{
+				this.clearImpossibleValues(nextProps.incomingData);
+			}
 		}
 	},
 
@@ -69,46 +87,18 @@ MultiSelectField = React.createClass({
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 
-		//console.log(this.state.value);
+		////console.log(this.state.value);
 	},
 
 	handleSelectChange (value) {
-		// console.log('You\'ve selected:', value);
-		// console.log("change made in multifield : ",value);
-		// console.log(typeof value);
-		this.setState({ value });
-		// console.log(value);
-		// console.log(typeof value);
+		this.setState({value});
+		//console.log("value",value);
 		this.props.giveValue(value);
 	},
 
 	removeValues(array)
 	{
-		var index = 0;
-		var tempStateValueArray = this.state.value.split(",");
-		for(var i = 0 ; i < array.length ; i++)
-		{
-			index = tempStateValueArray.indexOf(array[i]); // search the element 
-
-			if (index > -1) 
-			{ // delete the element
-			    tempStateValueArray.splice(index, 1);
-			}
-		}
-		var tempStateValueString = "";
-		for(var i = 0 ; i < tempStateValueArray.length ; i++) // reform the value
-		{
-			tempStateValueString += tempStateValueArray[i];
-
-			if(i != tempStateValueArray.length-1)
-			{
-				tempStateValueString += ",";
-			}
-		}
-		this.setState({value : tempStateValueString});
-		this.setState({clearAll : true});
-		this.props.valuesRemoved([true,tempStateValueString]);
-		this.setState({clearAll : false});
+		
 
 	},
 
@@ -118,14 +108,21 @@ MultiSelectField = React.createClass({
 
 	inputChange(arg)
 	{
-		// console.log("inputChange");
-		// console.log(arg);
+		
+	},
+
+	clearInput()
+	{
+		// this.setState({value : null});
+		// // this.props.giveValue(null);
+		var tempObjectArray = [{value : ""}];
+		this.clearImpossibleValues(tempObjectArray);
 	},
 
 	render () {
 		return (
 			<div>
-				<Select multi simpleValue value={this.state.value} disabled={false} clearable={true} isLoading={this.state.loading} placeholder="Select..." onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="value" onChange={this.handleSelectChange} />
+				<Select multi simpleValue value={this.state.value} resetValue={null} disabled={false} clearable={true} isLoading={this.state.loading} placeholder={displayFile.setups[this.state.index].cruiseSelect.placeholder} onInputChange={this.inputChange} optionRenderer={this.renderOption} options={this.state.options} valueKey="value" labelKey="name" onChange={this.handleSelectChange} />
 			</div>
 		);
 	}

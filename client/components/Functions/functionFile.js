@@ -29,16 +29,14 @@ export function getXMLHttpRequest() {
 };
 
 
-export function makeXMLHttpRequest(url,callback,options)
+export function makeHttpRequest(url,callback,options)
 	{
 		var xhr = getXMLHttpRequest();
 
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-				// console.log("OK"); // C'est bon \o/
-				//console.log(xhr.responseText); // Données textuelles récupérées		
+
 				callback(xhr.responseText,options);
-				return JSON.parse(xhr.responseText);
 			}
 		};
 
@@ -60,6 +58,23 @@ export function makeXMLHttpRequest(url,callback,options)
 
 };
 
+export function makeXMLHttpRequest(url,callback,options)
+	{
+		var xhr = getXMLHttpRequest();
+
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+				
+					callback(xhr.responseXML,options);
+				}
+			}
+
+
+		xhr.open("GET", url, true);
+		xhr.send(null);
+
+};
+
 export function dynamicSort(property) {
     	var sortOrder = 1;
 	    if(property[0] === "-") {
@@ -77,6 +92,14 @@ export function dateToString(tempdate) {
 		var date = tempdate;
 		var stringdate = "";
 		stringdate += date.getDate() + '/' + (date.getMonth() + 1) + '/' +  date.getFullYear() + " " + date.getHours() + ":" + date.getMinutes() + ":" +date.getSeconds();
+		return stringdate;
+};	
+
+export function dateToStringOnlyDays(tempdate) {
+		// console.log(String(tempdate).split(" "));
+		var date = tempdate;
+		var stringdate = "";
+		stringdate += date.getDate() + '/' + (date.getMonth() + 1) + '/' +  date.getFullYear();
 		return stringdate;
 };				
 

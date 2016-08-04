@@ -122,10 +122,11 @@ SelectedBoxContent = React.createClass({
 	    			<div className="col-lg-6">
 						{this.data.sample? this.renderInfoDisplayer() : <p> Loading... </p>}
 					</div>
-					<div className="col-lg-6">
-							<h2 className="text-center">{displayFile.setups[this.state.index].SeeBoxPage.titles.content}</h2>
-							<form className="form-inline ">
-							  	<div className="form-group ">
+					<div className="col-lg-6 text-center">
+						<div className='container-fluid'>
+							<h2 className="text-center text-primary">{displayFile.setups[this.state.index].SeeBoxPage.titles.content}</h2>
+							<form className="form-inline">
+							  	<div className="form-group">
 								    <select className="form-control input" onClick={this.clickSelect}>
 										{this.data.list? this.data.list.map(this.renderOptions) : <option> Loading... </option>}
 									</select>
@@ -136,7 +137,8 @@ SelectedBoxContent = React.createClass({
 									  	<span className="glyphicon glyphicon-search" aria-hidden="true"></span>
 									</button>
 								</div>
-						</form>
+							</form>
+						</div>
 						<div className="container-fluid">
 							<div className="list-group">
 								{this.data.sample? this.renderCompo(this.state.attributeToSearch) : <p> Loading... </p>}

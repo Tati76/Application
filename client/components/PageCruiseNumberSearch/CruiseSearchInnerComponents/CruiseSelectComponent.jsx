@@ -1,90 +1,22 @@
-import {getXMLHttpRequest,makeXMLHttpRequest} from '../../Functions/functionFile.js';
+import {getXMLHttpRequest,makeHttpRequest,makeXMLHttpRequest,dateToStringOnlyDays} from '../../Functions/functionFile.js';
 
 
 CruiseSelectComponent= React.createClass({
 
-	makeAllUrls(prop) // step 1
-	{
-		var tempUrl = "http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y/";
-		
-		if (prop.shipList)
-		{
-			var tempUrlArray = [];
-			for(var i = 0 ; i<prop.shipList.length ; i++)
-			{
-				tempUrl = "http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y/";
-				tempUrl += encodeURI(prop.shipList[i].year);
-				tempUrl += "/";
-				tempUrl += encodeURI(prop.shipList[i].ship);
-				tempUrlArray.push(tempUrl);
-			}
-			this.setState({urlArray : tempUrlArray.slice()},function(){this.makeAllXMLHttpRequests();});
-		}
-	},
-
-	makeAllXMLHttpRequests() //step 2
-	{	
-		for (var i = 0 ; i< this.state.urlArray.length ; i++)
-		{
-			if (i == this.state.urlArray.length -1 )
-			{
-				makeXMLHttpRequest(this.state.urlArray[i],this.readData,[String(this.state.shipList[i].year) + " " + this.state.shipList[i].ship,true]);
-			}
-			else {
-				makeXMLHttpRequest(this.state.urlArray[i],this.readData,[String(this.state.shipList[i].year) + " " + this.state.shipList[i].ship,false]);
-			}
-			
-		}
-	},
-
-	readData: function(sData,option) {//step 3
-
-		var tempCount = this.state.counter+1;
-		this.setState({counter : tempCount});
-
-		var tempAllCruise = this.state.allCruise;
-
-		tempAllCruise.push({data : JSON.parse(sData), value : option[0],cruise : option[0]});
-
-		if (this.state.counter == this.state.urlArray.length) // if all the XMLHttpRequests are made
-		{
-			this.setState({allCruise : tempAllCruise.slice(), counter : 0},function(){this.createDisplayArray();});
-		}
-		else{
-			this.setState({allCruise : tempAllCruise.slice()},function(){});
-		}
-		
-	},
-
-	createDisplayArray() //step 4
-	{
-		if("data" in this.state.allCruise[0])
-		{
-			var tempCruiseArray = [];
-			for(var i = 0 ; i< this.state.shipList.length ; i++) // get all the ships selected
-			{	
-				tempCruiseArray.push({value : this.state.allCruise[i].value, name : this.state.allCruise[i].value , disabled: true,color : "red", cruise : this.state.allCruise[i].value}); // add the boat & the year
-				for (var a = 0 ; a<this.state.allCruise[i].data.length ; a++) // going through all the cruise nr
-				{
-					tempCruiseArray.push({value : this.state.allCruise[i].data[a].name, name : this.state.allCruise[i].data[a].name, cruise : this.state.allCruise[i].value });
-				}
-			}
-			this.setState({ displayArray : tempCruiseArray.slice(),loading : false});
-		}
-	},
-
 	getInitialState(){
 
 		return {
-			allCruise : [],
-			yearList : this.props.yearList,
-			shipList : this.props.shipList,
-			remove : false,
+			remove: false ,
 			labelsToRemove : [],
-			loading : true,
-			currentDisplayedValues : [],
-			counter : 0,
-			displayArray : []
+			displayArray : [],
+			loading: true,
+			clearAll : 0,
+			shipList : [],
+			httpRequestCounter : 0,
+			periodeRequestCounter : 0,
+			requestResultArray: [],
+			language : this.props.language,
+			index : this.props.index
 		};
 	},
 
@@ -93,122 +25,210 @@ CruiseSelectComponent= React.createClass({
 		
 	},
 
-	isExistingShip : function(state,prop)
-	{
-		var res = false;
-		for( var a = 0 ; a < prop.length ; a++)
-		{
-			if(state.cruise.slice(5,state.cruise.length) == prop[a].ship) // if the cruise number is not corresponding to a cruise currently available
-			{
-				res = true;
-			}
-		}
-		return res;
-	},
-
-
-	removeUnexistingCruise : function(nextProps)
-	{ 
-		// find all the cruises that doesn't exist anymore
-		var listToRemove = [];
-		for( var i = 0 ; i<this.state.allCruise.length ; i++)
-		{
-			if(!this.isExistingShip(this.state.allCruise[i],nextProps.shipList))
-			{
-				listToRemove.push(this.state.allCruise[i].name); // get the name of the cruise that are not existing
-			}
-		}
-
-		return listToRemove;
-		// console.log(listToRemove);
-	},
-
 	componentWillReceiveProps: function(nextProps) {
-		// console.log("CruiseSelectComponent receives props, N3");
-
-		this.setState({labelsToRemove : this.removeUnexistingCruise(nextProps),remove : true}); // remove the labels
-		
-		if(nextProps.shipList.length > 0 && nextProps.shipList[0] != "") // if there are some ships
+		this.setState({shipList : nextProps.shipList,language: nextProps.language, index : nextProps.index});
+		//console.log("ShipSelectComponent, SHIPLIST ", nextProps.shipList);
+		if (nextProps.shipList.length == 0 || nextProps.shipList[0] == "") // cas 1, no years selected, case 2, one year deleted
 		{
-			this.setState({shipList : nextProps.shipList.slice(),yearList : nextProps.yearList.slice()}); 
-			this.setState({allCruise : []},function(){this.makeAllUrls(nextProps);});
+			this.clearAll();
 		}
-
-		else //if no ships
+		if(nextProps.shipList != this.props.shipList) // the shipLists has to be different from one another to enable the process
 		{
-			this.setState({
-				allCruise : [],
-				yearList : this.props.yearList,
-				shipList : [],
-				remove : false,
-				labelsToRemove : [],
-				currentDisplayedValues : [],
-				loading : true,
-				displayArray : []
-			});
+			//console.log("ShipSelectComponent received props");
+			this.searchAllCruiseAndPeriode(nextProps);
 		}
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
-		var shallowCompare = require('react-addons-shallow-compare');
-		return shallowCompare(this, nextProps, nextState);
+		// if (this.state.shipList != nextState.shipList)
+		// {
+		// 	return true;
+		// }
+		if(this.state.language != nextState.language)
+		{
+			return true;
+		}
+		if (this.state.displayArray.length >0 || nextState.displayArray.length >0)
+		{
+			if (this.state.displayArray != nextState.displayArray)
+			{
+				return true;
+			}
+			else if (this.state.loading != nextState.loading)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}
 	},
 
 	componentDidUpdate: function(prevProps, prevState){
-		// console.log("CruiseSelectComponent did update, N3");
-		// console.log("allCruise",this.state.allCruise);
-		// console.log("currentDisplayedValues", this.state.currentDisplayedValues);
+		// //console.log("CruiseSelectComponent did update, N3");
+		// //console.log("allCruise",this.state.allCruise);
+		// //console.log("currentDisplayedValues", this.state.currentDisplayedValues);
 	},
 
-	findCruise(cruiseNr,allCruise)
+	searchAllCruiseAndPeriode(prop)
 	{
-		var cruiseName = "";
-		for(var a = 0 ; a<allCruise.length ; a++)
-		{
-			for(var b = 0 ; b<allCruise[a].data.length ; b++)
-			{
-				if(allCruise[a].data[b].name == cruiseNr)
-				{
-					cruiseName = allCruise[a].cruise;
-					return cruiseName;
-				}
-			}
-		}
-		return cruiseName;
+		this.setState({loading : true,
+			requestResultArray : [],
+			httpRequestCounter : 0,
+			periodeRequestCounter : 0
+		},function(){
+
+			var urlArray = this.makeAllUrls(prop.shipList);
+			this.makeAllHttpRequest(urlArray);
+		});
 	},
 
 	handleGiveValue(arg)
 	{
-		// console.log(this.state.allCruise);
-		if(arg == null) 
+		this.props.giveValue(arg);
+	},
+
+	makeAllUrls(shipList)
+	{
+		var tempUrlArray = [];
+		var tempUrl = "";
+		for(var i = 0 ; i<shipList.length ; i++)
 		{
-			this.setState({currentDisplayedValues : []});
-			this.props.giveValue([]);
+			tempUrl = "http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y/";
+			tempUrl +=  encodeURI(shipList[i].slice(0,4)); // get the year
+			tempUrl += "/";
+			tempUrl += encodeURI(shipList[i].slice(5,shipList[i].length));
+			tempUrlArray.push(tempUrl);
 		}
-		else if (arg.length > 0)
-		{
-			var tempResponse = [];
-			for(var i=0; i<arg.split(",").length ; i++) // for each cruiseNr selected, we try to find the cruiseName linked to it
+
+		return tempUrlArray;
+	},
+
+	makeAllHttpRequest(urlArray)
+	{
+		this.setState({requestResultArray : []},function(){
+
+			for (var i = 0 ; i<urlArray.length ; i++)
 			{
-				tempResponse.push({cruiseNr : arg.split(",")[i], cruise : this.findCruise(arg.split(",")[i],this.state.allCruise)});
+				var test = urlArray[i].split('/');
+				//console.log(test[test.length-1]);
+				//console.log(test);
+				makeHttpRequest(urlArray[i],this.readData,[urlArray.length,decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-1]),decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-2])]);
 			}
-			this.setState({currentDisplayedValues : arg.split(",")});
-			this.props.giveValue(tempResponse);
+
+		});
+		
+	},
+
+
+	readData(sData,option) //option : [number of URLS, ship Name, Date]
+	{
+		var tempCounter = this.state.httpRequestCounter + 1;
+		this.setState({httpRequestCounter : tempCounter},function(){
+			if (this.state.httpRequestCounter == option[0]) // all the requests are made
+			{
+				var tempObjectArray = this.state.requestResultArray;
+				tempObjectArray.push({data: JSON.parse(sData),ship:option[1], year : option[2]});
+				this.setState({requestResultArray : tempObjectArray, httpRequestCounter: 0},function(){
+					this.makePeriodesOfRequestsUrls();
+				});
+			}
+			else // some requests are not finished yet
+			{
+				var tempObjectArray = this.state.requestResultArray;
+				tempObjectArray.push({data: JSON.parse(sData),ship:option[1],year : option[2]});
+				this.setState({requestResultArray : tempObjectArray});
+			}
+
+
+		});
+
+	},
+
+	makePeriodesOfRequestsUrls() // make all the urls to fetch the periode of all the cruise
+	{
+		var tempUrl = '';
+		var tempPeriodesOfRequestsUrlArray = [];
+		for(var i = 0 ; i<this.state.requestResultArray.length ; i++)// for all the cruise selected, go to the cruiseNr
+		{
+			tempUrl = "http://tomcat7.imr.no:8080/apis/nmdapi/cruise/v1/Forskningsfart%C3%B8y/" + encodeURI(this.state.requestResultArray[i].year) + "/" + encodeURI(this.state.requestResultArray[i].ship) + "/";
+			for (var a = 0 ; a<this.state.requestResultArray[i].data.length ; a++) // for all the cruiseNr
+			{
+				tempPeriodesOfRequestsUrlArray.push({url : tempUrl+encodeURI(this.state.requestResultArray[i].data[a].name), index:[i,a]});
+			}
+		}
+		this.makeAllXMLRequests(tempPeriodesOfRequestsUrlArray);
+	},
+
+	makeAllXMLRequests(urlArray) // make the requests for the periode of all the cruise
+	{
+
+		for (var i = 0 ; i<urlArray.length ; i++)
+		{
+			makeXMLHttpRequest(urlArray[i].url,this.periodeReadData,[urlArray.length,urlArray[i].index]);
 		}
 	},
 
-	handleRemoveState(arg)
+	periodeReadData(sData,option) // get the periode and store it
 	{
-		if(arg[0]) // the labels have been removed
+		var tempRequestResultArray = this.state.requestResultArray;
+		var tempPeriodeRequestCounter = this.state.periodeRequestCounter + 1;
+		this.setState({periodeRequestCounter : tempPeriodeRequestCounter},function() {
+			var startTime = new Date(sData.getElementsByTagName("startTime")[0].childNodes[0].nodeValue);
+		    var stopTime = new Date(sData.getElementsByTagName("stopTime")[0].childNodes[0].nodeValue);
+
+			if (this.state.periodeRequestCounter == option[0])
+			{
+				tempRequestResultArray[option[1][0]].data[option[1][1]].periode = dateToStringOnlyDays(startTime) + ' - ' + dateToStringOnlyDays(stopTime);
+				this.setState({requestResultArray : tempRequestResultArray},function(){this.makeDisplayArray();});
+			}
+			else
+			{
+				tempRequestResultArray[option[1][0]].data[option[1][1]].periode = dateToStringOnlyDays(startTime) + ' - ' + dateToStringOnlyDays(stopTime);
+				this.setState({requestResultArray : tempRequestResultArray});
+			}
+
+		});
+	},
+
+	makeDisplayArray()
+	{
+		//console.log(this.state.requestResultArray);
+		var tempArray = [];
+		for (var i = 0 ; i<this.state.requestResultArray.length ; i++)
 		{
-			this.setState({remove : false, currentDisplayedValues: arg[1].split(",")});
+			tempArray.push({name : this.state.requestResultArray[i].year + " " + this.state.requestResultArray[i].ship, value: this.state.requestResultArray[i].year + " " + this.state.requestResultArray[i].ship, disabled: true, color : "red" });
+			for (var a = 0 ; a<this.state.requestResultArray[i].data.length ; a++)
+			{
+				tempArray.push({name : this.state.requestResultArray[i].data[a].name + " (" + this.state.requestResultArray[i].data[a].periode+")", value : this.state.requestResultArray[i].data[a].name + " (" + this.state.requestResultArray[i].data[a].periode+")"});
+			}
 		}
+		this.setState({
+			loading: false,
+			displayArray : tempArray.slice(),
+			requestResultArray : [],
+			periodeRequestCounter : 0, 
+			httpRequestCounter: 0
+		});
+	},
+
+	
+
+	clearAll()
+	{
+		var tempClAl = this.state.clearAll;
+		this.setState({clearAll : tempClAl+1,displayArray : [], loading: true,periodeRequestCounter : 0, httpRequestCounter: 0});
 	},
 
 	render(){
 			return(
 				<div>
-					<MultiSelectField incomingData={this.state.displayArray} loading={this.state.loading} giveValue={this.handleGiveValue} valuesRemoved={this.handleRemoveState} doRemove={[this.state.remove,this.state.labelsToRemove]}/>
+					<MultiSelectField language={this.state.language} index={this.state.index} clearAll={this.state.clearAll} incomingData={this.state.displayArray} loading={this.state.loading} giveValue={this.handleGiveValue} valuesRemoved={this.handleRemoveState} doRemove={[this.state.remove,this.state.labelsToRemove]}/>
 				</div>		
 			);
 		

@@ -95,6 +95,9 @@
 				"clear" : "Slette Alt"
 			}
 		},
+		"cruiseSelect" : {
+			"placeholder" : "Velg..."
+		},
 		"borrowForm" : {
 			"labels" : {
 				"title" : "Låne Formulær"
@@ -258,6 +261,9 @@
 				"save": "Next Step",
 				"clear": "Clear All"
 			}
+		},
+		"cruiseSelect" : {
+			"placeholder" : "Select..."
 		},
 		"borrowForm" : {
 			"labels" : {
