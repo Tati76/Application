@@ -413,9 +413,8 @@ DynamicForm = React.createClass({
 		{
 			return(
 				<tr className={errorMessage.concat(" form-group")} key={index}>
-					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
-					<td className="text-center"><YearSelectComponent key={index} language={this.state.language} index={this.state.index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/></td>
-
+					<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
+					<td className="text-center"><YearSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/></td>
 				</tr>
 			);
 		}
@@ -424,9 +423,8 @@ DynamicForm = React.createClass({
 			
 			return(
 				<tr className={errorMessage.concat(" form-group")} key={index}>
-					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
-					<td className="text-center"><ShipSelectComponent key={index} language={this.state.language} index={this.state.index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/></td>
-
+					<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
+					<td className="text-center"><ShipSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/></td>
 				</tr>
 			);
 		}
@@ -434,9 +432,8 @@ DynamicForm = React.createClass({
 		{
  			return(
  				<tr className={errorMessage.concat(" form-group")} key={index}>
-					<td ref={"l"+index} className="control-label text-center" for="" value={input}>{input}</td>
-					<td className="text-center"><CruiseSelectComponent key={index} language={this.state.language} index={this.state.index} ref={index} className="form-control" id={"inp"+index} shipList={this.state.shipList} giveValue={this.handleCruiseList}/></td>
-
+					<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
+					<td className="text-center"><CruiseSelectComponent key={index} ref={index} className="form-control" id={"inp"+index} yearList={this.state.yearList} shipList={this.state.shipList} giveValue={this.handleCruiseList}/></td>
 				</tr>
 			);
 		}
