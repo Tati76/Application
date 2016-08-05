@@ -107,6 +107,7 @@ AddBox= React.createClass({
 
 	clickSubmit(tempObject)
 	{
+		console.log(tempObject);
 		try{
 			Meteor.call('inholdinfodb.insert',tempObject,function(error, result)
 			{ 

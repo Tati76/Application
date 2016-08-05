@@ -32,7 +32,8 @@ export function getXMLHttpRequest() {
 export function makeHttpRequest(url,callback,options)
 	{
 		var xhr = getXMLHttpRequest();
-
+		xhr.open("GET", url, true);
+		xhr.setRequestHeader("Access-Control-Allow-Origin","http://localhost:3000/");
 		xhr.onreadystatechange = function() {
 			if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
 
@@ -41,7 +42,7 @@ export function makeHttpRequest(url,callback,options)
 		};
 
 
-		xhr.open("GET", url, true);
+		
 		// Website you wish to allow to connect
 	    // xhr.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
 
@@ -176,4 +177,52 @@ export function translate(word,desiredLanguage,boxType)
 		{
 			return "ID";
 		}
+};
+
+// Create the XHR object.
+export function createCORSRequest(method, url) {
+  var xhr = new XMLHttpRequest();
+  if ("withCredentials" in xhr) {
+    // XHR for Chrome/Firefox/Opera/Safari.
+    xhr.open(method, url, true);
+  } else if (typeof XDomainRequest != "undefined") {
+    // XDomainRequest for IE.
+    xhr = new XDomainRequest();
+    xhr.open(method, url);
+  } else {
+    // CORS not supported.
+    console.log("CORS not supported");
+    xhr = null;
+  }
+  return xhr;
+};
+
+// Helper method to parse the title tag from the response.
+export function getTitle(text) {
+  return text.match('<title>(.*)?</title>')[1];
+};
+
+// Make the actual CORS request.
+export function makeCorsRequest() {
+  // All HTML5 Rocks properties support CORS.
+  var url = 'http://updates.html5rocks.com';
+
+  var xhr = createCORSRequest('GET', url);
+  if (!xhr) {
+    alert('CORS not supported');
+    return;
+  }
+
+  // Response handlers.
+  xhr.onload = function() {
+    var text = xhr.responseText;
+    var title = getTitle(text);
+    alert('Response from CORS request to ' + url + ': ' + title);
+  };
+
+  xhr.onerror = function() {
+    alert('Woops, there was an error making the request.');
+  };
+
+  xhr.send();
 };

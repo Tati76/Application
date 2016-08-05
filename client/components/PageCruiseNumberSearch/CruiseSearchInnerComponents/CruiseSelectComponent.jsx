@@ -118,13 +118,29 @@ CruiseSelectComponent= React.createClass({
 				var test = urlArray[i].split('/');
 				//console.log(test[test.length-1]);
 				//console.log(test);
-				makeHttpRequest(urlArray[i],this.readData,[urlArray.length,decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-1]),decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-2])]);
+				// makeHttpRequest(urlArray[i],this.readData,[urlArray.length,decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-1]),decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-2])]);
+				Meteor.call('getJson',urlArray[i],[urlArray.length,decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-1]),decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-2])],this.getRawData);
+		
 			}
 
 		});
 		
 	},
 
+	getRawData(error,result)
+	{
+		if (error)
+		{
+			console.error(error);
+		}
+		else
+		{
+			console.log(result[0]);
+			console.log(result[1]);
+			this.readData(result[0].data,result[1]);
+			
+		}
+	},
 
 	readData(sData,option) //option : [number of URLS, ship Name, Date]
 	{
@@ -133,7 +149,7 @@ CruiseSelectComponent= React.createClass({
 			if (this.state.httpRequestCounter == option[0]) // all the requests are made
 			{
 				var tempObjectArray = this.state.requestResultArray;
-				tempObjectArray.push({data: JSON.parse(sData),ship:option[1], year : option[2]});
+				tempObjectArray.push({data: sData,ship:option[1], year : option[2]});
 				this.setState({requestResultArray : tempObjectArray, httpRequestCounter: 0},function(){
 					this.makePeriodesOfRequestsUrls();
 				});
@@ -141,7 +157,7 @@ CruiseSelectComponent= React.createClass({
 			else // some requests are not finished yet
 			{
 				var tempObjectArray = this.state.requestResultArray;
-				tempObjectArray.push({data: JSON.parse(sData),ship:option[1],year : option[2]});
+				tempObjectArray.push({data: sData,ship:option[1],year : option[2]});
 				this.setState({requestResultArray : tempObjectArray});
 			}
 
@@ -170,7 +186,38 @@ CruiseSelectComponent= React.createClass({
 
 		for (var i = 0 ; i<urlArray.length ; i++)
 		{
-			makeXMLHttpRequest(urlArray[i].url,this.periodeReadData,[urlArray.length,urlArray[i].index]);
+			// makeXMLHttpRequest(urlArray[i].url,this.periodeReadData,[urlArray.length,urlArray[i].index]);
+			Meteor.call('getXML',urlArray[i].url,[urlArray.length,urlArray[i].index],this.getPeriodeRawData);
+		}
+	},
+
+	parseXML: function(val)
+	{
+	    if (window.DOMParser)
+	      {
+	        parser=new DOMParser();
+	        xmlDoc=parser.parseFromString(val,"text/xml");
+	      }
+	    else // Internet Explorer
+	      {
+	        xmlDoc = new ActiveXObject("Microsoft.XMLDOM"); xmlDoc.loadXML(val);
+	      }
+	return xmlDoc ;
+	},
+
+	getPeriodeRawData(error,result)
+	{
+		if (error)
+		{
+			console.error(error);
+		}
+		else
+		{
+			console.log(result[0]);
+			console.log(result[1]);
+			console.log(this.parseXML(result[0].content));
+			this.periodeReadData(this.parseXML(result[0].content),result[1]);
+			
 		}
 	},
 

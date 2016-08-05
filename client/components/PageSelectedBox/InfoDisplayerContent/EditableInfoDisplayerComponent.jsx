@@ -135,7 +135,7 @@ EditableInfoDisplayer = React.createClass({
 
 	pressedReturn: function(event)
 	{
-		this.props.onClick(event.target.value);
+		this.props.onClick(event);
 	},
 
 

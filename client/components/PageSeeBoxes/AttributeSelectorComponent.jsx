@@ -9,7 +9,7 @@ AttributeSelector = React.createClass({
 		var handle = Meteor.subscribe('inholdinfodb');
 	    if(handle.ready()) {
 
-	    		data.sample = InholdInfoDb.find({"Containers Id": { $exists: false } } ).fetch(); // Only catches the boxes that are not storable in others
+	    		data.sample = InholdInfoDb.find({"Parent Id": { $exists: false } } ).fetch(); // Only catches the boxes that are not storable in others
 	    		console.log(data.sample);
 		      	// Prepare the object for the info selector component
 		      	//*****************************************************************************************

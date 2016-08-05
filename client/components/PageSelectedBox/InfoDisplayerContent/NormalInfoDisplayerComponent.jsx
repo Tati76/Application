@@ -2,7 +2,7 @@ import { InholdInfoDb } from '../../../../imports/api/inholdinfodb.js';
 import boxFile from '../../Boxes/BoxesInfo.json';
 import displayFile from '../../languages/Settings.json';
 import {translateWord, translate} from '../../Functions/functionFile.js';
-import {wordWRAP} from './NormalInfoDisplayerStyle.css';
+import {wordWRAP,scroll} from './NormalInfoDisplayerStyle.css';
 
 NormalInfoDisplayer = React.createClass({
 
@@ -111,7 +111,7 @@ NormalInfoDisplayer = React.createClass({
 		{
 			return(
 				<div>
-					<p>{displayFile.setups[this.state.index].NormalInfoDisplayer.info}</p>
+					<h3 className="text-center text-danger">{displayFile.setups[this.state.index].NormalInfoDisplayer.info}</h3>
 					<div className="btn-group btn-group-justified" role="group" aria-label="...">
 						<div className="btn-group" role="group">
 							<button type="button" className="btn btn-primary" onClick={this.handleReturn} value="Return">{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.return}</button>
@@ -120,7 +120,7 @@ NormalInfoDisplayer = React.createClass({
 							 <button type="button" className="btn btn-primary" onClick={this.clickPrint}>{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.print}</button>
 						</div>
 						<div className="btn-group" role="group">
-							 <button type="button" className="btn btn-primary wordWRAP" onClick={this.props.onClick} value="Store">{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.storage}</button>
+							 <button type="button" className="btn btn-primary button-padding" onClick={this.props.onClick} value="Store">{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.storage}</button>
 						</div>
 					</div>
 				</div>
@@ -150,18 +150,22 @@ NormalInfoDisplayer = React.createClass({
 			<div className="container-fluid" >
 				<h2 className="text-center text-primary"> {displayFile.setups[this.state.index].NormalInfoDisplayer.title}</h2>
 				<form>
-					<table border="1" className="table table-bordered">
+				<div className="scroll">
+					<table className="table table-bordered">
 						<thead>
 							<tr>
-							    <th Colspan="3" className="text-center"> Info </th>
+							    <th className="text-center"> Info </th>
 							    <th> <button type="button" className="btn btn-primary center-block" onClick={this.props.onClick} value="Edit">{displayFile.setups[this.state.index].NormalInfoDisplayer.buttons.edit}</button> </th>
 							</tr>
 						</thead>
-						<tbody>
+						
+						<tbody >
 							{this.data.sample? Object.keys(this.data.sample).map(this.renderNormalDisplayer) : <tr><td> Loading </td></tr>}
 						</tbody>
+						
 					</table>
-					{this.data.sample? this.renderLendButton() : <p> Loading.. </p>}
+				</div>
+				{this.data.sample? this.renderLendButton() : <p> Loading.. </p>}
 				</form>
 				
 			</div>

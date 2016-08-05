@@ -1,6 +1,4 @@
 import { InholdInfoDb } from '../../../imports/api/inholdinfodb.js';
-
-
 InfoDisplayer = React.createClass({
 
 	getInitialState()
@@ -93,7 +91,7 @@ InfoDisplayer = React.createClass({
 		{
 			
 			return(
-				<div className="container-fluid" style={{"border":"1px solid black", "overflow":"hidden","paddingLeft" : "30px","paddingRight" : "30px"}}>
+				<div className="container-fluid" style={{"overflow":"hidden","paddingLeft" : "30px","paddingRight" : "30px"}}>
 					<EditableInfoDisplayer language={this.state.language} index={this.state.index} currentBoxId={this.state.currentBoxId} boxType={this.state.boxObject["Box Type"]} onClick={this.handleClick}/>
 				</div>
 			);
@@ -101,7 +99,7 @@ InfoDisplayer = React.createClass({
 		else if(this.state.lendCurrentBox)
 		{
 			return( // has to implement the save disable
-				<div className="container-fluid" style={{"border":"1px solid black", "overflow":"hidden","paddingLeft" : "30px","paddingRight" : "30px"}}>
+				<div className="container-fluid" style={{"overflow":"hidden","paddingLeft" : "30px","paddingRight" : "30px"}}>
 					<BorrowingForm language={this.state.language} index={this.state.index} boxObject={this.state.boxObject} submit={false} onClick={this.handleClick}/>
 				</div>
 			);
@@ -109,7 +107,7 @@ InfoDisplayer = React.createClass({
 		else if (this.state.storeCurrentBox)
 		{
 			return(
-				<div className="container-fluid" style={{"border":"1px solid black", "overflow":"hidden"}}>
+				<div className="container-fluid" style={{"overflow":"hidden"}}>
 					<Storage language={this.state.language} index={this.state.index} boxId={this.state.currentBoxId} boxType={this.state.boxObject["Box Type"]} onClick={this.handleClick} />
 				</div>
 			);
@@ -117,7 +115,7 @@ InfoDisplayer = React.createClass({
 		else
 		{
 			return(
-				<div className="container-fluid" style={{"border":"1px solid black", "overflow":"hidden","paddingLeft" : "30px","paddingRight" : "30px"}}>
+				<div className="container-fluid" style={{"overflow":"hidden","paddingLeft" : "30px","paddingRight" : "30px"}}>
 					<NormalInfoDisplayer language={this.state.language} 
 										index={this.state.index} 
 										currentBoxId={this.state.currentBoxId} 

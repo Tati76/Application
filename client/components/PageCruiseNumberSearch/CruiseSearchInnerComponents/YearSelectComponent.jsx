@@ -1,4 +1,4 @@
-import {getXMLHttpRequest,makeXMLHttpRequest} from '../../Functions/functionFile.js';
+import {getXMLHttpRequest,makeHttpRequest,createCORSRequest,} from '../../Functions/functionFile.js';
 import { HTTP } from 'meteor/http';
 
 // test
@@ -8,10 +8,10 @@ YearSelectComponent= React.createClass({
 	readData: function(sData,option) {
 
 		var tempArray = [];
-		for (var i=0 ; i<JSON.parse(sData).length ; i++ ) // put the value attribute in each year to display it
+		for (var i=0 ; i<sData.length ; i++ ) // put the value attribute in each year to display it
 		{
-			tempArray.push(JSON.parse(sData)[i]);
-			tempArray[i]["value"] = JSON.parse(sData)[i].name;
+			tempArray.push(sData[i]);
+			tempArray[i]["value"] = sData[i].name;
 		}
 		this.setState({yearFile : tempArray,loading : false});
 		
@@ -29,8 +29,33 @@ YearSelectComponent= React.createClass({
 
 	componentDidMount()
 	{
+		// http://jsonplaceholder.typicode.com/posts/1
+		// makeHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData,null);
+		// this.getFunction();*
+		// var url = "http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y";
+		// var xhr = createCORSRequest('GET', url);
+		// xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+		// console.log(xhr);
+		// xhr.send()
+		// console.log(xhr);
+		// console.log(xhr.getAllResponseHeaders());
+		Meteor.call('getJson',"http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",null,this.getCORSValues);
+		// this.getFunction();
 
-		makeHttpRequest("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",this.readData,null);
+	},
+
+	getCORSValues(error,result)
+	{
+		if (error)
+		{
+			console.error(error);
+		}
+		else
+		{
+			console.log(result[0]);
+			console.log(result[1]);
+			this.readData(result[0].data,result[1]);
+		}
 	},
 
 	getFunction()
@@ -59,14 +84,16 @@ YearSelectComponent= React.createClass({
 	 //    // to the API (e.g. in case you use sessions)
 	 //    xhr.setHeader('Access-Control-Allow-Origin':'http://localhost:3000','Access-Control-Allow-Methods':'GET, POST, OPTIONS, PUT, PATCH, DELETE','Access-Control-Allow-Headers':'X-Requested-With,content-type','Access-Control-Allow-Credentials', true);
 
-		HTTP.call("get","http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",
-          {"headers": {'Access-Control-Allow-Origin':'http://localhost:3000/Norsk/0/AddBox',
-          'Access-Control-Allow-Methods':'GET, POST, OPTIONS, PUT, PATCH, DELETE',
-          'Access-Control-Allow-Headers':'X-Requested-With,content-type',
-          'Access-Control-Allow-Credentials': true}},
+		HTTP.call("get","http://jsonplaceholder.typicode.com/posts/1",
+          {},
           function (error, result) {
-            if (!error) {
-              console.log(result);
+            if (error) {
+            	console.log('error');
+              console.error(error);
+            }
+            else
+            {
+            	console.log(result);
             }
           });
 	},

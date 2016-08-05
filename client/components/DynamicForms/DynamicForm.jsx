@@ -162,6 +162,10 @@ DynamicForm = React.createClass({
 		{
 			return true;
 		}
+		else if (nextState.dbInfo != this.state.dbInfo)
+		{
+			return true;
+		}
 		else if (nextState.errorArray != this.state.errorArray)
 		{
 			return true;
@@ -285,7 +289,7 @@ DynamicForm = React.createClass({
 		{
 			return(
  			<div className={errorMessage.concat(" form-group")} key={index}>
-					<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
+					<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 					<div className="col-sm-10">
 						<YearSelectComponent key={index} ref={index} language={this.state.language} index={this.state.index} clearYear={this.state.clearYearCounter} className="form-control" id={"inp"+index} yearList={this.state.yearList} giveValue={this.handleYearList}/>
 					</div>
@@ -297,7 +301,7 @@ DynamicForm = React.createClass({
 			
 			return(
  			<div className={errorMessage.concat(" form-group")} key={index}>
-					<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
+					<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 					<div className="col-sm-10">
 						<ShipSelectComponent key={index} ref={index} language={this.state.language} index={this.state.index} className="form-control" id={"inp"+index} giveValue={this.handleShipList} yearList={this.state.yearList}/>
 					</div>
@@ -308,7 +312,7 @@ DynamicForm = React.createClass({
 		{
  			return(
  			<div className={errorMessage.concat(" form-group")} key={index}>
-					<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
+					<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 					<div className="col-sm-10">
 						<CruiseSelectComponent key={index} ref={index} language={this.state.language} index={this.state.index} className="form-control" id={"inp"+index} yearList={this.state.yearList} shipList={this.state.shipList} giveValue={this.handleCruiseList}/>
 					</div>
@@ -321,7 +325,7 @@ DynamicForm = React.createClass({
 			{
 				return(
 					<div className={errorMessage.concat(" form-group")} key={index}>
-						<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
+						<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 						<div className="col-sm-10">
 							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/>
 						</div>
@@ -331,7 +335,7 @@ DynamicForm = React.createClass({
 			else{
 				return(
 					<div className={errorMessage.concat(" form-group")} key={index}>
-						<label htmlFor={"inp"+index} ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
+						<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 						<div className="col-sm-10">
 							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index}/>
 						</div>
@@ -388,7 +392,7 @@ DynamicForm = React.createClass({
 		}
 	},
 
-	renderFormTable: function(input,index)
+	renderFormTable(input,index)
 	{
 		var errorMessage = "";
 		switch (this.state.errorArray[index]) {
@@ -553,19 +557,24 @@ DynamicForm = React.createClass({
 	{
 		for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
 		{
+			var test = "l"+i;
 			switch (this.state.cruiseSearch[i]) {
 			    case 0:
-			        console.log(this.refs["l"+i].value,this.refs[i].value);
+			        console.log(this.refs["l"+String(i)].value,this.refs[i].value);
+			        console.log(this.state.dbInfo[i],this.refs[i].value);
 			        this.refs[i].value = "";
 			        break;
 			    case 1:
 			        console.log(this.refs["l"+i].value,this.state.yearList);
+			        console.log(this.state.dbInfo[i],this.state.shipList);
 			        break;
 			    case 2:
 			        console.log(this.refs["l"+i].value,this.state.shipList);
+			        console.log(this.state.dbInfo[i],this.state.shipList);
 			        break;
 			    case 3:
 			        console.log(this.refs["l"+i].value,this.state.cruiseList);
+			        console.log(this.state.dbInfo[i],this.state.shipList);
 			        break;
 			}
 		}

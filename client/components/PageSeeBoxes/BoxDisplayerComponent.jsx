@@ -8,7 +8,7 @@ BoxDisplayer = React.createClass({
 		var handle = Meteor.subscribe('inholdinfodb');
 	    if(handle.ready()) {
 
-	    		data.sample = InholdInfoDb.find({"Containers Id": { $exists: false } } ).fetch(); // Only catches the boxes that are not storable in others
+	    		data.sample = InholdInfoDb.find({"Parent Id": { $exists: false } } ).fetch(); // Only catches the boxes that are not storable in others
 	    		console.log(data.sample[0]);
 				data.samplesFittingTheCriterias = [];
 	    		if(this.props.searchOptions[1] != "")

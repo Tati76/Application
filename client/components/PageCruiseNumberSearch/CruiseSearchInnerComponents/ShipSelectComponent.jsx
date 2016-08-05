@@ -85,9 +85,26 @@ ShipSelectComponent= React.createClass({
 		//console.log("urlList",urlList);
 		for (var i=0 ; i<urlList.length ;i++)
 		{
-			makeHttpRequest(urlList[i],this.readData,[urlList.length,urlList[i].slice(urlList[i].length-4,urlList[i].length)]);
+			// makeHttpRequest(urlList[i],this.readData,[urlList.length,urlList[i].slice(urlList[i].length-4,urlList[i].length)]);
+			Meteor.call('getJson',urlList[i],[urlList.length,urlList[i].slice(urlList[i].length-4,urlList[i].length)],this.getRawData);
+		
 		}
 
+	},
+
+	getRawData(error,result)
+	{
+		if (error)
+		{
+			console.error(error);
+		}
+		else
+		{
+			console.log(result[0]);
+			console.log(result[1]);
+			this.readData(result[0].data,result[1]);
+			
+		}
 	},
 
 	readData: function(sData,option) //step 3
@@ -99,7 +116,7 @@ ShipSelectComponent= React.createClass({
 				//set State all the values
 				var tempObject = {};
 				tempObject["year"] = option[1];
-				tempObject["data"] = JSON.parse(sData);
+				tempObject["data"] = sData;
 				var tempArray = this.state.requestsResponses;
 				tempArray.push(tempObject);
 				var tempDispArr = this.makeTheDisplayArrayFromRequestsResponses(tempArray).slice();
@@ -110,7 +127,7 @@ ShipSelectComponent= React.createClass({
 				// setState all the values
 				var tempObject = {};
 				tempObject["year"] = option[1];
-				tempObject["data"] = JSON.parse(sData);
+				tempObject["data"] = sData;
 				var tempArray = this.state.requestsResponses;
 				tempArray.push(tempObject);
 				this.setState({requestsResponses :tempArray});

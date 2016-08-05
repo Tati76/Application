@@ -76,14 +76,16 @@ SeeBoxes = React.createClass({
 	renderSearch() 
 	{
 		return(
-
-			<div className="form-group center-block">
-
-				<AttributeSelector onClick={this.handleSearchAttribute} language={this.state.language} index={this.state.index} boxType={"Otolith Storage Box"}/>
-				<input type="text" className="form-control" placeholder={displayFile.setups[this.state.index].searchComponent.input.placeholder} onChange={this.handleSearch}/>
-				<button type="button" className="btn btn-default">
-					<span className="glyphicon glyphicon-search" aria-hidden="true"></span>
-				</button>
+			<div className="center-block">
+				<form className="form-inline" >
+					<div className="form-group">
+						<div style={{"display":"inline-block"}}><AttributeSelector onClick={this.handleSearchAttribute} language={this.state.language} index={this.state.index} boxType={"Otolith Storage Box"}/></div>
+						<input type="text" className="form-control" placeholder={displayFile.setups[this.state.index].searchComponent.input.placeholder} onChange={this.handleSearch}/>
+						<button type="button" className="btn btn-default">
+							<span className="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+					</div>
+				</form>
 			</div>
 		);
 	},
@@ -111,14 +113,13 @@ SeeBoxes = React.createClass({
 				
 		return(	
 				<div className='container-fluid' >
-					<div className="row">
-	    				<div className="col-lg-4 col-lg-offset-4">
-							<form className="form-inline ">
-							  	{this.renderSearch()}
-							</form>
-
-							<BoxDisplayer language={this.state.language} index={this.state.index} searchOptions={[this.state.searchAttribute,this.state.searchValue]}/>
-							<button  type="button" className="btn btn-primary center-block" onClick={this.clickAddBox}>{displayFile.setups[this.state.index].SeeBoxPage.buttons.addContent}</button>
+					<div className="row center-block">
+						<div className="text-center">
+							{this.renderSearch()}
+							<div style={{"margin-top":"20px"}}>
+								<BoxDisplayer language={this.state.language} index={this.state.index} searchOptions={[this.state.searchAttribute,this.state.searchValue]}/>
+								<button  type="button" className="btn btn-primary center-block" onClick={this.clickAddBox}>{displayFile.setups[this.state.index].SeeBoxPage.buttons.addContent}</button>
+							</div>
 						</div>
 					</div>
 				</div>
