@@ -12,7 +12,7 @@
 			"buttons" : {
 				"save" : "Lagre ny tester",
 				"search" : "Søk etter gammle tester",
-				"addContent" : "Se eksisterende Boxer"
+				"addContent" : "Se eksisterende Bokser"
 			}
 		},
 		"pageBoxInfo": {

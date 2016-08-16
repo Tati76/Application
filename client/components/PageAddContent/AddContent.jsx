@@ -243,7 +243,7 @@ AddContent = React.createClass({
 							boxType={this.state.selectedBoxType} 
 							giveValue={this.clickSubmit} 
 							onReturn={this.clickReturn}
-							placeHold={[[this.state.boxId],[this.findContainerIdLabel(this.state.language,this.state.selectedBoxType)]]}
+							placeHold={[[this.state.boxId],[this.findContainerIdLabel(this.state.language,this.state.selectedBoxType)],[true]]}
 							isTable={false}/>
 			</div>
 		);

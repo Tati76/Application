@@ -176,7 +176,7 @@ AddBox= React.createClass({
 					boxType={this.state.boxType} 
 					giveValue={this.clickSubmit}
 					onReturn={this.clickReturn}
-					placeHold={[["jlsf"],["klsdfjl"]]}
+					placeHold={[[],[]]}
 					isTable={false}/>
 				
 			</div>

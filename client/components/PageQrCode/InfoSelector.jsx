@@ -1,6 +1,7 @@
 import {translateWord} from '../Functions/functionFile.js';
 import displayInfo from '../languages/Settings.json';
 import boxFile from '../Boxes/BoxesInfo.json';
+import {labelstyle} from './pageQrCodeStyle.css';
 
 InfoSelector = React.createClass({
 
@@ -186,7 +187,7 @@ InfoSelector = React.createClass({
 						</form>
 					</div>
 					<div className="col-sm-4 hidden-print" ></div>
-					<div className="col-sm-4" style={{'border' : '1px black solid','paddingBottom' : '20px','maxWidth':'80mm'}}>
+					<div className="col-sm-4 labelstyle center-block">
 						<Label list={this.state.list} text={this.state.text} qr={this.state.qr} language={this.state.language} index={this.state.index} boxType={this.state.boxType}/>
 					</div>
 				</div>

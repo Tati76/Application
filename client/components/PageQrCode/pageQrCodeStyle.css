@@ -9,11 +9,21 @@
 	border-collapse : collapse;
 }
 
-
+.labelstyle {
+	border: 1px solid black;
+	padding-bottom : 20px;
+	max-width : 88mm;
+}
 
 @media print
 {
 	table {
 		border-color: black;
+		border : 1px solid black;
+		background-color: black;
 	}
+
+	
+
 }
+

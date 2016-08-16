@@ -4,7 +4,7 @@
 	// dbInfo={this.state.dbFields} 
 	// boxType={this.state.boxType} 
 	// giveValue={this.clickSubmit} 
-	// placehold={[what, where]} 
+	// placehold={[what, where,isDisabled ?]} 
 	// isTable={this.state.isTable}/>
 
 // CLASSIFICATION OF THE DIFFERENT INPUT DISPLAYS AVAILABLE
@@ -77,12 +77,12 @@ DynamicForm = React.createClass({
 			}
 			else
 			{
-				if (this.refs[i].value == "" && this.state.obliged[i]) // Case not filled as obliged to (error)
+				if (this.refs[i].value.length > 0 && this.refs[i].value.trim().length ==0 && this.state.obliged[i] && this.refs[i].placeholder.length > 0 || this.refs[i].value.length == 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ||  this.refs[i].value.length > 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ) // Case not filled as obliged to (error)
 				{
 					tempErrorArray.push(3);
 					errorSpotted = true;
 				}
-				else if(this.refs[i].value == "" && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
+				else if(this.refs[i].value.length >= 0 && this.refs[i].value.trim().length ==0 && !this.state.obliged[i] && this.refs[i].placeholder.length <= 0) // Case not filled and not obliged to (warning)
 				{
 					tempErrorArray.push(2);
 				}
@@ -323,14 +323,29 @@ DynamicForm = React.createClass({
 			var indexOfPlaceHolder = this.isInPlaceHolder(input);
 			if(indexOfPlaceHolder > -1)
 			{
-				return(
-					<div className={errorMessage.concat(" form-group")} key={index}>
-						<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
-						<div className="col-sm-10">
-							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/>
+				if (this.state.placeHolder[2][indexOfPlaceHolder]) // isDisabled
+				{
+					return(
+						<div className={errorMessage.concat(" form-group")} key={index}>
+							<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
+							<div className="col-sm-10">
+								<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/>
+							</div>
 						</div>
-					</div>
-				);
+					);
+				}
+				else // if not disabled
+				{
+					return(
+						<div className={errorMessage.concat(" form-group")} key={index}>
+							<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
+							<div className="col-sm-10">
+								<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]}/>
+							</div>
+						</div>
+					);
+				}
+				
 			}
 			else{
 				return(
@@ -442,14 +457,27 @@ DynamicForm = React.createClass({
 			);
 		}
 		else{
-			if(this.state.placeHolder[1] == input)
+			var indexOfPlaceHolder = this.isInPlaceHolder(input);
+			if(indexOfPlaceHolder > -1)
 			{
-				return(
-					<tr className={errorMessage.concat(" form-group")} key={index}>
-						<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
-						<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0]} placeholder={this.state.placeHolder[0]} disabled/></td>
-					</tr>
-				);
+				if (this.state.placeHolder[2][indexOfPlaceHolder]) // isDisabled
+				{
+					return(
+						<tr className={errorMessage.concat(" form-group")} key={index}>
+							<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
+							<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/></td>
+						</tr>
+					);
+				}
+				else // not disabled
+				{
+					return(
+						<tr className={errorMessage.concat(" form-group")} key={index}>
+							<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
+							<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]}/></td>
+						</tr>
+					);
+				}
 			}
 			else{
 				return(
@@ -507,7 +535,7 @@ DynamicForm = React.createClass({
 
 	handleClick(event) //render
 	{
-		if(!this.isErrorOnField() && this.state.boxType != "")
+		if(!this.isErrorOnField() && this.state.boxType.trim() != "")
 		{
 			var tempResponse = {};
 			for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
@@ -522,7 +550,15 @@ DynamicForm = React.createClass({
 				switch (this.state.cruiseSearch[i]) {
 				    case 0:
 				        console.log(this.refs["l"+i].value,this.refs[i].value);
-				        tempObject[this.state.dbInfo[i]] = this.refs[i].value;
+				        if (this.refs[i].value.trim().length<=0 && this.refs[i].placeholder.trim().length >0)
+				        {
+				        	tempObject[this.state.dbInfo[i]] = this.refs[i].placeholder.trim();
+				        }
+				        else 
+				        {
+				        	tempObject[this.state.dbInfo[i]] = this.refs[i].value.trim();
+				        }
+				        
 				        break;
 				    case 1:
 				        console.log(this.refs["l"+i].value,this.state.yearList);
@@ -595,7 +631,7 @@ DynamicForm = React.createClass({
 			return(
 				<div className="container-fluid">
 					<form>
-						<table border="1" className="table table-bordered">
+						<table className="table table-bordered">
 							<tbody>
 								{this.state.toDisplay.map(this.renderFormTable)}
 							</tbody>

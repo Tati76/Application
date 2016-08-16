@@ -1,5 +1,5 @@
 import { InholdInfoDb } from '../../../../imports/api/inholdinfodb.js';
-import {translate} from '../../Functions/functionFile.js'
+import {translate} from '../../Functions/functionFile.js';
 import boxFile from '../../Boxes/BoxesInfo.json';
 import displayFile from '../../languages/Settings.json';
 
@@ -81,11 +81,11 @@ EditableInfoDisplayer = React.createClass({
 		{
 			if (this.refs["l"+i].value != "createdAt" && this.refs["l"+i].value != "Box Type" && this.refs["l"+i].value != "_id" )
 			{
-				console.log(this.refs["l"+i].value);
+				console.log(this.refs["l"+i].attributes.value.value);
 				console.log(this.refs[i].value);
 				if (this.refs[i].value != "") // If there is no modification, the value in the database will not change
 				{
-					tempResponse[this.refs["l"+i].value] = this.refs[i].value;
+					tempResponse[this.refs["l"+i].attributes.value.value] = this.refs[i].value;
 				}
 				
 			}
@@ -98,7 +98,7 @@ EditableInfoDisplayer = React.createClass({
 
 	},
 
-	renderEditableDisplayer: function(input,index)
+	renderEditableDisplayer(input,index)
 	{
 		console.log("index : " + index);
 		if (input =="createdAt")
@@ -145,13 +145,13 @@ EditableInfoDisplayer = React.createClass({
 		
 			return(
 				<div className="container-fluid">
-					<h2 className="text-center">{displayFile.setups[this.state.index].EditableInfoDisplayer.title}</h2>
+					<h2 className="text-center text-primary">{displayFile.setups[this.state.index].EditableInfoDisplayer.title}</h2>
 					<form>
 						<table border="1" className="table table-bordered">
 							<thead>
 								<tr>
-								    <th Colspan="3" className="text-center"> Info </th>
-								    <th> <button type="button" className="btn btn-primary center-block" onClick={this.handleSaveCurrentBox} value="SaveInfo">Save (Not dynamic)</button> </th>
+								    <th className="text-center"> Info </th>
+								    <th> <button type="button" className="btn btn-primary center-block" onClick={this.handleSaveCurrentBox} value="SaveInfo">{displayFile.setups[this.state.index].EditableInfoDisplayer.buttons.save}</button> </th>
 								</tr>
 							</thead>
 							<tbody>

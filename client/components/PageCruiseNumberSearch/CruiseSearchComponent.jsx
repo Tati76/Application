@@ -156,7 +156,7 @@ CruiseSearch = React.createClass({
 							boxType={"Otolith Storage Box"} 
 							giveValue={this.clickSubmit} 
 							onReturn={this.clickReturn}
-							placeHold={[[""],[""]]}
+							placeHold={[["sdfsdf"],["Test"]]}
 							isTable={false}/>
 			</div>
 		);
