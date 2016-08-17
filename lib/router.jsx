@@ -32,7 +32,7 @@ FlowRouter.route('/:language/:index/SeeBoxes/:id/AddContent', {
 
 FlowRouter.route('/:language/:index/LoadCruiseNr', {  
   action(params, queryParams) {
-   mount(MainLayout, { content: <CruiseSearch language={params.language} index={params.index} boxId={params.id}/>});
+   mount(MainLayout, { content: <SearchExistingBox language={params.language} index={params.index} boxId={params.id}/>});
   }
 });
 

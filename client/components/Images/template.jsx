@@ -12,7 +12,7 @@ NAME= React.createClass({
 	getInitialState(){
 		return {
 			language : this.props.language,
-			index : this.pros.index	
+			index : this.props.index	
 		};
 	},
 

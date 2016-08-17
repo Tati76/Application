@@ -23,78 +23,85 @@ DynamicForm = React.createClass({
 
 	isErrorOnField: function()
 	{
-		var tempErrorArray = [];
-		var errorSpotted = false;
-		for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
+		if (this.state.boxType != "") // in case we don't want the correction
 		{
-			if(this.state.cruiseSearch[i] == 1)
+			var tempErrorArray = [];
+			var errorSpotted = false;
+			for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
 			{
-				if (this.state.yearList.length <1 && this.state.obliged[i]) // no cruise & obliged
+				if(this.state.cruiseSearch[i] == 1)
 				{
-					tempErrorArray.push(3);
-					errorSpotted = true;
+					if (this.state.yearList.length <1 && this.state.obliged[i]) // no cruise & obliged
+					{
+						tempErrorArray.push(3);
+						errorSpotted = true;
+					}
+					else if(this.state.yearList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
+					{
+						tempErrorArray.push(2);
+					}
+					else
+					{
+						tempErrorArray.push(1);
+					}
 				}
-				else if(this.state.yearList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
+				else if (this.state.cruiseSearch[i] == 2)
 				{
-					tempErrorArray.push(2);
+					if (this.state.shipList.length <1 && this.state.obliged[i]) // no cruise & obliged
+					{
+						tempErrorArray.push(3);
+						errorSpotted = true;
+					}
+					else if(this.state.shipList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
+					{
+						tempErrorArray.push(2);
+					}
+					else
+					{
+						tempErrorArray.push(1);
+					}
+				}
+				else if(this.state.cruiseSearch[i] == 3)
+				{
+					if (this.state.cruiseList.length <1 && this.state.obliged[i]) // no cruise & obliged
+					{
+						tempErrorArray.push(3);
+						errorSpotted = true;
+					}
+					else if(this.state.cruiseList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
+					{
+						tempErrorArray.push(2);
+					}
+					else
+					{
+						tempErrorArray.push(1);
+					}
 				}
 				else
 				{
-					tempErrorArray.push(1);
+					if (this.refs[i].value.length > 0 && this.refs[i].value.trim().length ==0 && this.state.obliged[i] && this.refs[i].placeholder.length > 0 || this.refs[i].value.length == 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ||  this.refs[i].value.length > 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ) // Case not filled as obliged to (error)
+					{
+						tempErrorArray.push(3);
+						errorSpotted = true;
+					}
+					else if(this.refs[i].value.length >= 0 && this.refs[i].value.trim().length ==0 && !this.state.obliged[i] && this.refs[i].placeholder.length <= 0) // Case not filled and not obliged to (warning)
+					{
+						tempErrorArray.push(2);
+					}
+					else{
+						tempErrorArray.push(1);
+					}
 				}
+				
 			}
-			else if (this.state.cruiseSearch[i] == 2)
-			{
-				if (this.state.shipList.length <1 && this.state.obliged[i]) // no cruise & obliged
-				{
-					tempErrorArray.push(3);
-					errorSpotted = true;
-				}
-				else if(this.state.shipList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
-				{
-					tempErrorArray.push(2);
-				}
-				else
-				{
-					tempErrorArray.push(1);
-				}
-			}
-			else if(this.state.cruiseSearch[i] == 3)
-			{
-				if (this.state.cruiseList.length <1 && this.state.obliged[i]) // no cruise & obliged
-				{
-					tempErrorArray.push(3);
-					errorSpotted = true;
-				}
-				else if(this.state.cruiseList.length <1 && !this.state.obliged[i]) // Case not filled and not obliged to (warning)
-				{
-					tempErrorArray.push(2);
-				}
-				else
-				{
-					tempErrorArray.push(1);
-				}
-			}
-			else
-			{
-				if (this.refs[i].value.length > 0 && this.refs[i].value.trim().length ==0 && this.state.obliged[i] && this.refs[i].placeholder.length > 0 || this.refs[i].value.length == 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ||  this.refs[i].value.length > 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ) // Case not filled as obliged to (error)
-				{
-					tempErrorArray.push(3);
-					errorSpotted = true;
-				}
-				else if(this.refs[i].value.length >= 0 && this.refs[i].value.trim().length ==0 && !this.state.obliged[i] && this.refs[i].placeholder.length <= 0) // Case not filled and not obliged to (warning)
-				{
-					tempErrorArray.push(2);
-				}
-				else{
-					tempErrorArray.push(1);
-				}
-			}
-			
-		}
-		this.setState({errorArray : tempErrorArray.slice()});
+			this.setState({errorArray : tempErrorArray.slice()});
 
-		return errorSpotted;
+			return errorSpotted;
+		}
+		else 
+		{
+			return false;
+		}
 	},
 
 	setErrorArrayToZero()
@@ -131,7 +138,8 @@ DynamicForm = React.createClass({
 			boxType : this.props.boxType, 
 			placeHolder : this.props.placeHold,
 			isTable : this.props.isTable,
-			clearYearCounter : 0
+			clearYearCounter : 0,
+			buttons: this.props.buttons
 		};
 	},
 
@@ -144,10 +152,12 @@ DynamicForm = React.createClass({
 						cruiseSearch : nextProps.info[2],
 						dbInfo : nextProps.dbInfo, 
 						boxType : nextProps.boxType,
-						isTable : nextProps.isTable
+						isTable : nextProps.isTable,
+						buttons : nextProps.buttons
 					});
 		this.setErrorArrayToZero();
 		console.log(nextProps.info);
+		console.log(nextProps.placehold);
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -375,38 +385,6 @@ DynamicForm = React.createClass({
 		return res;
 	},
 
-	translate(word)
-	{
-		if(word != "_id")
-		{
-			if(word.split(" ")[0] == "Borrowing" || word.split(" ")[0] == "Storage")
-			{
-				var tempString = "";
-				for(var i = 0 ; i<word.split(" ").length ; i++)
-				{
-					console.log(word.split(" ")[i]);
-					console.log(word.split(" ")[i].length);
-					console.log("box db data :",this.state.list);
-					tempString += translateWord(word.split(" ")[i],this.state.language,this.state.boxType);
-					if(i != word.split(" ").length-1)
-					{
-						tempString += " ";
-					}
-				}
-				return tempString;
-			}
-			else
-			{
-				console.log(word);
-				return translateWord(word,this.state.language,this.state.boxType);
-			}
-		}
-		else
-		{
-			return "ID";
-		}
-	},
-
 	renderFormTable(input,index)
 	{
 		var errorMessage = "";
@@ -535,7 +513,7 @@ DynamicForm = React.createClass({
 
 	handleClick(event) //render
 	{
-		if(!this.isErrorOnField() && this.state.boxType.trim() != "")
+		if(!this.isErrorOnField() && this.state.boxType.trim() != null)
 		{
 			var tempResponse = {};
 			for (var i = 0 ; i<this.state.toDisplay.length ; i++) // go through all the inputs
@@ -623,6 +601,40 @@ DynamicForm = React.createClass({
 		this.props.onReturn(event);
 	},
 
+	renderButtons()
+	{
+		if (this.state.buttons == "research")
+		{
+			return(
+				<div className="btn-group btn-group-justified" role="group" aria-label="...">
+					<div className="btn-group" role="group">
+						<button type="button" className="btn btn-primary" onClick={this.clearAll}>{settingsFile.setups[this.state.index].AddContent.buttons.clear}</button>
+					</div>
+					<div className="btn-group" role="group">
+						<button type="button" className="btn btn-primary" onClick={this.handleClick}>{settingsFile.setups[this.state.index].AddContent.buttons.save}</button>
+					</div>
+				</div>
+			);
+		}
+		else
+		{
+			return(
+				<div className="btn-group btn-group-justified" role="group" aria-label="...">
+					<div className="btn-group" role="group">
+						<button type="button" className="btn btn-primary" onClick={this.clearAll}>{settingsFile.setups[this.state.index].AddContent.buttons.clear}</button>
+					</div>
+					<div className="btn-group" role="group">
+						<button type="button" className="btn btn-primary" onClick={this.handleClick}>{settingsFile.setups[this.state.index].AddContent.buttons.save}</button>
+					</div>
+					<div className="btn-group" role="group">
+						<button type="button" className="btn btn-primary" onClick={this.handleReturn} value='Back'>{settingsFile.setups[this.state.index].AddContent.buttons.return}</button>
+					</div>
+				</div>
+			);
+			
+		}
+	},
+
 	render(){
 		console.log("render DynamicForm");
 		console.log(settingsFile.setups[this.state.index].AddContent.buttons.clear);
@@ -630,24 +642,14 @@ DynamicForm = React.createClass({
 		{
 			return(
 				<div className="container-fluid">
-					<form>
+					<form onSubmit={this.handleClick()}>
 						<table className="table table-bordered">
 							<tbody>
 								{this.state.toDisplay.map(this.renderFormTable)}
 							</tbody>
 						</table>
 						
-						<div className="btn-group btn-group-justified" role="group" aria-label="...">
-							<div className="btn-group" role="group">
-								<button type="button" className="btn btn-primary" onClick={this.clearAll}>{settingsFile.setups[this.state.index].AddContent.buttons.clear}</button>
-							</div>
-							<div className="btn-group" role="group">
-								 <button type="button" className="btn btn-primary" onClick={this.handleClick}>{settingsFile.setups[this.state.index].AddContent.buttons.save}</button>
-							</div>
-							<div className="btn-group" role="group">
-								 <button type="button" className="btn btn-primary" onClick={this.handleReturn} value='Back'>{settingsFile.setups[this.state.index].AddContent.buttons.return}</button>
-							</div>
-						</div>
+						{this.renderButtons()}
 					</form>
 				</div>
 			);
@@ -657,17 +659,7 @@ DynamicForm = React.createClass({
 			return(
 				<div className="container-fluid form-horizontal">
 					{this.state.toDisplay.map(this.renderForm)}
-					<div className="btn-group btn-group-justified" role="group" aria-label="...">
-						<div className="btn-group" role="group">
-							<button type="button" className="btn btn-primary" onClick={this.clearAll}>{settingsFile.setups[this.state.index].AddContent.buttons.clear}</button>
-						</div>
-						<div className="btn-group" role="group">
-							 <button type="button" className="btn btn-primary" onClick={this.handleClick}>{settingsFile.setups[this.state.index].AddContent.buttons.save}</button>
-						</div>
-						<div className="btn-group" role="group">
-							 <button type="button" className="btn btn-primary" onClick={this.handleReturn} value='Back'>{settingsFile.setups[this.state.index].AddContent.buttons.return}</button>
-						</div>
-					</div>
+					{this.renderButtons()}
 				</div>
 			);
 		}

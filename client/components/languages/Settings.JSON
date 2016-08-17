@@ -130,6 +130,11 @@
 				"return" : "Tilbake"
 			}
 		},
+		"OldTestSearchPage" :{
+			"buttons" :{
+				"search" : "Søk"
+			}
+		},
 		"SelectedBoxPage" : {
 			"buttons" : {
 				"lend" : "Låne Box",
@@ -294,6 +299,11 @@
 				"save" : "Save",
 				"clear" : "Clear",
 				"return" : "Previous Page"
+			}
+		},
+		"OldTestSearchPage" :{
+			"buttons" :{
+				"search" : "Search"
 			}
 		},
 		"SelectedBoxPage" : {

@@ -179,50 +179,41 @@ export function translate(word,desiredLanguage,boxType)
 		}
 };
 
-// Create the XHR object.
-export function createCORSRequest(method, url) {
-  var xhr = new XMLHttpRequest();
-  if ("withCredentials" in xhr) {
-    // XHR for Chrome/Firefox/Opera/Safari.
-    xhr.open(method, url, true);
-  } else if (typeof XDomainRequest != "undefined") {
-    // XDomainRequest for IE.
-    xhr = new XDomainRequest();
-    xhr.open(method, url);
-  } else {
-    // CORS not supported.
-    console.log("CORS not supported");
-    xhr = null;
-  }
-  return xhr;
-};
 
-// Helper method to parse the title tag from the response.
-export function getTitle(text) {
-  return text.match('<title>(.*)?</title>')[1];
-};
 
-// Make the actual CORS request.
-export function makeCorsRequest() {
-  // All HTML5 Rocks properties support CORS.
-  var url = 'http://updates.html5rocks.com';
+export function findAllPossibleAttributes(desiredLanguage)
+{
+	var tempArray = [];
+	var tempOblidged = [];
+	var tempIsCruise = [];
+	// console.log("test");
 
-  var xhr = createCORSRequest('GET', url);
-  if (!xhr) {
-    alert('CORS not supported');
-    return;
-  }
+	for (var i = 0 ; i<boxFile.length ; i++) // go through all the file 
+	{
 
-  // Response handlers.
-  xhr.onload = function() {
-    var text = xhr.responseText;
-    var title = getTitle(text);
-    alert('Response from CORS request to ' + url + ': ' + title);
-  };
+		for (var a = 0 ; a<Object.keys(boxFile[i].forms).length ; a++) // through all the keys of the forms in a box
+		{
+			// console.log(Object.keys(boxFile[i].forms));
+			for (var b=0; b<boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage].length ; b++) // through the array of the selected form of the selected object
+			{
+				// console.log(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage].length);
+				console.log(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].Norsk.length - boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].English.length);
+				if (tempArray.indexOf(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage][b]) < 0) // the word is not in the array
+				{
+					tempArray.push(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage][b]);
+					tempOblidged.push(false);
+					tempIsCruise.push(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].cruiseSearch[b]);
+				}
+			}
+		} 
 
-  xhr.onerror = function() {
-    alert('Woops, there was an error making the request.');
-  };
+	}
 
-  xhr.send();
-};
+	var response = [[],[],[]];
+	response[0] = tempArray.slice();
+	response[1] = tempOblidged.slice();
+	response[2] = tempIsCruise.slice();
+
+	return response;
+
+}
