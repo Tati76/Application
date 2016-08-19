@@ -71,10 +71,20 @@ BoxDisplayer = React.createClass({
 		console.log(input);
 
 		return(
-			<a href={FlowRouter.current().path + "/" + input._id} className="list-group-item">
-				<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={input} chosenAttribute={this.props.searchOptions[0]}/>
+			<a className='btn-group'>
+				<a href={FlowRouter.current().path + "/" + input._id} type="button" className="btn btn-default list-group-item col-sm-10" >
+					<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={input} chosenAttribute={this.props.searchOptions[0]}/>
+				</a>
+				<a type="button" style={{"Width":"20px"}} className="btn btn-default" onClick={this.deleteBox.bind(this,input._id)}><span className='glyphicon glyphicon-trash'></span></a>
 			</a>
 		);
+			
+	},
+
+	deleteBox(id)
+	{
+		console.log("deleteBox : ",id);
+		Meteor.call("inholdinfodb.remove",id);
 	},
 
 	render(){
@@ -87,3 +97,10 @@ BoxDisplayer = React.createClass({
 		);
 	}
 });
+
+// <div className="btn-group" role="group" aria-label="...">
+// 			  <button type="button" className="btn btn-default"><a href={FlowRouter.current().path + "/" + input._id} type="button" className="btn btn-default list-group-item" >
+				// <SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={input} chosenAttribute={this.props.searchOptions[0]}/>
+			// </a></button>
+// 			  <button type="button" className="btn btn-default"><span className="glyphicon glyphicon-print"></span></button>
+// 			  </div>

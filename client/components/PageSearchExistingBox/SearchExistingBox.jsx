@@ -10,10 +10,32 @@ SearchExistingBox = React.createClass({
 	getMeteorData() {
 		var data = {};
 		var handle = Meteor.subscribe('inholdinfodb');
+
 	    if(handle.ready()) {
-	    		data.sample = InholdInfoDb.find().fetch(); // Only catches the boxes that are not storable in others
-	    		console.log(data.sample);
-				data.samplesFittingTheCriterias = [];
+    		data.sample = InholdInfoDb.find().fetch(); // Only catches the boxes that are not storable in others
+    		console.log(data.sample);
+			data.samplesFittingTheCriterias = [];
+			console.log(this.state.searchForm);
+			if (this.state.searchForm)
+			
+			{
+
+
+				for (var a = data.sample.length - 1 ; a >= 0 ; a--)
+				{
+					for (var i = 0 ; i<Object.keys(this.state.searchForm).length ; i++)
+					{
+						var stringToSearchIn = data.sample[a][Object.keys(this.state.searchForm)[i]];
+						var stringToSearch = this.state.searchForm[Object.keys(this.state.searchForm)[i]];
+			      		if(data.sample[a].hasOwnProperty(Object.keys(this.state.searchForm)[i])) // if it has the property
+	    				{
+				      		if(stringToSearchIn.search(stringToSearch) == -1)
+				      		{
+				      			data.sample.splice(a,1);
+				      		}
+			      		}
+				    }	
+				}
 	    // 		if(this.props.searchOptions[1] != "")
 	    // 		{
 	    // 			// Search Function
@@ -42,21 +64,35 @@ SearchExistingBox = React.createClass({
 			      	{
 			      		data.samplesFittingTheCriterias.push(data.sample[i]);
 			      	} 
-	    		// }
-	    		
+    		}
 	    }
+	    		
+	    
 	    return data;
 	},
+
+	// getMeteorData() {
+	// 	var data = {};
+	// 	var handle = Meteor.subscribe('search',"i");
+
+	//     if(handle.ready()) {
+	//     		data.sampleFittingTheCriterias = InholdInfoDb.find().fetch(); // Only catches the boxes that are not storable in others
+	//     		console.log(data.sample);
+	// 			// data.samplesFittingTheCriterias = [];
+	// 	}
+	// 	return data;
+	// },
 	
 	getInitialState(){
 		return {
 			language : this.props.language,
-			index : this.props.index
+			index : this.props.index,
+			searchForm : {}
 		};
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({language:nextProps.language, index : nextProps.index});
+		this.setState({language:nextProps.language, index : nextProps.index, searchForm : nextProps.searchForm});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -73,16 +109,34 @@ SearchExistingBox = React.createClass({
 		console.log(this.data.samplesFittingTheCriterias[input]);
 
 		return(
-			<a href={"#"} className="list-group-item">
+			<a href={"#"} className="list-group-item" key={index}>
 				<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={this.data.samplesFittingTheCriterias[input]} chosenAttribute={"_id"}/>
 			</a>
 		);
 	},
 
+// FOR THE FORMS, USE THE KEYDOWN IN FAVORITT
+
+// <input type="text" onkeydown="myFunction(event)">
+
+// <script>
+// function myFunction(event) {
+//     alert(event.keyCode);
+// }
+// </script>
 	clickSubmit(arg)
 	{
 		console.log("clickSubmit");
 		console.log(arg);
+		var tempObject = {};
+		for (var i = 0 ; i<Object.keys(arg).length ; i++)
+		{
+			if (arg[Object.keys(arg)[i]] != "" && arg[Object.keys(arg)[i]].trim().length > 0)
+			{
+				tempObject[Object.keys(arg)[i]] = arg[Object.keys(arg)[i]];
+			}
+		}
+		this.setState({searchForm : tempObject}, function(){console.log(this.state.searchForm);});
 	},
 
 	clickReturn(event)
@@ -108,7 +162,7 @@ SearchExistingBox = React.createClass({
 			{this.data.samplesFittingTheCriterias?
 				<div >
 				
-	    			<div className="col-lg-6 text-center">
+	    			<div className="col-lg-6 text-center" >
 	    				<p>New SearchFields </p>
 	    				<DynamicForm language={this.state.language} 
 									index={this.state.index} 

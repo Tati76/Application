@@ -339,7 +339,7 @@ DynamicForm = React.createClass({
 						<div className={errorMessage.concat(" form-group")} key={index}>
 							<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 							<div className="col-sm-10">
-								<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/>
+								<input onKeyDown={this.keydownfunction} type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/>
 							</div>
 						</div>
 					);
@@ -350,7 +350,7 @@ DynamicForm = React.createClass({
 						<div className={errorMessage.concat(" form-group")} key={index}>
 							<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 							<div className="col-sm-10">
-								<input type="text" key={index} ref={index} className="form-control" id={"inp"+index} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]}/>
+								<input onKeyDown={this.keydownfunction} type="text" key={index} ref={index} className="form-control" id={"inp"+index} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]}/>
 							</div>
 						</div>
 					);
@@ -362,7 +362,7 @@ DynamicForm = React.createClass({
 					<div className={errorMessage.concat(" form-group")} key={index}>
 						<label ref={"l"+index} className="col-sm-2 control-label" htmlFor="" value={input}>{input} </label>
 						<div className="col-sm-10">
-							<input type="text" key={index} ref={index} className="form-control" id={"inp"+index}/>
+							<input onKeyDown={this.keydownfunction} type="text" key={index} ref={index} className="form-control" id={"inp"+index}/>
 						</div>
 					</div>
 				);
@@ -443,7 +443,7 @@ DynamicForm = React.createClass({
 					return(
 						<tr className={errorMessage.concat(" form-group")} key={index}>
 							<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
-							<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/></td>
+							<td className="text-center"><input onKeyDown={this.keydownfunction} type="text" key={index} ref={index} className="form-control" id={"inp"+index} value={this.state.placeHolder[0][indexOfPlaceHolder]} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]} disabled/></td>
 						</tr>
 					);
 				}
@@ -452,7 +452,7 @@ DynamicForm = React.createClass({
 					return(
 						<tr className={errorMessage.concat(" form-group")} key={index}>
 							<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
-							<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]}/></td>
+							<td className="text-center"><input onKeyDown={this.keydownfunction} type="text" key={index} ref={index} className="form-control" id={"inp"+index} placeholder={this.state.placeHolder[0][indexOfPlaceHolder]}/></td>
 						</tr>
 					);
 				}
@@ -461,7 +461,7 @@ DynamicForm = React.createClass({
 				return(
 					<tr className={errorMessage.concat(" form-group")} key={index}>
 						<td ref={"l"+index} className="control-label text-center" htmlFor="" value={input}>{input}</td>
-						<td className="text-center"><input type="text" key={index} ref={index} className="form-control" id={"inp"+index}/></td>
+						<td className="text-center"><input onKeyDown={this.keydownfunction} type="text" key={index} ref={index} className="form-control" id={"inp"+index}/></td>
 					</tr>
 				);
 			}
@@ -527,7 +527,7 @@ DynamicForm = React.createClass({
 			{
 				switch (this.state.cruiseSearch[i]) {
 				    case 0:
-				        console.log(this.refs["l"+i].value,this.refs[i].value);
+				        console.log(this.state.dbInfo[i],this.refs[i].value);
 				        if (this.refs[i].value.trim().length<=0 && this.refs[i].placeholder.trim().length >0)
 				        {
 				        	tempObject[this.state.dbInfo[i]] = this.refs[i].placeholder.trim();
@@ -553,7 +553,11 @@ DynamicForm = React.createClass({
 				}
 			}
 			console.log("tempObject",tempObject);
-			tempObject["Box Type"] = this.state.boxType;
+			if (!tempObject.hasOwnProperty("Box Type"))
+			{
+				tempObject["Box Type"] = this.state.boxType;
+			}
+			
 		
 			this.props.giveValue(tempObject);
 			// console.log(tempResponse);
@@ -635,6 +639,15 @@ DynamicForm = React.createClass({
 		}
 	},
 
+	keydownfunction(event)
+	{
+		console.log(event.keyCode);
+		if (event.keyCode == 13)
+		{
+			this.handleClick(event);
+		}
+	},
+
 	render(){
 		console.log("render DynamicForm");
 		console.log(settingsFile.setups[this.state.index].AddContent.buttons.clear);
@@ -657,7 +670,7 @@ DynamicForm = React.createClass({
 		else
 		{
 			return(
-				<div className="container-fluid form-horizontal">
+				<div className="container-fluid form-horizontal" onkeydown={this.keydownfunction}>
 					{this.state.toDisplay.map(this.renderForm)}
 					{this.renderButtons()}
 				</div>

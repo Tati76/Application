@@ -186,6 +186,7 @@ export function findAllPossibleAttributes(desiredLanguage)
 	var tempArray = [];
 	var tempOblidged = [];
 	var tempIsCruise = [];
+	var tempTest = [];
 	// console.log("test");
 
 	for (var i = 0 ; i<boxFile.length ; i++) // go through all the file 
@@ -197,18 +198,30 @@ export function findAllPossibleAttributes(desiredLanguage)
 			for (var b=0; b<boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage].length ; b++) // through the array of the selected form of the selected object
 			{
 				// console.log(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage].length);
-				console.log(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].Norsk.length - boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].English.length);
-				if (tempArray.indexOf(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage][b]) < 0) // the word is not in the array
+				// console.log(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].Norsk.length - boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].English.length);
+				if (tempArray.indexOf((boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].prefix[desiredLanguage] + " " +boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage][b]).trim()) < 0) // the word is not in the array
 				{
-					tempArray.push(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage][b]);
+					// var pref = "";
+					// if (boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].hasOwnProperty('prefix'))
+					// {
+					// 	console.log( boxFile[i].forms[Object.keys(boxFile[i].forms)[a]]);
+					// 	pref = boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].prefix[desiredLanguage];
+					// }
+					tempArray.push((boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].prefix[desiredLanguage] + " " +boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage][b]).trim());
 					tempOblidged.push(false);
 					tempIsCruise.push(boxFile[i].forms[Object.keys(boxFile[i].forms)[a]].cruiseSearch[b]);
+					// tempTest.push({"prefix" : pref , "suffix" : boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage][b]});
 				}
 			}
 		} 
 
 	}
-
+	// console.log(tempTest);
+	// var finalArray = [];
+	// for (var i = 0 ; i<tempTest.length ; i++)
+	// {
+	// 	finalArray.push(tempTest[i].prefix + " " + tempTest[i].suffix);
+	// }
 	var response = [[],[],[]];
 	response[0] = tempArray.slice();
 	response[1] = tempOblidged.slice();

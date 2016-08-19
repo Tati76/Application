@@ -10,7 +10,11 @@
 				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
 				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"],
 				"cruiseSearch" : [0,0,0,1,0,0,0],
-				"obliged" : [false,false,false,true,false,false,false]
+				"obliged" : [false,false,false,true,false,false,false],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar"],
@@ -18,7 +22,11 @@
 				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0],
 				"obliged" : [false,true,true,true,false,false,false,false,false,false,false,false],
 				"warning" : [true,true,true,true,false,true,false,false,false,false,false,false],
-				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text"]
+				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text"],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"storage" : {
 				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap", "Hylle", "Posisjon","Kommentar"],
@@ -26,7 +34,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0,0,0],
 				"obliged" : [true,true,false,false,false,false,false,false],
 				"warning" : [true,true,false,false,false,false,false,false],
-				"dataType" : ["text","text","text","text","text","text","text","text"]
+				"dataType" : ["text","text","text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "Lagrings",
+					"English" : "Storage"
+				}
 			},
 			"borrowing" : {
 				"Norsk" : ["Person","Sted"],
@@ -34,7 +46,11 @@
 				"cruiseSearch" : [0,0],
 				"obliged" : [true,true],
 				"warning" : [true,true],
-				"dataType" : ["text","text"]
+				"dataType" : ["text","text"],
+				"prefix" : {
+					"Norsk" : "Låne",
+					"English" : "Borrowing"
+				}
 			}
 		},
 		"volume": 83000,
@@ -53,7 +69,11 @@
 				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
 				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"],
 				"cruiseSearch" : [0,0,0,1,0,0,0],
-				"obliged" : [false,false,false,true,false,false,false]
+				"obliged" : [false,false,false,true,false,false,false],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -61,7 +81,11 @@
 				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [false,true,true,true,false,false,false,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
-				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
+				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"storage" : {
 				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
@@ -69,7 +93,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
-				"dataType" : ["text","text","text","text","text","text"]
+				"dataType" : ["text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "Lagrings",
+					"English" : "Storage"
+				}
 			},
 			"borrowing" : {
 				"Norsk" : ["Person","Sted"],
@@ -77,7 +105,11 @@
 				"cruiseSearch" : [0,0],
 				"obliged" : [true,true],
 				"warning" : [true,true],
-				"dataType" : ["text","text"]
+				"dataType" : ["text","text"],
+				"prefix" : {
+					"Norsk" : "Låne",
+					"English" : "Borrowing"
+				}
 			}
 		},
 		"volume": 2760,
@@ -97,7 +129,11 @@
 				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
 				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"],
 				"cruiseSearch" : [0,0,0,1,0,0,0],
-				"obliged" : [false,false,false,true,false,false,false]
+				"obliged" : [false,false,false,true,false,false,false],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"content" : {
 				"Norsk" : ["Nummer.","Vekt i gram","Lengde","Kjønn","Alder","G.Alder","Stadium","G.Soner","Lesbarhet","M","Type","F","Rand","Leverv.","Gonadev.","Kommentar","Forelder Id"],
@@ -105,7 +141,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
 				"obliged" : [false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false], 
 				"warning" : [false,true,false,false,false,false,false,false,false,false,false,false,false,false,false,false,false],
-				"dataType" : ["number","number","number","text","number","number","text","text","text","text","text","text","text","text","text","text","text"]
+				"dataType" : ["number","number","number","text","number","number","text","text","text","text","text","text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"storage" : {
 				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
@@ -113,7 +153,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
-				"dataType" : ["text","text","text","text","text","text"]
+				"dataType" : ["text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "Lagrings",
+					"English" : "Storage"
+				}
 			},
 			"borrowing" : {
 				"Norsk" : ["Person","Sted"],
@@ -121,7 +165,11 @@
 				"cruiseSearch" : [0,0],
 				"obliged" : [true,true],
 				"warning" : [true,true],
-				"dataType" : ["text","text"]
+				"dataType" : ["text","text"],
+				"prefix" : {
+					"Norsk" : "Låne",
+					"English" : "Borrowing"
+				}
 			}
 		},
 		"volume": 13.8,
@@ -140,7 +188,11 @@
 				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
 				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"],
 				"cruiseSearch" : [0,0,0,1,0,0,0],
-				"obliged" : [false,false,false,true,false,false,false]
+				"obliged" : [false,false,false,true,false,false,false],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -148,7 +200,11 @@
 				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [false,true,true,true,false,false,false,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
-				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
+				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"storage" : {
 				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap", "Hylle","Kommentar"],
@@ -156,7 +212,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0,0],
 				"obliged" : [true,true,false,false,false,false,false],
 				"warning" : [true,true,false,false,false,false,false],
-				"dataType" : ["text","text","text","text","text","text","text"]
+				"dataType" : ["text","text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "Lagrings",
+					"English" : "Storage"
+				}
 			},
 			"borrowing" : {
 				"Norsk" : ["Person","Sted"],
@@ -164,7 +224,11 @@
 				"cruiseSearch" : [0,0],
 				"obliged" : [true,true],
 				"warning" : [true,true],
-				"dataType" : ["text","text"]
+				"dataType" : ["text","text"],
+				"prefix" : {
+					"Norsk" : "Låne",
+					"English" : "Borrowing"
+				}
 			}
 		},
 		"volume": 1000,
@@ -183,7 +247,11 @@
 				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
 				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"],
 				"cruiseSearch" : [0,0,0,1,0,0,0],
-				"obliged" : [false,false,false,true,false,false,false]
+				"obliged" : [false,false,false,true,false,false,false],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -191,7 +259,11 @@
 				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [false,true,true,true,false,false,false,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
-				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
+				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"storage" : {
 				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
@@ -199,7 +271,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
-				"dataType" : ["text","text","text","text","text","text"]
+				"dataType" : ["text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "Lagrings",
+					"English" : "Storage"
+				}
 			},
 			"borrowing" : {
 				"Norsk" : ["Person","Sted"],
@@ -207,7 +283,11 @@
 				"cruiseSearch" : [0,0],
 				"obliged" : [true,true],
 				"warning" : [true,true],
-				"dataType" : ["text","text"]
+				"dataType" : ["text","text"],
+				"prefix" : {
+					"Norsk" : "Låne",
+					"English" : "Borrowing"
+				}
 			}
 		},
 		"volume": 500,
@@ -226,7 +306,11 @@
 				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
 				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"],
 				"cruiseSearch" : [0,0,0,1,0,0,0],
-				"obliged" : [false,false,false,true,false,false,false]
+				"obliged" : [false,false,false,true,false,false,false],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -234,7 +318,11 @@
 				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [false,true,true,true,false,false,false,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
-				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
+				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"storage" : {
 				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
@@ -242,7 +330,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
-				"dataType" : ["text","text","text","text","text","text"]
+				"dataType" : ["text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "Lagrings",
+					"English" : "Storage"
+				}
 			},
 			"borrowing" : {
 				"Norsk" : ["Person","Sted"],
@@ -250,7 +342,11 @@
 				"cruiseSearch" : [0,0],
 				"obliged" : [true,true],
 				"warning" : [true,true],
-				"dataType" : ["text","text"]
+				"dataType" : ["text","text"],
+				"prefix" : {
+					"Norsk" : "Låne",
+					"English" : "Borrowing"
+				}
 			}
 		},
 		"volume": 250,
@@ -269,7 +365,11 @@
 				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
 				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"],
 				"cruiseSearch" : [0,0,0,1,0,0,0],
-				"obliged" : [false,false,false,true,false,false,false]
+				"obliged" : [false,false,false,true,false,false,false],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar"],
@@ -277,7 +377,11 @@
 				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0],
 				"obliged" : [false,true,true,true,false,false,false,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
-				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
+				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"storage" : {
 				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
@@ -285,7 +389,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
-				"dataType" : ["text","text","text","text","text","text"]
+				"dataType" : ["text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "Lagrings",
+					"English" : "Storage"
+				}
 			},
 			"borrowing" : {
 				"Norsk" : ["Person","Sted"],
@@ -293,7 +401,11 @@
 				"cruiseSearch" : [0,0],
 				"obliged" : [true,true],
 				"warning" : [true,true],
-				"dataType" : ["text","text"]
+				"dataType" : ["text","text"],
+				"prefix" : {
+					"Norsk" : "Låne",
+					"English" : "Borrowing"
+				}
 			}
 		},
 		"volume": 20000,
@@ -312,7 +424,11 @@
 				"Norsk" : ["Boks Type","Lagret","Tilstand","Dato","Låne","Lagrings","Posisjon"],
 				"English" : ["Box Type","CreatedAt","State","Date","Borrowing","Storage","Position"],
 				"cruiseSearch" : [0,0,0,1,0,0,0],
-				"obliged" : [false,false,false,true,false,false,false]
+				"obliged" : [false,false,false,true,false,false,false],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"content" : {
 				"Norsk" : ["Sted","Dato","Fartøy","Toktnummer","Serienummer","Fiskearter","Toktnavn","Stasjonsnummer","Inneholder Mengde","Volum","Boksnummer","Kommentar","Forelder Id"],
@@ -320,7 +436,11 @@
 				"cruiseSearch" : [0,1,2,3,0,0,0,0,0,0,0,0,0],
 				"obliged" : [false,true,true,true,false,false,false,false,false,false,false,false,false],
 				"warning" : [true,true,true,false,false,true,true,false,false,false,false,false,true],
-				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"]
+				"dataType" : ["text","date","text","number","text","text","number","number","number","number","number","text","text"],
+				"prefix" : {
+					"Norsk" : "",
+					"English" : ""
+				}
 			},
 			"storage" : {
 				"Norsk" : ["By", "Gateadresse", "Etasje", "Rom", "Skap","Kommentar"],
@@ -328,7 +448,11 @@
 				"cruiseSearch" : [0,0,0,0,0,0],
 				"obliged" : [true,true,false,false,false,false],
 				"warning" : [true,true,false,false,false,false],
-				"dataType" : ["text","text","text","text","text","text"]
+				"dataType" : ["text","text","text","text","text","text"],
+				"prefix" : {
+					"Norsk" : "Lagrings",
+					"English" : "Storage"
+				}
 			},
 			"borrowing" : {
 				"Norsk" : ["Person","Sted"],
@@ -336,7 +460,11 @@
 				"cruiseSearch" : [0,0],
 				"obliged" : [true,true],
 				"warning" : [true,true],
-				"dataType" : ["text","text"]
+				"dataType" : ["text","text"],
+				"prefix" : {
+					"Norsk" : "Låne",
+					"English" : "Borrowing"
+				}
 			}
 		},
 		"volume": 100,

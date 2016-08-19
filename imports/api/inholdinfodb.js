@@ -5,8 +5,16 @@ export const InholdInfoDb = new Mongo.Collection('inholdinfodb');
 
  if (Meteor.isServer) {
 	// This code only runs on the server
+	
+
 	Meteor.publish('inholdinfodb', function inholdInfoDbPublication() {
 		return InholdInfoDb.find();
+	});
+	Meteor.publish("search", function(searchValue) {
+	  if (!searchValue) {
+	    return InholdInfoDb.find({});
+	  }
+	  return InholdInfoDb.find({ $text: {$search: searchValue} });
 	});
 }
 
@@ -29,6 +37,7 @@ Meteor.methods({
 		check(taskId, String);
  
 		InholdInfoDb.remove(taskId);
+		InholdInfoDb.remove({"Parent Id" : taskId});
    },
    'inholdinfodb.update'(sampleId,sampleToAdd) {
 		var tempObject = {};

@@ -116,7 +116,7 @@ SeeBoxes = React.createClass({
 					<div className="row center-block">
 						<div className="text-center">
 							{this.renderSearch()}
-							<div style={{"margin-top":"20px"}}>
+							<div style={{"marginTop":"20px"}}>
 								<BoxDisplayer language={this.state.language} index={this.state.index} searchOptions={[this.state.searchAttribute,this.state.searchValue]}/>
 								<button  type="button" className="btn btn-primary center-block" onClick={this.clickAddBox}>{displayFile.setups[this.state.index].SeeBoxPage.buttons.addContent}</button>
 							</div>
