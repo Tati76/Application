@@ -17,9 +17,7 @@ SearchExistingBox = React.createClass({
 			data.samplesFittingTheCriterias = [];
 			console.log(this.state.searchForm);
 			if (this.state.searchForm)
-			
 			{
-
 
 				for (var a = data.sample.length - 1 ; a >= 0 ; a--)
 				{
@@ -32,8 +30,15 @@ SearchExistingBox = React.createClass({
 				      		if(stringToSearchIn.search(stringToSearch) == -1)
 				      		{
 				      			data.sample.splice(a,1);
+				      			break;
 				      		}
 			      		}
+			      		else
+			      		{
+			      			data.sample.splice(a,1);
+			      			break;
+			      		}
+
 				    }	
 				}
 	    // 		if(this.props.searchOptions[1] != "")
@@ -60,10 +65,17 @@ SearchExistingBox = React.createClass({
 	    // 		}
 	    // 		else
 	    // 		{
-	    			for (var i=0 ; i<data.sample.length ; i++)
-			      	{
-			      		data.samplesFittingTheCriterias.push(data.sample[i]);
-			      	} 
+    			for (var i=0 ; i<data.sample.length ; i++)
+		      	{
+		      		data.samplesFittingTheCriterias.push(data.sample[i]);
+		      	} 
+    		}
+    		else
+    		{
+    			for (var i=0 ; i<data.sample.length ; i++)
+		      	{
+		      		data.samplesFittingTheCriterias.push(data.sample[i]);
+		      	} 
     		}
 	    }
 	    		
@@ -92,7 +104,7 @@ SearchExistingBox = React.createClass({
 	},
 
 	componentWillReceiveProps: function(nextProps) {
-		this.setState({language:nextProps.language, index : nextProps.index, searchForm : nextProps.searchForm});
+		this.setState({language:nextProps.language, index : nextProps.index});
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -115,15 +127,6 @@ SearchExistingBox = React.createClass({
 		);
 	},
 
-// FOR THE FORMS, USE THE KEYDOWN IN FAVORITT
-
-// <input type="text" onkeydown="myFunction(event)">
-
-// <script>
-// function myFunction(event) {
-//     alert(event.keyCode);
-// }
-// </script>
 	clickSubmit(arg)
 	{
 		console.log("clickSubmit");
@@ -163,7 +166,7 @@ SearchExistingBox = React.createClass({
 				<div >
 				
 	    			<div className="col-lg-6 text-center" >
-	    				<p>New SearchFields </p>
+	    				<h3 className='text-primary'>{displayFile.setups[this.state.index].searchAllTest.form} </h3>
 	    				<DynamicForm language={this.state.language} 
 									index={this.state.index} 
 									info={[tempArray[0],tempArray[1],tempArray[2]]} 
@@ -177,7 +180,7 @@ SearchExistingBox = React.createClass({
 	    				
 	    			</div>
 	    			<div className="col-lg-6 text-center">
-	    				<p>New BoxDisplayer </p>
+	    				<h3 className='text-primary'>{displayFile.setups[this.state.index].searchAllTest.boxList} </h3>
 	    				<div className="list-group">
 							{this.data.samplesFittingTheCriterias? Object.keys(this.data.samplesFittingTheCriterias).map(this.renderCompo) : <p> Loading... </p>}
 						</div>

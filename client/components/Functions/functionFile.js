@@ -192,7 +192,7 @@ export function findAllPossibleAttributes(desiredLanguage)
 	for (var i = 0 ; i<boxFile.length ; i++) // go through all the file 
 	{
 
-		for (var a = 0 ; a<Object.keys(boxFile[i].forms).length ; a++) // through all the keys of the forms in a box
+		for (var a = 1 ; a<Object.keys(boxFile[i].forms).length ; a++) // through all the keys of the forms in a box
 		{
 			// console.log(Object.keys(boxFile[i].forms));
 			for (var b=0; b<boxFile[i].forms[Object.keys(boxFile[i].forms)[a]][desiredLanguage].length ; b++) // through the array of the selected form of the selected object

@@ -79,17 +79,24 @@ DynamicForm = React.createClass({
 				}
 				else
 				{
-					if (this.refs[i].value.length > 0 && this.refs[i].value.trim().length ==0 && this.state.obliged[i] && this.refs[i].placeholder.length > 0 || this.refs[i].value.length == 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ||  this.refs[i].value.length > 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ) // Case not filled as obliged to (error)
+					if (this.refs && this.refs.length > 0)
 					{
-						tempErrorArray.push(3);
-						errorSpotted = true;
+						if (this.refs[i].value.length > 0 && this.refs[i].value.trim().length ==0 && this.state.obliged[i] && this.refs[i].placeholder.length > 0 || this.refs[i].value.length == 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ||  this.refs[i].value.length > 0 && this.state.obliged[i] && this.refs[i].placeholder.length == 0 && this.refs[i].value.trim().length ==0 ) // Case not filled as obliged to (error)
+						{
+							tempErrorArray.push(3);
+							errorSpotted = true;
+						}
+						else if(this.refs[i].value.length >= 0 && this.refs[i].value.trim().length ==0 && !this.state.obliged[i] && this.refs[i].placeholder.length <= 0) // Case not filled and not obliged to (warning)
+						{
+							tempErrorArray.push(2);
+						}
+						else{
+							tempErrorArray.push(1);
+						}
 					}
-					else if(this.refs[i].value.length >= 0 && this.refs[i].value.trim().length ==0 && !this.state.obliged[i] && this.refs[i].placeholder.length <= 0) // Case not filled and not obliged to (warning)
+					else
 					{
-						tempErrorArray.push(2);
-					}
-					else{
-						tempErrorArray.push(1);
+						break;
 					}
 				}
 				
@@ -115,7 +122,7 @@ DynamicForm = React.createClass({
 	},
 	
 	getInitialState(){
-		console.log(this.props.info);
+		//console.log(this.props.info);
 		var tempErrorArray = [];
 		for (var i = 0 ; i< this.props.info[0] ; i++)
 		{
@@ -156,8 +163,8 @@ DynamicForm = React.createClass({
 						buttons : nextProps.buttons
 					});
 		this.setErrorArrayToZero();
-		console.log(nextProps.info);
-		console.log(nextProps.placehold);
+		//console.log(nextProps.info);
+		//console.log(nextProps.placehold);
 	},
 
 	shouldComponentUpdate: function(nextProps, nextState) {
@@ -199,11 +206,11 @@ DynamicForm = React.createClass({
 	},
 
 	componentDidUpdate: function(prevProps, prevState){ 
-		console.log("**************************************************");
-		console.log("yearList : ",this.state.yearList);
-		console.log("shipList : ",this.state.shipList);
-		console.log("cruiseList : ",this.state.cruiseList);
-		console.log("**************************************************");
+		//console.log("**************************************************");
+		//console.log("yearList : ",this.state.yearList);
+		//console.log("shipList : ",this.state.shipList);
+		//console.log("cruiseList : ",this.state.cruiseList);
+		//console.log("**************************************************");
 	},
 
 	isInYearList(yearList,ship)
@@ -221,7 +228,7 @@ DynamicForm = React.createClass({
 
 	handleYearList(arg)
 	{
-		console.log("In the form year list is equal to : ",arg);
+		//console.log("In the form year list is equal to : ",arg);
 		if (arg == null || arg =="")
 		{
 			this.setState({yearList : []});
@@ -234,7 +241,7 @@ DynamicForm = React.createClass({
 
 	handleShipList(arg)
 	{
-		console.log("In the form ship list is equal to : ",arg);
+		//console.log("In the form ship list is equal to : ",arg);
 		if (arg == null || arg =="")
 		{
 			this.setState({shipList : []});
@@ -262,7 +269,7 @@ DynamicForm = React.createClass({
 
 	handleCruiseList(arg)
 	{
-		console.log("In the form cruise list is equal to : ",arg);
+		//console.log("In the form cruise list is equal to : ",arg);
 		if (arg == null || arg =="")
 		{
 			this.setState({cruiseList : []});
@@ -527,7 +534,7 @@ DynamicForm = React.createClass({
 			{
 				switch (this.state.cruiseSearch[i]) {
 				    case 0:
-				        console.log(this.state.dbInfo[i],this.refs[i].value);
+				        //console.log(this.state.dbInfo[i],this.refs[i].value);
 				        if (this.refs[i].value.trim().length<=0 && this.refs[i].placeholder.trim().length >0)
 				        {
 				        	tempObject[this.state.dbInfo[i]] = this.refs[i].placeholder.trim();
@@ -539,20 +546,20 @@ DynamicForm = React.createClass({
 				        
 				        break;
 				    case 1:
-				        console.log(this.refs["l"+i].value,this.state.yearList);
+				        //console.log(this.refs["l"+i].value,this.state.yearList);
 				        tempObject[this.state.dbInfo[i]] = this.yearListToString();
 				        break;
 				    case 2:
-				        console.log(this.refs["l"+i].value,this.state.shipList);
+				        //console.log(this.refs["l"+i].value,this.state.shipList);
 				        tempObject[this.state.dbInfo[i]] = this.shipListToString();
 				        break;
 				    case 3:
-				        console.log(this.refs["l"+i].value,this.state.cruiseList);
+				        //console.log(this.refs["l"+i].value,this.state.cruiseList);
 				        tempObject[this.state.dbInfo[i]] = this.cruiseListToString();
 				        break;
 				}
 			}
-			console.log("tempObject",tempObject);
+			//console.log("tempObject",tempObject);
 			if (!tempObject.hasOwnProperty("Box Type"))
 			{
 				tempObject["Box Type"] = this.state.boxType;
@@ -560,8 +567,8 @@ DynamicForm = React.createClass({
 			
 		
 			this.props.giveValue(tempObject);
-			// console.log(tempResponse);
-			// console.log("Should set in the DB");
+			// //console.log(tempResponse);
+			// //console.log("Should set in the DB");
 		}
 		
 	},
@@ -578,21 +585,21 @@ DynamicForm = React.createClass({
 			var test = "l"+i;
 			switch (this.state.cruiseSearch[i]) {
 			    case 0:
-			        console.log(this.refs["l"+String(i)].value,this.refs[i].value);
-			        console.log(this.state.dbInfo[i],this.refs[i].value);
+			        //console.log(this.refs["l"+String(i)].value,this.refs[i].value);
+			        //console.log(this.state.dbInfo[i],this.refs[i].value);
 			        this.refs[i].value = "";
 			        break;
 			    case 1:
-			        console.log(this.refs["l"+i].value,this.state.yearList);
-			        console.log(this.state.dbInfo[i],this.state.shipList);
+			        //console.log(this.refs["l"+i].value,this.state.yearList);
+			        //console.log(this.state.dbInfo[i],this.state.shipList);
 			        break;
 			    case 2:
-			        console.log(this.refs["l"+i].value,this.state.shipList);
-			        console.log(this.state.dbInfo[i],this.state.shipList);
+			        //console.log(this.refs["l"+i].value,this.state.shipList);
+			        //console.log(this.state.dbInfo[i],this.state.shipList);
 			        break;
 			    case 3:
-			        console.log(this.refs["l"+i].value,this.state.cruiseList);
-			        console.log(this.state.dbInfo[i],this.state.shipList);
+			        //console.log(this.refs["l"+i].value,this.state.cruiseList);
+			        //console.log(this.state.dbInfo[i],this.state.shipList);
 			        break;
 			}
 		}
@@ -641,7 +648,7 @@ DynamicForm = React.createClass({
 
 	keydownfunction(event)
 	{
-		console.log(event.keyCode);
+		//console.log(event.keyCode);
 		if (event.keyCode == 13)
 		{
 			this.handleClick(event);
@@ -649,13 +656,13 @@ DynamicForm = React.createClass({
 	},
 
 	render(){
-		console.log("render DynamicForm");
-		console.log(settingsFile.setups[this.state.index].AddContent.buttons.clear);
+		//console.log("render DynamicForm");
+		//console.log(settingsFile.setups[this.state.index].AddContent.buttons.clear);
 		if(this.state.isTable)
 		{
 			return(
 				<div className="container-fluid">
-					<form onSubmit={this.handleClick()}>
+					<form onSubmit={this.handleClick}>
 						<table className="table table-bordered">
 							<tbody>
 								{this.state.toDisplay.map(this.renderFormTable)}
@@ -670,7 +677,7 @@ DynamicForm = React.createClass({
 		else
 		{
 			return(
-				<div className="container-fluid form-horizontal" onkeydown={this.keydownfunction}>
+				<div className="container-fluid form-horizontal" onkeyDown={this.keydownfunction}>
 					{this.state.toDisplay.map(this.renderForm)}
 					{this.renderButtons()}
 				</div>

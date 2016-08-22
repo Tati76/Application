@@ -59,6 +59,13 @@ ContentDisplayer = React.createClass({
 
 	},
 
+	deleteBox(boxId)
+	{
+		console.log(boxId);
+		Meteor.call("inholdinfodb.remove",boxId,function(error,result){console.log(result)});
+
+	},
+
 	renderCompo(input, index){
 		var tempPath = [];
 		tempPath = FlowRouter.current().path.split("/");
@@ -76,16 +83,21 @@ ContentDisplayer = React.createClass({
 		}
 
 		return(
-			<a href={finalPath} className="list-group-item">
-				<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={this.data.content[input]} chosenAttribute={this.props.chosenAttribute}/>
-			</a>
+			
+
+			<div className='btn-group' style={{"width ":"100%"}}  key={index}>
+				<a href={finalPath} className="btn btn-default list-group-item col-sm-11 center-block">
+					<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={this.data.content[input]} chosenAttribute={this.props.chosenAttribute} style={{'height':"50px"}}/>
+				</a>
+				<a type="button" style={{"Width":"20px","height":"50px"}} className="btn btn-default" onClick={this.deleteBox.bind(this,this.data.content[input]._id)}><span className='glyphicon glyphicon-trash text-center'></span></a>
+			</div>
 		);
 	},
 
 	render(){
 		console.log("render ContentDisplayer");
 		return(
-			<div className="list-group">
+			<div className="list-group center-block" >
 				{this.data.content? Object.keys(this.data.content).map(this.renderCompo) : <p> Loading... </p>}
 			</div>
 		);

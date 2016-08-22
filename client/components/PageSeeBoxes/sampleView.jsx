@@ -1,4 +1,5 @@
 import {translate,translateWord} from '../Functions/functionFile.js';
+import {wrap} from './sampleViewStyle.css';
 
 SampleViewer = React.createClass({
 
@@ -31,8 +32,8 @@ SampleViewer = React.createClass({
 		//console.log(this.state.attributesToDisplay[index].one+ ":" +this.state.attributesToDisplay[index].two);
 		return(
 			
-			<div className="col-sm-4 hidden-print" style={{"wordWrap":"break-word"}} key={index}>
-				<p key={index}> <strong>{this.state.attributesToDisplay[index].one}</strong> : {this.state.attributesToDisplay[index].two} </p>
+			<div className="col-sm-4 hidden-print" key={index}>
+				<p key={index} className='wrap'> <strong>{this.state.attributesToDisplay[index].one}</strong> : {this.state.attributesToDisplay[index].two} </p>
 			</div>
 		);
 	},

@@ -27,14 +27,14 @@ CruiseSelectComponent= React.createClass({
 
 	componentWillReceiveProps: function(nextProps) {
 		this.setState({shipList : nextProps.shipList,language: nextProps.language, index : nextProps.index});
-		//console.log("ShipSelectComponent, SHIPLIST ", nextProps.shipList);
+		////console.log("ShipSelectComponent, SHIPLIST ", nextProps.shipList);
 		if (nextProps.shipList.length == 0 || nextProps.shipList[0] == "") // cas 1, no years selected, case 2, one year deleted
 		{
 			this.clearAll();
 		}
 		if(nextProps.shipList != this.props.shipList) // the shipLists has to be different from one another to enable the process
 		{
-			//console.log("ShipSelectComponent received props");
+			////console.log("ShipSelectComponent received props");
 			this.searchAllCruiseAndPeriode(nextProps);
 		}
 	},
@@ -70,9 +70,9 @@ CruiseSelectComponent= React.createClass({
 	},
 
 	componentDidUpdate: function(prevProps, prevState){
-		// //console.log("CruiseSelectComponent did update, N3");
-		// //console.log("allCruise",this.state.allCruise);
-		// //console.log("currentDisplayedValues", this.state.currentDisplayedValues);
+		// ////console.log("CruiseSelectComponent did update, N3");
+		// ////console.log("allCruise",this.state.allCruise);
+		// ////console.log("currentDisplayedValues", this.state.currentDisplayedValues);
 	},
 
 	searchAllCruiseAndPeriode(prop)
@@ -116,8 +116,8 @@ CruiseSelectComponent= React.createClass({
 			for (var i = 0 ; i<urlArray.length ; i++)
 			{
 				var test = urlArray[i].split('/');
-				//console.log(test[test.length-1]);
-				//console.log(test);
+				////console.log(test[test.length-1]);
+				////console.log(test);
 				// makeHttpRequest(urlArray[i],this.readData,[urlArray.length,decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-1]),decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-2])]);
 				Meteor.call('getJson',urlArray[i],[urlArray.length,decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-1]),decodeURI(urlArray[i].split('/')[urlArray[i].split('/').length-2])],this.getRawData);
 		
@@ -135,8 +135,8 @@ CruiseSelectComponent= React.createClass({
 		}
 		else
 		{
-			console.log(result[0]);
-			console.log(result[1]);
+			//console.log(result[0]);
+			//console.log(result[1]);
 			this.readData(result[0].data,result[1]);
 			
 		}
@@ -213,9 +213,9 @@ CruiseSelectComponent= React.createClass({
 		}
 		else
 		{
-			console.log(result[0]);
-			console.log(result[1]);
-			console.log(this.parseXML(result[0].content));
+			//console.log(result[0]);
+			//console.log(result[1]);
+			//console.log(this.parseXML(result[0].content));
 			this.periodeReadData(this.parseXML(result[0].content),result[1]);
 			
 		}
@@ -245,7 +245,7 @@ CruiseSelectComponent= React.createClass({
 
 	makeDisplayArray()
 	{
-		//console.log(this.state.requestResultArray);
+		////console.log(this.state.requestResultArray);
 		var tempArray = [];
 		for (var i = 0 ; i<this.state.requestResultArray.length ; i++)
 		{

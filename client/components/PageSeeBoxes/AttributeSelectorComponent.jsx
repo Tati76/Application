@@ -10,7 +10,7 @@ AttributeSelector = React.createClass({
 	    if(handle.ready()) {
 
 	    		data.sample = InholdInfoDb.find({"Parent Id": { $exists: false } } ).fetch(); // Only catches the boxes that are not storable in others
-	    		console.log(data.sample);
+	    		//console.log(data.sample);
 		      	// Prepare the object for the info selector component
 		      	//*****************************************************************************************
 		      	data.list = [];
@@ -22,7 +22,7 @@ AttributeSelector = React.createClass({
 			      	}
 			      	
 		      	}
-		      	console.log(data.list);      	
+		      	//console.log(data.list);      	
 	      	
 
 	      //*****************************************************************************************

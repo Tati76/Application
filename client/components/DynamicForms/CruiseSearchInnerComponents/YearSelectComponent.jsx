@@ -35,10 +35,10 @@ YearSelectComponent= React.createClass({
 		// var url = "http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y";
 		// var xhr = createCORSRequest('GET', url);
 		// xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-		// console.log(xhr);
+		// //console.log(xhr);
 		// xhr.send()
-		// console.log(xhr);
-		// console.log(xhr.getAllResponseHeaders());
+		// //console.log(xhr);
+		// //console.log(xhr.getAllResponseHeaders());
 		Meteor.call('getJson',"http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",null,this.getCORSValues);
 		// this.getFunction();
 
@@ -52,8 +52,8 @@ YearSelectComponent= React.createClass({
 		}
 		else
 		{
-			console.log(result[0]);
-			console.log(result[1]);
+			//console.log(result[0]);
+			//console.log(result[1]);
 			this.readData(result[0].data,result[1]);
 		}
 	},
@@ -63,12 +63,12 @@ YearSelectComponent= React.createClass({
 		// Meteor.http.get("http://tomcat7.imr.no:8080/DatasetExplorer/v1/count/Forskningsfart%C3%B8y",{}, function (error, result) {
 		// 	if (error) 
 		// 	{
-		// 	console.log('http post FAILED!');
+		// 	//console.log('http post FAILED!');
 		// 	} 
 		// 	else 
 		// 	{
 		// 		if (result.statusCode === 200) {
-		// 		console.log('http post ok!');
+		// 		//console.log('http post ok!');
 		// 		}
 		// 	}
 		// });
@@ -88,12 +88,12 @@ YearSelectComponent= React.createClass({
           {},
           function (error, result) {
             if (error) {
-            	console.log('error');
+            	//console.log('error');
               console.error(error);
             }
             else
             {
-            	console.log(result);
+            	//console.log(result);
             }
           });
 	},
@@ -114,7 +114,7 @@ YearSelectComponent= React.createClass({
 	shouldComponentUpdate: function(nextProps, nextState) {
 	// 	var shallowCompare = require('react-addons-shallow-compare');
 	// 	return shallowCompare(this, nextProps, nextState);
-	//console.log(nextState.clearAll != this.state.clearAll);
+	////console.log(nextState.clearAll != this.state.clearAll);
 		if(this.state.language != nextState.language)
 		{
 			return true;
@@ -141,7 +141,7 @@ YearSelectComponent= React.createClass({
 	clearAll(event)
 	{
 		var tempClAl = this.state.clearAll+1;
-		//console.log(tempClAl);
+		////console.log(tempClAl);
 		this.setState({clearAll : tempClAl});
 	},
 
