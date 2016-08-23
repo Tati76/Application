@@ -10,7 +10,8 @@
 			"links" : {
 				"one" : "Eksisterende Bokser",
 				"two" : "Søk"
-			}
+			},
+			"login" : "Logg inn"
 		},
 		"pageHome" : {
 			"buttons" : {
@@ -97,6 +98,12 @@
 			"form" : "Søkemuligheter",
 			"boxList" : "Resultat"
 		},
+		"pageLogin" : {
+			"title" : "Logg deg inn",
+			"buttons" : {
+				"submit" : "Logg inn"
+			}
+		},
 		"footer": {
 			"text" : "Havforskningsinstituttet"
 		}
@@ -110,7 +117,8 @@
 			"links" : {
 				"one" : "Existing Boxes",
 				"two" : "Search"
-			}
+			},
+			"login" : "Login"
 		},
 		"pageHome" : {
 			"buttons" : {
@@ -119,7 +127,7 @@
 				"addContent" : "See existing boxes"
 			}
 		},
-		"cruiseSelect" : {
+		"cruiseSelect" : { 
 			"placeholder" : "Select..."
 		},
 		"borrowForm" : {
@@ -195,6 +203,12 @@
 		"searchAllTest" : {
 			"form" : "Search Options",
 			"boxList" : "Results"
+		},
+		"pageLogin" : {
+			"title" : "Please login",
+			"buttons" : {
+				"submit" : "Login"
+			}
 		},
 		"footer": {
 			"text" : "Institute of Marine Research"

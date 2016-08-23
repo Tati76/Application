@@ -33,7 +33,7 @@ SampleViewer = React.createClass({
 		return(
 			
 			<div className="col-sm-4 hidden-print" key={index}>
-				<p key={index} className='wrap'> <strong>{this.state.attributesToDisplay[index].one}</strong> : {this.state.attributesToDisplay[index].two} </p>
+				<p key={index} className='wrap' style={{'maxHeight':'35px',"overflow" : "hidden"}}> <strong>{this.state.attributesToDisplay[index].one}</strong> : {this.state.attributesToDisplay[index].two} </p>
 			</div>
 		);
 	},
@@ -43,8 +43,8 @@ SampleViewer = React.createClass({
 		console.log("render SampleViewer");
 		return(
 
-			<div className="container-fluid"> 
-				<div className="row" style={{"padding":"0px"}}>
+			<div className="container-fluid" > 
+				<div className="row" style={{"padding":"0px 0px 0px 0px"}}>
 					{Object.keys(this.state.attributesToDisplay).map(this.renderComponent)}
 				</div>
 			</div>

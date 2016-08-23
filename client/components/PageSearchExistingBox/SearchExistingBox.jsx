@@ -119,9 +119,21 @@ SearchExistingBox = React.createClass({
 	renderCompo(input,index)
 	{
 		console.log(this.data.samplesFittingTheCriterias[input]);
+		var tempPath = "";
+		var pathArray = FlowRouter.current().path.split("/");
+		pathArray.pop();
+		pathArray.push("SeeBoxes");
+		pathArray.push(this.data.samplesFittingTheCriterias[input]._id);
+
+		for (var i = 1 ; i<pathArray.length ; i++)
+		{
+			tempPath += '/';
+			tempPath += pathArray[i];
+		}
+		console.log(tempPath);
 
 		return(
-			<a href={"#"} className="list-group-item" key={index}>
+			<a href={tempPath} className="list-group-item" key={index}>
 				<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={this.data.samplesFittingTheCriterias[input]} chosenAttribute={"_id"}/>
 			</a>
 		);

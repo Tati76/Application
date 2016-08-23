@@ -85,11 +85,11 @@ ContentDisplayer = React.createClass({
 		return(
 			
 
-			<div className='btn-group' style={{"width ":"100%"}}  key={index}>
-				<a href={finalPath} className="btn btn-default list-group-item col-sm-11 center-block">
-					<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={this.data.content[input]} chosenAttribute={this.props.chosenAttribute} style={{'height':"50px"}}/>
+			<div className='btn-group' style={{"height":"50px", "margin":"0px 0px 0px 0px"}}  key={index}>
+				<a href={finalPath} className="btn btn-default col-sm-11" style={{"height":"100%"}}>
+					<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={this.data.content[input]} chosenAttribute={this.props.chosenAttribute}/>
 				</a>
-				<a type="button" style={{"Width":"20px","height":"50px"}} className="btn btn-default" onClick={this.deleteBox.bind(this,this.data.content[input]._id)}><span className='glyphicon glyphicon-trash text-center'></span></a>
+				<a type="button" style={{"Width":"20px","height":"100%"}} className="btn btn-default" onClick={this.deleteBox.bind(this,this.data.content[input]._id)}><span className='glyphicon glyphicon-trash text-center'></span></a>
 			</div>
 		);
 	},

@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import '../imports/startup/accounts-config.js';
+
 
 MainLayout = React.createClass({ 
 	getInitialState: function() {
@@ -35,6 +37,7 @@ MainLayout = React.createClass({
 	    			<Header id="Header" language={this.state.language} index={this.state.index} onClick={this.changeLanguage}/>
 				</header>
 				<main id="contentDiv" className="vcenter center-block">
+					
 					{this.props.content}
 				</main>
 				<footer>

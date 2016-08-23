@@ -1,5 +1,5 @@
 .wrap{
 	width : 100%;
-	overflow-x : hidden;
-	word-wrap: break-word;
+	/*display: inline-block;*/
+	white-space:normal;
 }

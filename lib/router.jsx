@@ -42,6 +42,12 @@ FlowRouter.route('/:language/:index/Search', {
   }
 });
 
+FlowRouter.route('/:language/:index/Login', {  
+  action(params, queryParams) {
+   mount(MainLayout, { content: <Login language={params.language} index={params.index}/>});
+  }
+});
+
 FlowRouter.route('/:language/:index/SeeBoxes/:id/pageQr', {  
   action(params, queryParams) {
     console.log("qr");
@@ -52,12 +58,6 @@ FlowRouter.route('/:language/:index/SeeBoxes/:id/pageQr', {
 FlowRouter.route('/', {  
   action() {
    FlowRouter.go('/Norsk/0');
-  }
-});
-
-FlowRouter.route('/:language/:index/go', {  
-  action(params, queryParams) {
-    mount(MainLayout, { content: <Go language={params.language} index={params.index}/>});
   }
 });
 

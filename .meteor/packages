@@ -28,3 +28,5 @@ react-template-helper
 npm-container
 http
 webapp
+accounts-ui
+accounts-password

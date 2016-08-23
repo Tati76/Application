@@ -1,4 +1,5 @@
 import displayFile from "../components/languages/Settings.json";
+import AccountsUIWrapper from '../../imports/ui/AccountsUIWrapper.jsx';
 
 Header = React.createClass({  
 	getInitialState: function() {
@@ -30,6 +31,11 @@ Header = React.createClass({
 		{
 			this.setState({path : FlowRouter.current().path});
 		}
+	},
+
+	routeLogin()
+	{
+		FlowRouter.go("/"+this.state.language+"/"+this.state.index+"/Login");
 	},
 
 	
@@ -64,10 +70,12 @@ Header = React.createClass({
 			    	<ul className="nav navbar-nav">
 			    		<li className={active[0]}><a className="nav navbar-nav navbar-left navbar-brand" href={"/"+this.props.language+"/"+this.props.index+"/SeeBoxes"}> {this.state.file.links.one} </a></li>
 			    		<li className={active[1]}><a className="nav navbar-nav navbar-left navbar-brand" href={"/"+this.props.language+"/"+this.props.index+"/LoadCruiseNr"}> {this.state.file.links.two} </a></li>
+
 			    	</ul>
 			    	
 					<ul className="nav navbar-nav navbar-right">
 						<LangSelect id="langsel" onClick={this.props.onClick} language={this.props.language}/>
+						<li><button type="button" className="btn btn-default navbar-btn" onClick={this.routeLogin}>{displayFile.setups[this.state.index].header.login}</button></li>
 					</ul>
 				</div>
 			 </div>

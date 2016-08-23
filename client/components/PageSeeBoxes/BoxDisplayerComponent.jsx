@@ -62,7 +62,7 @@ BoxDisplayer = React.createClass({
 		return shallowCompare(this, nextProps, nextState);
 	},
 
-	componentDidUpdate: function(prevProps, prevState){ 
+	componentDidUpdate(prevProps, prevState){ 
 
 	},
 
@@ -71,12 +71,12 @@ BoxDisplayer = React.createClass({
 		console.log(input);
 
 		return(
-			<a className='btn-group' style={{"width":"100%"}}>
-				<a href={FlowRouter.current().path + "/" + input._id} type="button" className="btn btn-default list-group-item col-sm-10" style={{'height':"50px"}}>
+			<div  key={index} className='btn-group col-sm-12 clearfix' style={{"height":"50px", "margin":"0px 0px 0px 0px"}}>
+				<a href={FlowRouter.current().path + "/" + input._id} type="button" className="btn btn-default col-sm-11" style={{"height":"50px"}}>
 					<SampleViewer language={this.state.language} index={this.state.index} key={"c"+index} dbObject={input} chosenAttribute={this.props.searchOptions[0]}/>
 				</a>
-				<a type="button" style={{"Width":"20px","height":"50px"}} className="btn btn-default" onClick={this.deleteBox.bind(this,input._id)}><span className='glyphicon glyphicon-trash text-center'></span></a>
-			</a>
+				<a type="button"  className="btn btn-default col-sm-1 glyphicon glyphicon-trash text-center" onClick={this.deleteBox.bind(this,input._id)} style={{"height":"50px",'marginTop':"0px"}}></a>
+			</div>
 		);
 			
 	},
